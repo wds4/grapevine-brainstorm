@@ -46,13 +46,17 @@ const _nav = [
   },
   {
     component: CNavTitle,
-    name: 'unused',
+    name: 'misc',
   },
   {
     component: CNavItem,
-    name: 'Test Page 6',
+    name: '6: cURL',
     to: '/helloWorld/testPage6',
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
+    name: 'unused',
   },
   {
     component: CNavItem,
