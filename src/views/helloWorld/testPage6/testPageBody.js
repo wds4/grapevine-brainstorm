@@ -5,11 +5,17 @@ see: Using Curl in ReactJS
 https://medium.com/@alexandr.fework/curl-is-a-command-line-tool-used-for-making-http-requests-e2ab67aa4672
 */
 
+const url1 = 'https://interpretation-brainstorm.vercel.app/api/returnFoo'
+
+const url2 = 'https://interpretation-brainstorm.vercel.app/api/requestInterpretation'
+
+const url3 = 'https://interpretation-brainstorm.vercel.app/api/requestInterpretation?req={"universalInterpretationProtocolID":"recommendedBrainstormNotBotsInterpretationProtocol","parameters":"foo"}'
+
 const TestPageBody = () => {
   const [resp, setResp] = useState({})
   const [data, setData] = useState({})
   useEffect(() => {
-    fetch('https://interpretation-brainstorm.vercel.app/api/returnFoo')
+    fetch(url3)
       .then(response => response.json())
       // .then(data => setResp(response))
       .then(data => setData(data))
