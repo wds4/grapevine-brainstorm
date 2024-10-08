@@ -50,37 +50,37 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: '6: cURL',
+    name: '6: cURL to interp engine',
     to: '/helloWorld/testPage6',
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
   },
   {
-    component: CNavTitle,
-    name: 'unused',
-  },
-  {
     component: CNavItem,
-    name: 'Test Page 7',
+    name: '7: verifyPubkeyValidity',
     to: '/helloWorld/testPage7',
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Test Page 8',
+    name: '8: cURL to calc engine',
     to: '/helloWorld/testPage8',
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Test Page 9',
+    name: '9: cURL show current R',
     to: '/helloWorld/testPage9',
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Test Page 10',
+    name: '10: cURL update R',
     to: '/helloWorld/testPage10',
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
+    name: 'unused',
   },
   {
     component: CNavItem,
