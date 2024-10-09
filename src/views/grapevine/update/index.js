@@ -5,7 +5,7 @@ const UpdateDashboard = ({ pubkey }) => {
   return (
     <>
       <center>
-        <h3>View your Grapevine and DoS WoT Networks</h3>
+        <h3>Update your Grapevine and DoS WoT Networks</h3>
       </center>
       <div>
         <p>your pubkey: {pubkey}</p>
