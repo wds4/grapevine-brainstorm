@@ -26,7 +26,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'App 1',
-        to: '/app1',
+        to: '/grapevine',
       },
       {
         component: CNavItem,

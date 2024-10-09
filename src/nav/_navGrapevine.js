@@ -7,7 +7,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'App 1 Home',
-    to: '/app1',
+    to: '/grapevine',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
   {
@@ -16,14 +16,20 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Feature A',
-    to: '/app1/featureA',
+    name: 'Interpretation',
+    to: '/grapevine/interpretation',
     icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Feature B',
-    to: '/app1/featureB',
+    name: 'View your Grapevine',
+    to: '/grapevine/view',
+    icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Update your Grapevine',
+    to: '/grapevine/update',
     icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
   },
   {
@@ -33,7 +39,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'About',
-    to: '/app1/about',
+    to: '/grapevine/about',
     icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
   },
 ]

@@ -1,7 +1,6 @@
 import React from 'react'
 import { CButton, CContainer, CNavLink, CRow } from '@coreui/react'
-import { CCard, CCardBody, CCardHeader, CCardText, CCardTitle, CCol } from '@coreui/react'
-import { useDispatch, useSelector } from 'react-redux'
+import { CCard, CCardBody, CCardHeader, CCardText, CCol } from '@coreui/react'
 
 const Dashboard = () => {
   return (
@@ -31,8 +30,8 @@ const Dashboard = () => {
           , of which this is a fork.
         </p>
         <p>
-          For a demo of basic nostr-hooks functionality, follow the "Hello World" link in the
-          drop-down menu under the user avatar (you'll need to be logged in first).
+          For a demo of basic nostr-hooks functionality, follow the `Hello World` link in the
+          drop-down menu under the user avatar (you will need to be logged in first).
           <CButton href="#/helloWorld">Demo</CButton>
         </p>
       </CContainer>
@@ -44,15 +43,15 @@ const Dashboard = () => {
           <CCol xs={12} sm={6} xl={4} xxl={3}>
             <CCard
               style={{ width: '100%', height: '100%' }}
-              className="mb-3 border-info"
-              textColor="info"
+              className="mb-3 border-primary"
+              textColor="primary"
             >
-              <CNavLink style={{ display: 'inline-block' }} href="#/app1">
+              <CNavLink style={{ display: 'inline-block' }} href="#/grapevine">
                 <CCardHeader>
-                  <strong>App 1</strong>
+                  <strong>Grapevine</strong>
                 </CCardHeader>
                 <CCardBody>
-                  <CCardText>Lorem ipsum!</CCardText>
+                  <CCardText>Manage your Grapevine WoT Network</CCardText>
                 </CCardBody>
               </CNavLink>
             </CCard>

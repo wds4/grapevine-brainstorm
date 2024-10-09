@@ -19,7 +19,7 @@ import navigationHelloWorld from 'src/nav/_navHelloWorld'
 import navigationProfile from 'src/nav/_navProfile'
 import navigationDashboard from 'src/nav/_navDashboard'
 import navigationHSettings from 'src/nav/_navSettings'
-import navigationApp1 from 'src/nav/_navApp1'
+import navigationApp1 from 'src/nav/_navGrapevine'
 import navigationApp2 from 'src/nav/_navApp2'
 import navigationApp3 from 'src/nav/_navApp3'
 
@@ -36,7 +36,7 @@ function getNavigation(activeApp, signedIn, developmentMode) {
       return navigationHelloWorld
     case 'settings':
       return navigationHSettings
-    case 'app1':
+    case 'grapevine':
       return navigationApp1
     case 'app2':
       return navigationApp2
