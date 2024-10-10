@@ -7,12 +7,16 @@ https://medium.com/@alexandr.fework/curl-is-a-command-line-tool-used-for-making-
 */
 
 const MakeRatingsTable = ({ pubkey }) => {
+  const [showButtonDisplay, setShowButtonDisplay] = useState('block')
+  const [showRequestSentDisplay, setShowRequestSentDisplay] = useState('none')
   const [data, setData] = useState({})
   const url =
     'https://calculation-brainstorm.vercel.app/api/grapevine/requestRatingsTableUpdate?pubkey=' +
     pubkey
   const requestRatingsTableUpdate = () => {
     console.log('requestRatingsTableUpdate')
+    setShowButtonDisplay('none')
+    setShowRequestSentDisplay('block')
     fetch(url)
       .then((response) => response.json())
       // .then(data => setResp(response))
@@ -45,16 +49,28 @@ const MakeRatingsTable = ({ pubkey }) => {
                   <hr />
                 </div>
               </CCardBody>
-              <CCardBody>
+              <CCardBody
+                style={{
+                  display: showButtonDisplay,
+                }}
+              >
                 <div className="d-grid gap-2">
                   <CButton color="primary" onClick={() => requestRatingsTableUpdate()}>
                     Make new (or Update Existing) Ratings Table
                   </CButton>
                 </div>
               </CCardBody>
-              <CCardBody>
+              <CCardBody
+                style={{
+                  display: showRequestSentDisplay,
+                }}
+              >
                 <div style={{ maxHeight: '200px', overflow: 'scroll' }}>
-                  <pre>{JSON.stringify(data)}</pre>
+                  <div>
+                    Request sent; awaiting response (may take a few minutes; OK to navigate away
+                    from this page.)
+                  </div>
+                  <div>{JSON.stringify(data)}</div>
                 </div>
               </CCardBody>
             </CCard>
