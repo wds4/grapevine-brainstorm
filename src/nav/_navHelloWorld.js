@@ -79,14 +79,14 @@ const _nav = [
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
   },
   {
-    component: CNavTitle,
-    name: 'unused',
-  },
-  {
     component: CNavItem,
-    name: 'Test Page 11',
+    name: '11: confetti',
     to: '/helloWorld/testPage11',
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
+    name: 'unused',
   },
   {
     component: CNavItem,

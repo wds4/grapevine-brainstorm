@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Dashboard
-const App1 = React.lazy(() => import('src/views/grapevine/index'))
+const LandingPage = React.lazy(() => import('src/views/grapevine/landingPage/index'))
 
 // About
 const About = React.lazy(() => import('src/views/grapevine/about/index'))
@@ -12,7 +12,7 @@ const FeatureA = React.lazy(() => import('src/views/grapevine/view/index'))
 const FeatureB = React.lazy(() => import('src/views/grapevine/update/index'))
 
 const routes = [
-  { path: '/grapevine', name: 'App 1', element: App1 },
+  { path: '/grapevine', name: 'Grapevine', element: LandingPage },
   { path: '/grapevine/about', name: 'About', element: About },
   { path: '/grapevine/interpretation', name: 'Interpretation', element: Interpretation },
   { path: '/grapevine/view', name: 'View your Grapevine', element: FeatureA },

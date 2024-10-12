@@ -1,6 +1,7 @@
 import React from 'react'
 
 const About = () => {
+  console.log('rendering About component')
   return (
     <>
       <center>

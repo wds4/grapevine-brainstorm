@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useProfile } from 'nostr-hooks'
 
 const pubkey = 'e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f'
@@ -9,7 +9,7 @@ const TestPageBody = () => {
 
   console.log('rerender TestPageBody, Test Page 3')
 
-  if (!profile) return <div>no profile</div>
+  // if (!profile) return <div>no profile</div>
   return (
     <>
       <center>
@@ -21,7 +21,7 @@ const TestPageBody = () => {
       </p>
       <p>
         Problem: This component gets rerendered over and over, as seen in the javascript console
-        where 'rerender TestPageBody, Test Page 3' is logged with each rerender.
+        where <i>rerender TestPageBody, Test Page 3</i> is logged with each rerender.
       </p>
       <p>
         Solution: See test page 4, where I employ an asynchronous function: asyncFetchProfile. (Did

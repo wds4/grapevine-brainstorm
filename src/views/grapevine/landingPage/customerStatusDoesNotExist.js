@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { CButton, CCard, CCardBody, CContainer, CCardTitle, CRow } from '@coreui/react'
+import CelebrateSuccessfulSignUp from './celebrateSuccessfulSignup'
 
-const CustomerStatusDoesNotExist = ({ pubkey }) => {
-  const [data, setData] = useState({})
+const SubscribeButton = ({ pubkey, setData }) => {
   const signUpToBrainstorm = () => {
     console.log('signUpToBrainstorm ' + pubkey)
     const url =
@@ -11,6 +11,32 @@ const CustomerStatusDoesNotExist = ({ pubkey }) => {
       .then((response) => response.json())
       // .then(data => setResp(response))
       .then((data) => setData(data))
+  }
+  return (
+    <>
+      <CCardBody>
+        <div className="d-grid gap-2">
+          <div>
+            Would you like to subscribe? If so, submit your pubkey by clicking the button below:
+          </div>
+        </div>
+      </CCardBody>
+      <CCardBody>
+        <div className="d-grid gap-2">
+          <CButton color="primary" onClick={() => signUpToBrainstorm()}>
+            Subscribe
+          </CButton>
+        </div>
+      </CCardBody>
+    </>
+  )
+}
+
+const CustomerStatusDoesNotExist = ({ pubkey }) => {
+  const [data, setData] = useState({})
+
+  if (data.success) {
+    return <CelebrateSuccessfulSignUp data={data} />
   }
   return (
     <>
@@ -35,27 +61,11 @@ const CustomerStatusDoesNotExist = ({ pubkey }) => {
                   <li>WoT network updates on demand, up to once per day</li>
                 </div>
               </CCardBody>
-              <CCardBody>
-                <div className="d-grid gap-2">
-                  <div>
-                    Would you like to subscribe? If so, submit your pubkey by clicking the button
-                    below:
-                  </div>
-                </div>
-              </CCardBody>
-              <CCardBody>
-                <div className="d-grid gap-2">
-                  <CButton color="primary" onClick={() => signUpToBrainstorm()}>
-                    Subscribe
-                  </CButton>
-                </div>
-              </CCardBody>
+              <SubscribeButton pubkey={pubkey} setData={setData} />
             </CCard>
           </div>
         </CRow>
       </CContainer>
-      <hr />
-      <pre>{JSON.stringify(data, null, 4)}</pre>
     </>
   )
 }

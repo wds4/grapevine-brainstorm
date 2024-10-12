@@ -1,19 +1,11 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import Confetti from 'react-confetti'
+import { useWindowDimensions } from '../../../helpers/windowDimensions';
 
 const TestPageBody = () => {
-  return (
-    <>
-      <center>
-        <h3>Test Page Body</h3>
-      </center>
-      <div>
-        <p>
-          Lorem ipsum
-        </p>
-      </div>
-    </>
-  )
+  const { height, width } = useWindowDimensions()
+
+  return <Confetti width={width} height={height} />
 }
 
 export default TestPageBody
