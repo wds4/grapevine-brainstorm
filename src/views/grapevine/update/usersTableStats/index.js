@@ -5,8 +5,7 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
   const [showButtonDisplay, setShowButtonDisplay] = useState('block')
   const [showRequestSentDisplay, setShowRequestSentDisplay] = useState('none')
   const [data, setData] = useState({})
-  const url =
-    'https://interpretation-brainstorm.vercel.app/api/nostr/listeners/singleUser?pubkey=' + pubkey
+  const url = 'https://interpretation-brainstorm.vercel.app/api/manageData/usersTableStats'
   const triggerEndpoint = () => {
     console.log('triggerEndpoint')
     setShowButtonDisplay('none')
@@ -22,14 +21,13 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
           <CCard className="w-100">
             <CCardBody>
               <center>
-                <CCardTitle>Update my Follows and Mutes</CCardTitle>
+                <CCardTitle>Users Table Stats</CCardTitle>
               </center>
             </CCardBody>
             <CCardBody>
-              <div className="d-grid gap-2">
-                Listen for kind 3 and 10000 events for your pubkey. Update users.follows and
-                users.mutes with the results.
-              </div>
+              <div className="d-grid gap-2">stats on the table: users</div>
+              <li>how many pubkeys total</li>
+              <li>my data</li>
             </CCardBody>
             <CCardBody>
               <div className="d-grid gap-2">{url}</div>

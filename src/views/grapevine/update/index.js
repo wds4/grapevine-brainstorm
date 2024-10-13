@@ -1,6 +1,7 @@
 import React from 'react'
 import { useActiveUser } from 'nostr-hooks'
-import SingleEndpointControlPanel from './updateMyFollowsAndMutes'
+import UpdateMyFollowsAndMutes from './updateMyFollowsAndMutes'
+import UsersTableStats from './usersTableStats'
 
 const UpdateDashboard = ({ pubkey }) => {
   return (
@@ -8,7 +9,8 @@ const UpdateDashboard = ({ pubkey }) => {
       <center>
         <h3>Update your Grapevine and DoS WoT Networks</h3>
       </center>
-      <SingleEndpointControlPanel pubkey={pubkey} />
+      <UpdateMyFollowsAndMutes pubkey={pubkey} />
+      <UsersTableStats pubkey={pubkey} />
     </>
   )
 }
