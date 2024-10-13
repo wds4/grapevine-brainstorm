@@ -2,6 +2,7 @@ import React from 'react'
 import { useActiveUser } from 'nostr-hooks'
 import UpdateMyFollowsAndMutes from './updateMyFollowsAndMutes'
 import UsersTableStats from './usersTableStats'
+import TransferMyFollowsAndMutes from './transferMyFollowsAndMutes'
 
 const UpdateDashboard = ({ pubkey }) => {
   return (
@@ -10,6 +11,7 @@ const UpdateDashboard = ({ pubkey }) => {
         <h3>Update your Grapevine and DoS WoT Networks</h3>
       </center>
       <UpdateMyFollowsAndMutes pubkey={pubkey} />
+      <TransferMyFollowsAndMutes pubkey={pubkey} />
       <UsersTableStats pubkey={pubkey} />
     </>
   )
