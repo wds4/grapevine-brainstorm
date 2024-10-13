@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { CButton, CCard, CCardBody, CContainer, CCardTitle, CRow } from '@coreui/react'
+import { CCard, CCardBody, CContainer, CCardTitle, CRow } from '@coreui/react'
 import { useActiveUser } from 'nostr-hooks'
-import Container from 'postcss/lib/container'
 import MakeRatingsTable from './makeRatingsTable'
 
 const InterpretationProtocols = () => {

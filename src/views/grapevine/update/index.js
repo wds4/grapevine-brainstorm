@@ -1,5 +1,6 @@
 import React from 'react'
 import { useActiveUser } from 'nostr-hooks'
+import SingleEndpointControlPanel from './updateMyFollowsAndMutes'
 
 const UpdateDashboard = ({ pubkey }) => {
   return (
@@ -7,9 +8,7 @@ const UpdateDashboard = ({ pubkey }) => {
       <center>
         <h3>Update your Grapevine and DoS WoT Networks</h3>
       </center>
-      <div>
-        <p>your pubkey: {pubkey}</p>
-      </div>
+      <SingleEndpointControlPanel pubkey={pubkey} />
     </>
   )
 }

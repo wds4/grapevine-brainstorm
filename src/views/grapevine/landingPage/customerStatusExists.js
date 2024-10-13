@@ -33,11 +33,9 @@ const UnsubscribeButton = ({ pubkey, setData }) => {
         </div>
       </CCardBody>
       <CCardBody>
-        <div className="d-grid gap-2">
-          <CButton color="primary" onClick={() => unsubscribeFromBrainstorm()}>
-            Unsubscribe
-          </CButton>
-        </div>
+        <CButton color="primary" onClick={() => unsubscribeFromBrainstorm()}>
+          Unsubscribe
+        </CButton>
       </CCardBody>
     </>
   )
