@@ -1,11 +1,10 @@
 {
-  "short_name": "PGFT NRD Template",
-  "name": "Pretty Good Freedom Tech Nostr-React-Dashboard Template",
+  "short_name": "brainSToRm",
+  "name": "Pretty Good Freedom Tech: BrainSToRm",
   "icons": [
     {
-      "src": "./assets/img/favicon.png",
-      "sizes": "100x100",
-      "type": "image/png"
+      "src": "./assets/brand/brainstorm010_white.svg",
+      "type": "image/svg"
     }
   ],
   "start_url": ".",

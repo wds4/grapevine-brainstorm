@@ -10,7 +10,6 @@ import {
   CSidebarHeader,
   CSidebarToggler,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
 
 import { AppSidebarNav } from './AppSidebarNav'
 
@@ -24,9 +23,10 @@ import navigationApp2 from 'src/nav/_navApp2'
 import navigationApp3 from 'src/nav/_navApp3'
 
 // const iconSrc = 'src/assets/brand/brainstorm010_white.svg'
-const iconSrc = 'src/assets/brand/brainstorm010_white.svg'
+// const iconSrc = 'src/assets/brand/brainstorm010_white.svg'
+const iconSrc = './brainstorm010_white.svg'
 
-function getNavigation(activeApp, signedIn, developmentMode) {
+function getNavigation(activeApp) {
   switch (activeApp) {
     case 'dashboard':
       return navigationDashboard
@@ -70,7 +70,7 @@ const AppSidebar = () => {
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand href="#/dashboard" to="/" style={{ textDecoration: 'none' }}>
           <img src={iconSrc} style={{ height: '32px', marginLeft: '8px', marginRight: '10px' }} />
-          PGFT NRD Template
+          brainSToRm
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"

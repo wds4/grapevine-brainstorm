@@ -5,11 +5,14 @@ const About = () => {
   return (
     <>
       <center>
-        <h3>About the PGFT NRD Template</h3>
+        <h3>About PGFT: BrainSToRm</h3>
       </center>
       <div>
         <p>PGFT: Pretty Good Freedom Tech</p>
-        <p>NRD: nostr + react + dashboard</p>
+        <p>
+          BrainSToRm: playground for the application of tapestry theory to decentralized reputation
+          and web of trust in the nostr ecosystem
+        </p>
       </div>
     </>
   )
