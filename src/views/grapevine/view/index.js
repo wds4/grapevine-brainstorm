@@ -1,15 +1,14 @@
 import React from 'react'
 import { useActiveUser } from 'nostr-hooks'
+import MultiTableStats from './multiTableStats'
 
 const ViewWotDashboard = ({ pubkey }) => {
   return (
     <>
       <center>
-        <h3>View your Grapevine and DoS WoT Networks</h3>
+        <h3>Overview of the Brainstorm database</h3>
       </center>
-      <div>
-        <p>your pubkey: {pubkey}</p>
-      </div>
+      <MultiTableStats pubkey={pubkey} />
     </>
   )
 }

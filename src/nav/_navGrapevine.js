@@ -6,7 +6,7 @@ import { CNavItem, CNavTitle } from '@coreui/react'
 const _nav = [
   {
     component: CNavItem,
-    name: 'App 1 Home',
+    name: 'Grapevine Home',
     to: '/grapevine',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },

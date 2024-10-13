@@ -3,6 +3,7 @@ import { useActiveUser } from 'nostr-hooks'
 import UpdateMyFollowsAndMutes from './updateMyFollowsAndMutes'
 import UsersTableStats from './usersTableStats'
 import TransferMyFollowsAndMutes from './transferMyFollowsAndMutes'
+import CreateMyObserverObject from './createMyObserverObject'
 
 const UpdateDashboard = ({ pubkey }) => {
   return (
@@ -12,6 +13,7 @@ const UpdateDashboard = ({ pubkey }) => {
       </center>
       <UpdateMyFollowsAndMutes pubkey={pubkey} />
       <TransferMyFollowsAndMutes pubkey={pubkey} />
+      <CreateMyObserverObject pubkey={pubkey} />
       <UsersTableStats pubkey={pubkey} />
     </>
   )
