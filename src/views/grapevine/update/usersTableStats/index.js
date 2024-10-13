@@ -5,7 +5,8 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
   const [showButtonDisplay, setShowButtonDisplay] = useState('block')
   const [showRequestSentDisplay, setShowRequestSentDisplay] = useState('none')
   const [data, setData] = useState({})
-  const url = 'https://interpretation-brainstorm.vercel.app/api/manageData/usersTableStats'
+  const url =
+    'https://interpretation-brainstorm.vercel.app/api/manageData/usersTableStats?pubkey=' + pubkey
   const triggerEndpoint = () => {
     console.log('triggerEndpoint')
     setShowButtonDisplay('none')
