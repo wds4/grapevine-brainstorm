@@ -1,6 +1,7 @@
 import React from 'react'
 import { useActiveUser } from 'nostr-hooks'
 import MultiTableStats from './multiTableStats'
+import ScorecardsTable from './scorecardsTable'
 
 const ViewWotDashboard = ({ pubkey }) => {
   return (
@@ -16,7 +17,12 @@ const ViewWotDashboard = ({ pubkey }) => {
 const RetrieveActiveUser = () => {
   const { activeUser } = useActiveUser()
   if (!activeUser) return <div>retrieving the active user pubkey ...</div>
-  return <ViewWotDashboard pubkey={activeUser.pubkey} />
+  return (
+    <>
+      <ScorecardsTable pubkey={activeUser.pubkey} />
+      <ViewWotDashboard pubkey={activeUser.pubkey} />
+    </>
+  )
 }
 
 export default RetrieveActiveUser
