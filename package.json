@@ -32,6 +32,7 @@
     "@popperjs/core": "^2.11.8",
     "@tanstack/react-table": "^8.20.5",
     "@tanstack/table-core": "^8.20.5",
+    "@vercel/postgres": "^0.10.0",
     "chart.js": "^4.4.4",
     "classnames": "^2.5.1",
     "core-js": "^3.38.1",

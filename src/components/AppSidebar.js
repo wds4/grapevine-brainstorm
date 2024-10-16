@@ -14,9 +14,10 @@ import {
 import { AppSidebarNav } from './AppSidebarNav'
 
 // sidebar nav config
+import navigationLandingPage from 'src/nav/_navLandingPage'
+import navigationDashboard from 'src/nav/_navDashboard'
 import navigationHelloWorld from 'src/nav/_navHelloWorld'
 import navigationProfile from 'src/nav/_navProfile'
-import navigationDashboard from 'src/nav/_navDashboard'
 import navigationHSettings from 'src/nav/_navSettings'
 import navigationApp1 from 'src/nav/_navGrapevine'
 import navigationApp2 from 'src/nav/_navApp2'
@@ -27,7 +28,10 @@ import navigationApp3 from 'src/nav/_navApp3'
 const iconSrc = './brainstorm010_white.svg'
 
 function getNavigation(activeApp) {
+  console.log(`====== ${activeApp}`)
   switch (activeApp) {
+    case 'landingPage':
+      return navigationLandingPage
     case 'dashboard':
       return navigationDashboard
     case 'profile':
@@ -43,7 +47,7 @@ function getNavigation(activeApp) {
     case 'app3':
       return navigationApp3
     default:
-      return navigationDashboard
+      return navigationLandingPage
   }
 }
 
@@ -68,7 +72,7 @@ const AppSidebar = () => {
       }}
     >
       <CSidebarHeader className="border-bottom">
-        <CSidebarBrand href="#/dashboard" to="/" style={{ textDecoration: 'none' }}>
+        <CSidebarBrand href="#/landingPage" to="/" style={{ textDecoration: 'none' }}>
           <img src={iconSrc} style={{ height: '32px', marginLeft: '8px', marginRight: '10px' }} />
           brainSToRm
         </CSidebarBrand>

@@ -6,38 +6,10 @@ const Dashboard = () => {
   return (
     <>
       <center>
-        <h3>Nostr-React-Dashboard Template </h3>
+        <h3>Brainstorm: Apps under development</h3>
       </center>
       <br />
       <br />
-      <CContainer>
-        <p>
-          This template makes use of the{' '}
-          <a target="_blank" href="https://github.com/ostyjs/nostr-hooks" rel="noreferrer">
-            nostr-hooks
-          </a>{' '}
-          library for basic nostr functionality.
-        </p>
-        <p>
-          The dashboard / admin layout comes from{' '}
-          <a
-            target="_blank"
-            href="https://github.com/coreui/coreui-free-react-admin-template"
-            rel="noreferrer"
-          >
-            CoreUI Free React.js Admin Template
-          </a>
-          , of which this is a fork.
-        </p>
-        <p>
-          For a demo of basic nostr-hooks functionality, follow the `Hello World` link in the
-          drop-down menu under the user avatar (you will need to be logged in first).
-          <CButton href="#/helloWorld">Demo</CButton>
-        </p>
-      </CContainer>
-      <center>
-        <h4>Apps</h4>
-      </center>
       <CContainer>
         <CRow xs={{ gutter: 4 }}>
           <CCol xs={12} sm={6} xl={4} xxl={3}>

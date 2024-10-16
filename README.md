@@ -43,6 +43,23 @@ Data persistence: So far, I am not making use of ndk's caching adapters (ndk-cac
 
 Hello World test page 1 illustrates one of the pitfalls of using react and nostr at the same time: rerenders. See comments in the relevant script.
 
+## other installations
+
+tanstack tables, react
+
+```
+npm install @tanstack/react-table
+npm install @tanstack/table-core
+```
+
+```
+npm install @vercel/postgres
+vercel link
+vercel env pull .env.development.local
+```
+
+running into errors getting postgres to work on the front end
+
 ## current issues & work to be done
 
 1. nostr-hooks v2.9.11 has problems with persistence of login using secret keys. It seems to forget it was logged in when refreshing the page. Maybe I need to switch back from `useAutoLogin` back to `(reL)(l)oginFromLocalStorage`? nostr-hooks v2.8.4 does not have this persistence of data problem, but does not have useProfile which is in v2.9.11
