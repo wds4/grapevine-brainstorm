@@ -90,7 +90,7 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Test Page 12',
+    name: '12: Tanstack Table',
     to: '/helloWorld/testPage12',
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
   },

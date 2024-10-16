@@ -33,6 +33,12 @@ const _nav = [
     icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
   },
   {
+    component: CNavItem,
+    name: 'Profiles Table',
+    to: '/grapevine/profilesTable',
+    icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
+  },
+  {
     component: CNavTitle,
     name: 'About',
   },

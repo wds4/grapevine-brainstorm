@@ -6,7 +6,8 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
   const [showRequestSentDisplay, setShowRequestSentDisplay] = useState('none')
   const [scorecards, setScorecards] = useState({})
   const [numAbove9, setNumAbove9] = useState(0)
-  const [numBelow9, setNumBelow9] = useState(0)
+  const [numZero, setNumZero] = useState(0)
+  const [numOther, setNumOther] = useState(0)
   const [message, setMessage] = useState(
     'Request sent; awaiting response from the Brainstorm Calculation Engine...',
   )
@@ -24,18 +25,24 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
 
     const aObservees = Object.keys(oRatees)
     let nAbove9 = 0
-    let nBelow9 = 0
+    let nZero = 0
+    let nOther = 0
     for (let x=0; x < aObservees.length; x++) {
       const observeeId = aObservees[x]
       const influence = oRatees[observeeId].influence
       if (influence > 0.9) {
         nAbove9++
       } else {
-        nBelow9++
+        if (influence == 0) {
+          nZero++
+        } else {
+          nOther++
+        }
       }
     }
     setNumAbove9(nAbove9)
-    setNumBelow9(nBelow9)
+    setNumZero(nZero)
+    setNumOther(nOther)
 
     const aContexts = data.data.scorecardsData.contexts
     const numObservers = data.data.scorecardsData.numObservers
@@ -74,7 +81,8 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
             >
               <div>{message}</div>
               <div>numAbove9: {numAbove9}</div>
-              <div>numBelow9: {numBelow9}</div>
+              <div>numZero: {numZero}</div>
+              <div>numOther: {numOther}</div>
               <pre>{JSON.stringify(scorecards, null, 4)}</pre>
             </CCardBody>
             <CCardBody
