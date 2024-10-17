@@ -11,9 +11,34 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { CFormSwitch } from '@coreui/react'
+import { CFormSwitch, CNavLink } from '@coreui/react'
+import { useProfile } from 'nostr-hooks'
+import { noProfilePicUrl } from '../../../../const'
 
 const columnHelper = createColumnHelper()
+
+const ProfileImageCell = ({ pubkey }) => {
+  const params = React.useMemo(() => ({ pubkey }), [])
+  const { profile } = useProfile(params)
+  const href = '#/profile?pubkey=' + pubkey
+  const picUrl = profile?.image || noProfilePicUrl
+  console.log(`ProfileImageCell ${pubkey}`)
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <div className="profileAvatarContainerSmall">
+        <CNavLink href={href}>
+          <img src={picUrl} className="profileAvatarSmall" />
+        </CNavLink>
+      </div>
+    </div>
+  )
+}
+
+const ProfileDisplayName = ({ pubkey }) => {
+  const params = React.useMemo(() => ({ pubkey }), [])
+  const { profile } = useProfile(params)
+  return profile?.displayName
+}
 
 const columns = [
   columnHelper.accessor((row) => row.id, {
@@ -28,10 +53,36 @@ const columns = [
     header: () => <span>pubkey</span>,
     footer: (info) => info.column.id,
   }),
+  columnHelper.accessor((row) => row.npub, {
+    id: 'npub',
+    cell: (info) => <i>{info.getValue()}</i>,
+    header: () => <span>npub</span>,
+    footer: (info) => info.column.id,
+  }),
+  columnHelper.accessor((row) => row.pubkey, {
+    id: 'picture',
+    cell: (info) => <ProfileImageCell pubkey={info.getValue()} />,
+    header: () => <span>picture</span>,
+    footer: (info) => info.column.id,
+    enableColumnFilter: false,
+  }),
+  columnHelper.accessor((row) => row.pubkey, {
+    id: 'displayName',
+    cell: (info) => <ProfileDisplayName pubkey={info.getValue()} />,
+    header: () => <span>displayName</span>,
+    footer: (info) => info.column.id,
+    enableColumnFilter: false,
+  }),
   columnHelper.accessor((row) => row.influence, {
     id: 'influence',
     cell: (info) => <i>{info.getValue()}</i>,
     header: () => <span>influence</span>,
+    footer: (info) => info.column.id,
+  }),
+  columnHelper.accessor((row) => row.degreeOfSeparation, {
+    id: 'degreeOfSeparation',
+    cell: (info) => <i>{info.getValue()}</i>,
+    header: () => <span>DoS</span>,
     footer: (info) => info.column.id,
   }),
 ]
@@ -74,9 +125,13 @@ const TanstackTable = ({ defaultData }) => {
   const [data, _setData] = React.useState(() => [...defaultData])
 
   const [columnVisibility, setColumnVisibility] = React.useState({
-    id: true,
-    pubkey: true,
+    id: false,
+    pubkey: false,
+    npub: false,
+    picture: true,
+    displayName: true,
     influence: true,
+    degreeOfSeparation: true,
   })
 
   const [pagination, setPagination] = React.useState({
@@ -87,7 +142,7 @@ const TanstackTable = ({ defaultData }) => {
   const [columnResizeMode, setColumnResizeMode] = React.useState('onChange')
   const [columnResizeDirection, setColumnResizeDirection] = React.useState('ltr')
 
-  const [sorting, setSorting] = React.useState([{ id: 'wotScore', desc: true }])
+  const [sorting, setSorting] = React.useState([{ id: 'influence', desc: true }])
 
   const table = useReactTable({
     data,
@@ -184,9 +239,6 @@ const TanstackTable = ({ defaultData }) => {
               },
             }}
           >
-
-
-
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
@@ -206,7 +258,7 @@ const TanstackTable = ({ defaultData }) => {
                             asc: ' 🔼',
                             desc: ' 🔽',
                           }[header.column.getIsSorted()] ?? null}
-                          {header.column.getCanFilter() ? (
+                          {header.column.getCanFilter({}) ? (
                             <div>
                               <Filter column={header.column} table={table} />
                             </div>
@@ -238,9 +290,6 @@ const TanstackTable = ({ defaultData }) => {
                 </tr>
               ))}
             </thead>
-
-
-
             <tbody>
               {table.getRowModel().rows.map((row) => (
                 <tr key={row.id}>

@@ -26,6 +26,7 @@ import { noProfilePicUrl } from 'src/const'
 import { useNavigate } from 'react-router-dom'
 
 import { asyncFetchProfile } from 'src/helpers/ndk'
+import { useDispatch } from 'react-redux'
 
 const AppHeaderDropdown = () => {
   const { activeUser } = useActiveUser()
@@ -43,6 +44,7 @@ const AppHeaderDropdown = () => {
 
 const Avatar = ({}) => {
   const { ndk } = useNdk()
+  const dispatch = useDispatch()
   const [profilePicUrl, setProfilePicUrl] = useState(noProfilePicUrl)
 
   const { activeUser } = useActiveUser()
@@ -68,6 +70,10 @@ const ActiveHeaderDropdownLoggedIn = ({ activeUser }) => {
 
   const handleLogout = () => {
     logout()
+    dispatch({
+      type: 'set',
+      loggedInUser: { loggedIn: false, pubkey: '', npub: '' },
+    })
     navigate('/')
   }
   console.log('rerender ActiveHeaderDropdownLoggedIn')

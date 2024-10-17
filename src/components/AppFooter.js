@@ -2,8 +2,10 @@ import React from 'react'
 import { CFooter } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cibGithub, cilHeart } from '@coreui/icons'
+import { useSelector } from 'react-redux'
 
 const AppFooter = () => {
+  const loggedInUser = useSelector((state) => state.loggedInUser)
   return (
     <CFooter className="px-4">
       <div className="me-1">
@@ -15,6 +17,10 @@ const AppFooter = () => {
         >
           david
         </a>
+      </div>
+      <div className="me-1">
+        ={loggedInUser?.loggedIn ? 'yes' : 'no'}
+        ={loggedInUser?.pubkey}=
       </div>
       <div className="ms-auto">
         <span className="ms-1">

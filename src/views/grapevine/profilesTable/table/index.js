@@ -2,8 +2,9 @@ import { CButton, CCard, CCardBody, CContainer, CCardTitle, CRow, CCol } from '@
 import React, { useState } from 'react'
 import TanstackTable from './tanstack'
 import { oPubkeyLookup } from '../../../../const/pubkeyLookup'
+import { noProfilePicUrl } from '../../../../const'
 
-const TableWhenReady = ({tableReady, tableData}) => {
+const TableWhenReady = ({ tableReady, tableData }) => {
   if (!tableReady) return <div>preparing table data</div>
   return <TanstackTable defaultData={tableData} />
 }
@@ -13,65 +14,68 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
   const [tableReady, setTableReady] = useState(false)
   const [showButtonDisplay, setShowButtonDisplay] = useState('block')
   const [showRequestSentDisplay, setShowRequestSentDisplay] = useState('none')
-  const [scorecards, setScorecards] = useState({})
-  const [numAbove9, setNumAbove9] = useState(0)
-  const [numZero, setNumZero] = useState(0)
-  const [numOther, setNumOther] = useState(0)
-  const [message, setMessage] = useState(
-    'Request sent; awaiting response from the Brainstorm Calculation Engine...',
-  )
   const processData = (data) => {
-
     const success = data.success
-    const message = data.message
+    if (!success) {
+      // display empty table
+      setTableReady(true)
+      // TODO: display error message that data has not been calculated
+    }
+    if (success) {
+      const oLookupIdsByDos = data.data.dosData.lookupIdsByDos
+      const oScorecards = data.data.scorecardsData.scorecards
+      const myUserId = Object.keys(oScorecards.notSpam)[0] // workaround hack until I revamp data format
+      const oRatees = oScorecards.notSpam[myUserId]
 
-    setMessage(message)
-    const exists = data.exists
-    const oScorecards = data.data.scorecardsData.scorecards
-    setScorecards(oScorecards)
-    const myUserId = Object.keys(oScorecards.notSpam)[0] // workaround hack until I revamp data format
-    const oRatees = oScorecards.notSpam[myUserId]
-
-    const aObservees = Object.keys(oRatees)
-    let nAbove9 = 0
-    let nZero = 0
-    let nOther = 0
-    const aScorecardsData = []
-    for (let x = 0; x < aObservees.length; x++) {
-      const observeeId = aObservees[x]
-      const influence = oRatees[observeeId].influence
-      const pk = oPubkeyLookup.data.observerObjectDataById[observeeId].pubkey
-      // if (x < 10000) {
-      const oNewEntry = {
-        id: observeeId,
-        influence,
-        pubkey: pk,
-      }
-      aScorecardsData.push(oNewEntry)
-      // }
-      if (influence > 0.9) {
-        nAbove9++
-      } else {
-        if (influence == 0) {
-          nZero++
+      const aObservees = Object.keys(oRatees)
+      let nAbove9 = 0
+      let nZero = 0
+      let nOther = 0
+      const aScorecardsData = []
+      const aDosToCheck = Object.keys(oLookupIdsByDos)
+      for (let x = 0; x < aObservees.length; x++) {
+        const observeeId = aObservees[x]
+        const influence = oRatees[observeeId].influence
+        const pk = oPubkeyLookup.data.observerObjectDataById[observeeId].pubkey
+        let dosThisUser = 999
+        for (let z = 0; z < aDosToCheck.length; z++) {
+          const dosToCheck = aDosToCheck[z]
+          const aUserIds = oLookupIdsByDos[dosToCheck]
+          if (aUserIds && aUserIds.includes(Number(observeeId))) {
+            dosThisUser = dosToCheck
+          }
+        }
+        const oNewEntry = {
+          id: observeeId,
+          pubkey: pk,
+          npub: 'npub',
+          picture: noProfilePicUrl,
+          displayName: 'alice',
+          influence,
+          degreeOfSeparation: Number(dosThisUser),
+        }
+        aScorecardsData.push(oNewEntry)
+        if (influence > 0.9) {
+          nAbove9++
         } else {
-          nOther++
+          if (influence == 0) {
+            nZero++
+          } else {
+            nOther++
+          }
         }
       }
-    }
-    setTableData(aScorecardsData)
-    setNumAbove9(nAbove9)
-    setNumZero(nZero)
-    setNumOther(nOther)
+      setTableData(aScorecardsData)
 
-    const aContexts = data.data.scorecardsData.contexts
-    const numObservers = data.data.scorecardsData.numObservers
-    const numObservations = data.data.scorecardsData.numObservations
-    const megabytes = data.data.scorecardsData.megabytes
-    setTableReady(true)
+      const aContexts = data.data.scorecardsData.contexts
+      const numObservers = data.data.scorecardsData.numObservers
+      const numObservations = data.data.scorecardsData.numObservations
+      const megabytes = data.data.scorecardsData.megabytes
+      setTableReady(true)
+    }
   }
   const url =
-    'https://calculation-brainstorm.vercel.app/api/grapevine/showStoredScorecardsTable?name=notSpam&pubkey=' +
+    'https://calculation-brainstorm.vercel.app/api/grapevine/showFullStoredReport?name=notSpam&pubkey=' +
     pubkey
   const triggerEndpoint = () => {
     console.log('triggerEndpoint')
@@ -89,7 +93,9 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
           <CCard className="w-100">
             <CCardBody>
               <center>
-                <CCardTitle>Scorecards Table</CCardTitle>
+                <p style={{ fontSize: '34px' }}>Your WoT Networks</p>
+                <p>Grapevine WoT Network: all users with a nonzero Grapevine WoT Influence Score</p>
+                <p>DoS WoT Network: all users connected to you by at least one follows path</p>
               </center>
             </CCardBody>
             <CCardBody
@@ -97,10 +103,6 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
                 display: showRequestSentDisplay,
               }}
             >
-              <div>{message}</div>
-              <div>numAbove9: {numAbove9}</div>
-              <div>numZero: {numZero}</div>
-              <div>numOther: {numOther}</div>
               <TableWhenReady tableReady={tableReady} tableData={tableData} />
             </CCardBody>
             <CCardBody

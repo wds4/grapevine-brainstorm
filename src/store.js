@@ -4,7 +4,8 @@ const initialState = {
   sidebarShow: true,
   theme: 'light',
   loggedInUser: {
-    pubkey: '',
+    loggedIn: false,
+    pubkey: 'defaultPk',
     npub: '',
   },
 }

@@ -1,11 +1,11 @@
 import React, { Suspense, useEffect } from 'react'
 import { HashRouter, Route, Routes } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
 
-import { useNostrHooks, useLogin, useAutoLogin } from 'nostr-hooks'
+import { useNostrHooks, useLogin, useAutoLogin, useActiveUser } from 'nostr-hooks'
 import NDK from '@nostr-dev-kit/ndk'
 
 // Containers
@@ -16,15 +16,24 @@ const Login = React.lazy(() => import('./views/login/Login'))
 
 const customNDK = new NDK({
   /* ... */
-});
+})
 
 const App = () => {
   useNostrHooks(customNDK)
+  const dispatch = useDispatch()
   console.log('RENDERING TOP LEVEL APP COMPONENT')
   const { loginFromLocalStorage } = useLogin()
   const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
   const storedTheme = useSelector((state) => state.theme)
 
+  const { activeUser } = useActiveUser()
+  if (activeUser) {
+    console.log(`activeUser.pubkey: ${activeUser?.pubkey}`)
+    dispatch({
+      type: 'set',
+      loggedInUser: { loggedIn: true, pubkey: activeUser?.pubkey, npub: '' },
+    })
+  }
   // useAutoLogin and loginFromLocalStorage seem to do the same thing (? ...)
   useAutoLogin()
   useEffect(() => {
