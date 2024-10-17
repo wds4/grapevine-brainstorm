@@ -4,6 +4,7 @@ import UpdateMyFollowsAndMutes from './updateMyFollowsAndMutes'
 import TransferMyFollowsAndMutes from './transferMyFollowsAndMutes'
 import CreateMyObserverObject from './createMyObserverObject'
 import CreateDosSummary from './createDosSummary'
+import CalculateGrapevineNetwork from './calculateGrapevineNetwork'
 
 /*
 https://interpretation-brainstorm.vercel.app/api/manageData/singleUser/createDosSummary?pubkey=e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f
@@ -20,6 +21,7 @@ const UpdateDashboard = ({ pubkey }) => {
       <TransferMyFollowsAndMutes pubkey={pubkey} />
       <CreateMyObserverObject pubkey={pubkey} />
       <CreateDosSummary pubkey={pubkey} />
+      <CalculateGrapevineNetwork pubkey={pubkey} />
     </>
   )
 }

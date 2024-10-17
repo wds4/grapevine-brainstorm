@@ -1,7 +1,7 @@
 import { CButton, CCard, CCardBody, CContainer, CCardTitle, CRow, CCol } from '@coreui/react'
 import React, { useState } from 'react'
 import TanstackTable from './tanstack'
-import { oPubkeyLookup } from '../../../../const/pubkeyLookup'
+// import { oPubkeyLookup } from '../../../../const/pubkeyLookup'
 import { noProfilePicUrl } from '../../../../const'
 
 const TableWhenReady = ({ tableReady, tableData }) => {
@@ -22,6 +22,7 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
       // TODO: display error message that data has not been calculated
     }
     if (success) {
+      const oPubkeyLookup = data.data.pubkeyLookupByUserId
       const oLookupIdsByDos = data.data.dosData.lookupIdsByDos
       const oScorecards = data.data.scorecardsData.scorecards
       const myUserId = Object.keys(oScorecards.notSpam)[0] // workaround hack until I revamp data format
@@ -36,7 +37,8 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
       for (let x = 0; x < aObservees.length; x++) {
         const observeeId = aObservees[x]
         const influence = oRatees[observeeId].influence
-        const pk = oPubkeyLookup.data.observerObjectDataById[observeeId].pubkey
+        // const pk = oPubkeyLookup.data.observerObjectDataById[observeeId].pubkey
+        const pk = oPubkeyLookup[observeeId].pubkey
         let dosThisUser = 999
         for (let z = 0; z < aDosToCheck.length; z++) {
           const dosToCheck = aDosToCheck[z]
