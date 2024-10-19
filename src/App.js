@@ -14,9 +14,13 @@ const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 // Pages
 const Login = React.lazy(() => import('./views/login/Login'))
 
-const customNDK = new NDK({
-  /* ... */
-})
+const explicitRelayUrls = [
+  'wss://purplepag.es',
+  'wss://profiles.nostr1.com',
+  'wss://relay.damus.io',
+]
+
+const customNDK = new NDK({ explicitRelayUrls })
 
 const App = () => {
   useNostrHooks(customNDK)
