@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import { useProfile } from 'nostr-hooks'
 
 const ProblemComponent = () => {
+  const { profile } = useProfile({ pubkey: 'e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f' });
   // THIS FETCHES PROFILE CORRECTLY BUT CAUSES RERENDERS ABOUT 1 PER SECOND
   /*
   const pubkey = useMemo(
@@ -21,11 +22,13 @@ const ProblemComponent = () => {
 
   // THIS FETCHES PROFILE CORRECTLY BUT WITHOUT CAUSING RERENDERS
 
+  /*
   const params = useMemo(
     () => ({ pubkey: 'e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f' }),
     [],
   )
   const { profile } = useProfile(params)
+  */
 
   /* THE LESSON:
   Two things needed to be done to solve the problem of constant rerendering

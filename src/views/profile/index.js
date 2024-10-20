@@ -1,9 +1,10 @@
-import { useNdk } from 'nostr-hooks'
+import { useActiveUser, useNdk } from 'nostr-hooks'
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { asyncFetchProfile } from 'src/helpers/ndk'
+import ShowScoreCalculations from './showScoreCalculations'
 
-const Profile = () => {
+const Profile = ({ activeUserPubkey }) => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [providedNpub, setProvidedNpub] = useState('')
   const [providedPubkey, setProvidedPubkey] = useState('')
@@ -49,23 +50,35 @@ const Profile = () => {
 
   console.log('Profile component rerender')
 
+  if (JSON.stringify(profile) == '{}') {
+    return <div>profile with pubkey: {providedPubkey} not found</div>
+  }
   return (
     <>
       <center>
         <h3>Profile</h3>
       </center>
-      <p>
-        include ?npub=(npub) or ?pubkey=(pubkey) to the above url to look up data using the useNdk
-        function of nostr-hooks. If both are present, the provided npub will be used.
-      </p>
+      <p>Observer (logged-in user): {activeUserPubkey}</p>
+      <p>Observee: {providedPubkey}</p>
+      <ShowScoreCalculations activeUserPubkey={activeUserPubkey} pubkey={providedPubkey} />
+      <br />
       <div>
-        <p>providedNpub: {providedNpub}</p>
-        <p>providedPubkey: {providedPubkey}</p>
-        <p>profile:</p>
+        <p>observee profile info:</p>
         <pre>{JSON.stringify(profile, null, 4)}</pre>
       </div>
+      <div style={{ marginBottom: '200px' }}></div>
     </>
   )
 }
 
-export default Profile
+const RetrieveActiveUser = () => {
+  const { activeUser } = useActiveUser()
+  if (!activeUser) return <div>retrieving the active user pubkey ...</div>
+  return (
+    <>
+      <Profile activeUserPubkey={activeUser.pubkey} />
+    </>
+  )
+}
+
+export default RetrieveActiveUser

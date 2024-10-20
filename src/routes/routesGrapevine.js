@@ -11,6 +11,7 @@ const Interpretation = React.lazy(() => import('src/views/grapevine/interpretati
 const FeatureA = React.lazy(() => import('src/views/grapevine/view/index'))
 const FeatureB = React.lazy(() => import('src/views/grapevine/update/index'))
 const ProfilesTable = React.lazy(() => import('src/views/grapevine/profilesTable/index'))
+const ProfilesTableCloud = React.lazy(() => import('src/views/grapevine/profilesTable_cloud/index'))
 
 const routes = [
   { path: '/grapevine', name: 'Grapevine', element: LandingPage },
@@ -19,6 +20,11 @@ const routes = [
   { path: '/grapevine/view', name: 'View your Grapevine', element: FeatureA },
   { path: '/grapevine/update', name: 'Update your Grapevine', element: FeatureB },
   { path: '/grapevine/profilesTable', name: 'Profiles Table', element: ProfilesTable },
+  {
+    path: '/grapevine/profilesTable_cloud',
+    name: 'Profiles Table (cloud)',
+    element: ProfilesTableCloud,
+  },
 ]
 
 export default routes
