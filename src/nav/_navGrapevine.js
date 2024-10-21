@@ -45,6 +45,12 @@ const _nav = [
     icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
   },
   {
+    component: CNavItem,
+    name: 'Worldviews',
+    to: '/grapevine/worldviews',
+    icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
+  },
+  {
     component: CNavTitle,
     name: 'About',
   },

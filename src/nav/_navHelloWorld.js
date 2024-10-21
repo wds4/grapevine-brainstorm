@@ -85,10 +85,6 @@ const _nav = [
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
   },
   {
-    component: CNavTitle,
-    name: 'unused',
-  },
-  {
     component: CNavItem,
     name: '12: Tanstack Table',
     to: '/helloWorld/testPage12',
@@ -96,10 +92,15 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Test Page 13',
+    name: '13: vis.js',
     to: '/helloWorld/testPage13',
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
   },
+  {
+    component: CNavTitle,
+    name: 'unused',
+  },
+
   {
     component: CNavItem,
     name: 'Test Page 14',
