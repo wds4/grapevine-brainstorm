@@ -24,7 +24,7 @@ export let nodes = new DataSet([
   {
     id: 3,
     group: 'things',
-    label: 'Curated List:\neCash Mints',
+    label: 'Curated List:\nTrusted eCash Mints',
     physics: false,
     fixed: true,
     x: 350,
@@ -42,26 +42,22 @@ export let edges = new DataSet([
     id: 1,
     from: 1,
     to: 1,
-    label: 'Ratings: Not Spam',
+    label: 'Attestations: Not Spam',
     selfReference: { size: 55, angle: 1.5, renderBehindTheNode: 100 },
   },
-  { id: 2, from: 1, to: 2, label: 'Ratings: Nostr Devs' },
-  { id: 3, from: 2, to: 3, label: 'Ratings: eCash Mints' },
+  { id: 2, from: 1, to: 2, label: 'Attestations: Nostr Devs' },
+  { id: 3, from: 2, to: 3, label: 'Attestations: eCash Mints' },
   {
     id: 4,
     from: 1,
     to: 3,
     width: 1,
-    smooth: { type: 'diagonalCross' },
+    smooth: { type: 'curvedCCW' },
     arrows: {
       from: { enabled: true },
       to: { enabled: true },
     },
-    endPointOffset: {
-      from: -50,
-      to: 5,
-    },
-    label: 'Ratings: eCash Mints',
+    label: 'Attestations: eCash Mints',
   },
 ])
 
@@ -120,8 +116,10 @@ export const options = {
 const Graphic = () => {
   const domNode = useRef(null)
 
-  const [nodeInformationBox, setNodeInformationBox] = useState('click a node for info')
-  const [edgeInformationBox, setEdgeInformationBox] = useState('click an edge for info')
+  const [nodeInformationBox, setNodeInformationBox] = useState(
+    'hover over a node or an edge for an explanation of how the Grapevine works',
+  )
+  const [edgeInformationBox, setEdgeInformationBox] = useState('')
 
   network = useRef(null)
 
@@ -144,17 +142,17 @@ const Graphic = () => {
 
       if (id == 1) {
         let ratingsInfo = ''
-        ratingsInfo += `Not Spam ratings are derived from follows and mutes.`
+        ratingsInfo += `Not Spam attestations are derived by interpretation of follows and mutes as attestations that npubs are (or are not) real, regular users (as opposed to spam).`
         setEdgeInformationBox(ratingsInfo)
       }
       if (id == 2) {
         let ratingsInfo = ''
-        ratingsInfo += `Nostr Dev ratings are derived from NIP-51 lists entitled: Nostr Devs.`
+        ratingsInfo += `Nostr Dev attestations are derived by interpretation of NIP-51 lists entitled: Nostr Devs as attestations that the referenced npubs are Nostr Devs.`
         setEdgeInformationBox(ratingsInfo)
       }
       if (id == 3 || id == 4) {
         let ratingsInfo = ''
-        ratingsInfo += `eCash Mints ratings are derived from (??).`
+        ratingsInfo += `eCash Mints attestations are derived by interpretation of (what raw data are we gonna use??) as attestations that the indicated mints are trustworthy.`
         setEdgeInformationBox(ratingsInfo)
       }
     })
@@ -169,18 +167,18 @@ const Graphic = () => {
       console.log(`selectNode event triggered; name: ${nodeID}`)
       if (id == 1) {
         let curatedListInfo = ''
-        curatedListInfo += `The Not Spam list is calculated using Not Spam ratings.`
+        curatedListInfo += `The Not Spam List is calculated using Not Spam attestations. All npubs, with the exception of the Seed User (you), are presumed to be spam until proven otherwise. This means that follows from bots are ignored by default.`
         setNodeInformationBox(curatedListInfo)
       }
       if (id == 2) {
         let curatedListInfo = ''
-        curatedListInfo += `The Nostr Dev list is calculated using Nostr Devs ratings.`
+        curatedListInfo += `The Nostr Dev List is calculated using Nostr Devs attestations.`
         setNodeInformationBox(curatedListInfo)
       }
       if (id == 3) {
         let curatedListInfo = ''
-        curatedListInfo += `The eCash Mints list is calculated using eCash Mints ratings `
-        curatedListInfo += `and is curated by nostr devs as well as regular (not spam) users. `
+        curatedListInfo += `The Trusted eCash Mints List is calculated using eCash Mints attestations `
+        curatedListInfo += `and is curated by Nostr Devs as well as regular (not spam) users. `
         curatedListInfo += `Nostr Devs have more say than regular (not spam) users, as indicated by relative thickness of the arrows.`
         setNodeInformationBox(curatedListInfo)
       }
@@ -193,16 +191,28 @@ const Graphic = () => {
   return (
     <>
       <center>
+        <h2>
+          Worldview:
+          <br />
+          Curation of Trusted eCash Mints by your Grapevine
+        </h2>
+        <br />
+        <p>Hover over a node or an edge to learn how the Grapevine curates data for you.</p>
         <div
-          style={{ height: '400px', width: '800px', border: '2px solid purple' }}
+          style={{
+            height: '400px',
+            width: '1000px',
+            border: '2px solid purple',
+          }}
           ref={domNode}
         />
         <div
           style={{
             display: 'inline-block',
-            width: '700px',
+            width: '1000px',
             textAlign: 'left',
             padding: '10px',
+            fontSize: '22px',
           }}
         >
           {edgeInformationBox}
