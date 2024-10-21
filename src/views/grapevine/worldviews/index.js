@@ -116,9 +116,7 @@ export const options = {
 const Graphic = () => {
   const domNode = useRef(null)
 
-  const [nodeInformationBox, setNodeInformationBox] = useState(
-    'hover over a node or an edge for an explanation of how the Grapevine works',
-  )
+  const [nodeInformationBox, setNodeInformationBox] = useState('')
   const [edgeInformationBox, setEdgeInformationBox] = useState('')
 
   network = useRef(null)
