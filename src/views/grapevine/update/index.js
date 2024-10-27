@@ -50,24 +50,24 @@ const UpdateDashboard = ({ pubkey }) => {
         }
 
         /* */
-        setAction3(`${data.data.numFollows} FOLLOWS AND ${data.data.numMutes} MUTES TO TRANSFER`)
-        if (data.data.haveFollowsAndMutesBeenInput) {
-          if (!data.data.numFollows && !data.data.numMutes) {
-            setAction3('none to transfer')
-          } else {
-            setAction3(`${data.data.numFollows} follows and ${data.data.numMutes} mutes, but they've already been transferred`)
-          }
+        if (data.data.lastCreated_observerObject == 0) {
+          setAction3('NEVER BEEN DONE')
         }
-        if (!data.data.numFollows && !data.data.numMutes) {
-          setAction3('none to transfer')
+        if (data.data.lastCreated_observerObject > 0) {
+          setAction3(`last performed: ${data.data.lastCreated_observerObject}`)
         }
 
         /* */
-        if (data.data.lastCreated_observerObject == 0) {
-          setAction2('NEVER BEEN DONE')
+        setAction2(`${data.data.numFollows} FOLLOWS AND ${data.data.numMutes} MUTES TO TRANSFER`)
+        if (data.data.haveFollowsAndMutesBeenInput) {
+          if (!data.data.numFollows && !data.data.numMutes) {
+            setAction2('none to transfer')
+          } else {
+            setAction2(`${data.data.numFollows} follows and ${data.data.numMutes} mutes, but they've already been transferred`)
+          }
         }
-        if (data.data.lastCreated_observerObject > 0) {
-          setAction2(`last performed: ${data.data.lastCreated_observerObject}`)
+        if (!data.data.numFollows && !data.data.numMutes) {
+          setAction2('none to transfer')
         }
 
         /* */
@@ -85,8 +85,8 @@ const UpdateDashboard = ({ pubkey }) => {
         <h3>Update your Grapevine and DoS WoT Networks</h3>
       </center>
       <UpdateMyFollowsAndMutes pubkey={pubkey} action={action1} />
-      <CreateMyObserverObject pubkey={pubkey} action={action2} />
-      <TransferMyFollowsAndMutes pubkey={pubkey} action={action3} />
+      <TransferMyFollowsAndMutes pubkey={pubkey} action={action2} />
+      <CreateMyObserverObject pubkey={pubkey} action={action3} />
       <CreateDosSummary pubkey={pubkey} action={action4} />
       <CreateRatingsTable pubkey={pubkey} action={action5} />
       <CalculateGrapevineNetwork pubkey={pubkey} action={action6} />
