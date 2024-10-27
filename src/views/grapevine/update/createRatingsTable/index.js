@@ -5,8 +5,7 @@ const SingleEndpointControlPanel = ({ pubkey, action }) => {
   const [showButtonDisplay, setShowButtonDisplay] = useState('block')
   const [showRequestSentDisplay, setShowRequestSentDisplay] = useState('none')
   const [data, setData] = useState({})
-  const url =
-    'https://interpretation-brainstorm.vercel.app/api/manageData/singleUser/createObserverObject?pubkey=' + pubkey
+  const url = `https://interpretation-brainstorm.vercel.app/api/requestInterpretation?req={"universalInterpretationProtocolID":"recommendedBrainstormNotBotsInterpretationProtocol","parameters":{"context":"notSpam","pubkeys":["${pubkey}"],"depth":5,"follows":{"score":1.0,"confidence":0.05},"mutes":{"score":0.0,"confidence":0.10}}}`
   const triggerEndpoint = () => {
     console.log('triggerEndpoint')
     setShowButtonDisplay('none')
@@ -22,7 +21,7 @@ const SingleEndpointControlPanel = ({ pubkey, action }) => {
           <CCard className="w-100">
             <CCardBody>
               <center>
-                <CCardTitle>Create observerObject for my pubkey in table:users</CCardTitle>
+                <CCardTitle>Interpretation: Create Ratings Table</CCardTitle>
               </center>
             </CCardBody>
             <CCardBody>

@@ -1,7 +1,7 @@
 import { CButton, CCard, CCardBody, CContainer, CCardTitle, CRow, CCol } from '@coreui/react'
 import React, { useState } from 'react'
 
-const SingleEndpointControlPanel = ({ pubkey }) => {
+const SingleEndpointControlPanel = ({ pubkey, action }) => {
   const [showButtonDisplay, setShowButtonDisplay] = useState('block')
   const [showRequestSentDisplay, setShowRequestSentDisplay] = useState('none')
   const [data, setData] = useState({})
@@ -52,6 +52,7 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
                 <CButton color="primary" onClick={() => triggerEndpoint()}>
                   Trigger Endpoint
                 </CButton>
+                <span style={{ marginLeft: '20px' }}>{action}</span>
               </div>
             </CCardBody>
           </CCard>
