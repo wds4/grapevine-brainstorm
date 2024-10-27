@@ -3,10 +3,16 @@ import { CButton, CCardBody, CContainer, CRow } from '@coreui/react'
 import CelebrateSuccessfulSignUp from './celebrateSuccessfulSignup'
 
 const SubscribeButton = ({ pubkey, setData }) => {
+  const [showButtonDisplay, setShowButtonDisplay] = useState('block')
+  const [showRequestSentDisplay, setShowRequestSentDisplay] = useState('none')
   const signUpToBrainstorm = () => {
     console.log('signUpToBrainstorm ' + pubkey)
+    setShowButtonDisplay('none')
+    setShowRequestSentDisplay('block')
     const url =
-      'https://calculation-brainstorm.vercel.app/api/grapevine/addNewCustomer?pubkey='+pubkey+'&nextStep=true'
+      'https://calculation-brainstorm.vercel.app/api/grapevine/addNewCustomer?pubkey=' +
+      pubkey +
+      '&nextStep=true'
     fetch(url)
       .then((response) => response.json())
       // .then(data => setResp(response))
@@ -14,12 +20,24 @@ const SubscribeButton = ({ pubkey, setData }) => {
   }
   return (
     <>
-      <CCardBody>
+      <CCardBody
+        style={{
+          display: showButtonDisplay,
+        }}
+      >
         <div className="d-grid gap-2 col-6 mx-auto">
           <CButton color="primary" size="lg" onClick={() => signUpToBrainstorm()}>
             Subscribe
           </CButton>
         </div>
+      </CCardBody>
+      <CCardBody
+        style={{
+          display: showRequestSentDisplay,
+        }}
+      >
+        <div>Subscription request sent.</div>
+        <div>Awaiting response.</div>
       </CCardBody>
     </>
   )
