@@ -8,13 +8,11 @@ const ShowScoreCalculations = ({ activeUserPubkey, pubkey }) => {
   const [scoresLookup, setScoresLookup] = useState({})
 
   const processDataAllScores = (data) => {
-    console.log(`typeof data: ${data.length}`)
     const oScoresLookupByPubkey = arrayToObject(data, 'PubkeyHex')
     setScoresLookup(oScoresLookupByPubkey)
     setScores(data)
   }
   const processDataFollowers = (data) => {
-    console.log(`typeof data: ${data.length}`)
     setFollowers(data)
   }
 
@@ -69,7 +67,7 @@ const ShowScoreCalculations = ({ activeUserPubkey, pubkey }) => {
     const product = rating * weight
     products += product
     weights += weight
-    console.log(`pk: ${pk}; raterInfluenceScore: ${raterInfluenceScore}`)
+    // console.log(`pk: ${pk}; raterInfluenceScore: ${raterInfluenceScore}`)
   }
   let averageScore = 0
   let confidence = 0
@@ -84,7 +82,7 @@ const ShowScoreCalculations = ({ activeUserPubkey, pubkey }) => {
   return (
     <>
       <center>
-        <h3>Check Calculations</h3>
+        <h3>Check Calculations: gv.rogue.earth</h3>
       </center>
       <div>
         <div>

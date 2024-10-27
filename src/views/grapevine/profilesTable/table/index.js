@@ -23,6 +23,8 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
     }
     if (success) {
       const oPubkeyLookup = data.data.pubkeyLookupByUserId
+      const dosData = data.data.dosData
+      // console.log(`dosData: ${JSON.stringify(dosData, null, 4)}`)
       const oLookupIdsByDos = data.data.dosData.lookupIdsByDos
       const oScorecards = data.data.scorecardsData.scorecards
       const myUserId = Object.keys(oScorecards.notSpam)[0] // workaround hack until I revamp data format
@@ -34,17 +36,29 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
       let nOther = 0
       const aScorecardsData = []
       const aDosToCheck = Object.keys(oLookupIdsByDos)
+      // let myId = 0
       for (let x = 0; x < aObservees.length; x++) {
         const observeeId = aObservees[x]
         const influence = oRatees[observeeId].influence
         // const pk = oPubkeyLookup.data.observerObjectDataById[observeeId].pubkey
         const pk = oPubkeyLookup[observeeId]?.pubkey
+        /*
+        if (pk == pubkey) {
+          myId = observeeId
+          console.log(`my pk: ${pk}; myId: ${myId}; `)
+        }
+        */
         let dosThisUser = 999
         for (let z = 0; z < aDosToCheck.length; z++) {
           const dosToCheck = aDosToCheck[z]
           const aUserIds = oLookupIdsByDos[dosToCheck]
           if (aUserIds && aUserIds.includes(Number(observeeId))) {
             dosThisUser = dosToCheck
+            /*
+            if (observeeId == myId) {
+              console.log(`myId: ${myId}; my dos: ${dosThisUser}`)
+            }
+            */
           }
         }
         const oNewEntry = {

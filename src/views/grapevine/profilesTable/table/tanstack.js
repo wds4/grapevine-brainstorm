@@ -22,7 +22,7 @@ const ProfileImageCell = ({ pubkey }) => {
   const { profile } = useProfile(params)
   const href = '#/profile?pubkey=' + pubkey
   const picUrl = profile?.image || noProfilePicUrl
-  console.log(`ProfileImageCell ${pubkey}`)
+  // console.log(`ProfileImageCell ${pubkey}`)
   return (
     <div style={{ textAlign: 'center' }}>
       <div className="profileAvatarContainerSmall">

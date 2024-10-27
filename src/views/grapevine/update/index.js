@@ -18,8 +18,8 @@ const UpdateDashboard = ({ pubkey }) => {
         <h3>Update your Grapevine and DoS WoT Networks</h3>
       </center>
       <UpdateMyFollowsAndMutes pubkey={pubkey} />
-      <TransferMyFollowsAndMutes pubkey={pubkey} />
       <CreateMyObserverObject pubkey={pubkey} />
+      <TransferMyFollowsAndMutes pubkey={pubkey} />
       <CreateDosSummary pubkey={pubkey} />
       <CalculateGrapevineNetwork pubkey={pubkey} />
     </>
