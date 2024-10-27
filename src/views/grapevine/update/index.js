@@ -65,6 +65,17 @@ const UpdateDashboard = ({ pubkey }) => {
         }
 
         /* */
+        let message = ''
+        if (data.data.lastInput_followsAndMutes == 0) {
+          message += 'NEVER BEEN DONE'
+        }
+        if (data.data.lastInput_followsAndMutes > 0) {
+          message += `last performed: ${secsToTime(data.data.lastInput_followsAndMutes)}`
+        }
+        message += `; ${data.data.numFollows} FOLLOWS AND ${data.data.numMutes} MUTES TO TRANSFER`
+        setAction2(message)
+
+        /*
         setAction2(`${data.data.numFollows} FOLLOWS AND ${data.data.numMutes} MUTES TO TRANSFER`)
         if (data.data.haveFollowsAndMutesBeenInput) {
           if (!data.data.numFollows && !data.data.numMutes) {
@@ -78,6 +89,7 @@ const UpdateDashboard = ({ pubkey }) => {
         if (!data.data.numFollows && !data.data.numMutes) {
           setAction2('none to transfer')
         }
+        */
 
         /* */
         if (data.data.lastQueried_followsAndMutes == 0) {
