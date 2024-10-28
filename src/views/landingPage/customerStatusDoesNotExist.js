@@ -9,10 +9,13 @@ const SubscribeButton = ({ pubkey, setData }) => {
     console.log('signUpToBrainstorm ' + pubkey)
     setShowButtonDisplay('none')
     setShowRequestSentDisplay('block')
+    const url = `https://interpretation-brainstorm.vercel.app/api/addNewCustomer?pubkey=${pubkey}&finishSetup=true`
+    /*
     const url =
       'https://calculation-brainstorm.vercel.app/api/grapevine/addNewCustomer?pubkey=' +
       pubkey +
       '&nextStep=true'
+    */
     fetch(url)
       .then((response) => response.json())
       // .then(data => setResp(response))
