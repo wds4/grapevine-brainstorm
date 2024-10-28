@@ -50,7 +50,7 @@ const CustomerStatusDoesNotExist = ({ pubkey }) => {
   const [data, setData] = useState({})
 
   if (data.success) {
-    return <CelebrateSuccessfulSignUp data={data} />
+    return <CelebrateSuccessfulSignUp data={data} pubkey={pubkey} />
   }
   return (
     <>
