@@ -1,6 +1,6 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import { cibTwitter, cibWikipedia, cilApps, cilInfo, cilSpeedometer, cilUser } from '@coreui/icons'
+import { cibTwitter, cibWikipedia, cilApps, cilBuilding, cilGlobeAlt, cilGraph, cilHome, cilInfo, cilPeople, cilSitemap, cilSpeedometer, cilUser, cilUserPlus } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
@@ -12,13 +12,19 @@ const _nav = [
     component: CNavItem,
     name: 'Landing Page',
     to: '/landingPage',
-    icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Apps under development',
-    to: '/dashboard',
-    icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
+    name: 'My Web of Trust',
+    to: '/profiles',
+    icon: <CIcon icon={cilGraph} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Worldviews',
+    to: '/worldviews',
+    icon: <CIcon icon={cilGlobeAlt} customClassName="nav-icon" />,
   },
   {
     component: CNavTitle,
@@ -32,16 +38,22 @@ const _nav = [
   },
   {
     component: CNavTitle,
-    name: 'Apps',
+    name: 'Under Development',
+  },
+  {
+    component: CNavItem,
+    name: 'Apps Homepage',
+    to: '/dashboard',
+    icon: <CIcon icon={cilSitemap} customClassName="nav-icon" />,
   },
   {
     component: CNavGroup,
-    name: 'Apps',
+    name: 'Apps Menu',
     icon: <CIcon icon={cilApps} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'App 1',
+        name: 'Grapevine',
         to: '/grapevine',
       },
       {

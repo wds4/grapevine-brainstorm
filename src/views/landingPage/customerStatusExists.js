@@ -4,16 +4,16 @@ import { CCard, CCardBody, CContainer, CRow, CCardTitle, CCol } from '@coreui/re
 const CustomerStatusExists = ({ pubkey }) => {
   return (
     <>
-      <CContainer md style={{ marginTop: '50px' }}>
+      <CContainer md>
         <CRow className="justify-content-center">
           <CCol>
             <CCard className="w-100">
               <CCardBody>
                 <center>
-                  <CCardTitle>You are a customer.</CCardTitle>
+                  <CCardTitle>Your Grapevine has been calculated.</CCardTitle>
                 </center>
-                <li>go to table</li>
-                <li>go to worldviews</li>
+                <li>click on My Web of Trust (left) to see your Grapevine and to export results into NIP-51 lists</li>
+                <li>Coming soon: Nostr Dev lists and other Worldviews</li>
               </CCardBody>
             </CCard>
           </CCol>

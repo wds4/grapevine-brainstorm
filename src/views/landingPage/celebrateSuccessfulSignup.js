@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { CContainer } from '@coreui/react'
 import Confetti from 'react-confetti'
 import { useWindowDimensions } from 'src/helpers/windowDimensions'
+import PulseLoader from 'react-spinners/PulseLoader'
 
 const CreateScorecardsTable = ({ pubkey }) => {
   const { height, width } = useWindowDimensions()
-  const confettiColorsPurple = ['#993366']
+  // const confettiColorsPurple = ['#993366']
   const confettiWind = '10'
   const [createScorecardsTableSuccess, setCreateScorecardsTableSuccess] = useState(false)
   const url = `https://calculation-brainstorm.vercel.app/api/grapevine/calculate/basicNetwork?name=default&pubkey=${pubkey}`
@@ -42,9 +43,17 @@ const CreateScorecardsTable = ({ pubkey }) => {
   }
   return (
     <CContainer>
-      <Confetti width={width} height={height} colors={confettiColorsPurple} wind={confettiWind} />
       <center>
-        <h3>... feeding Ratings into the GrapeRank calculator ...</h3>
+        <h3>
+          {' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>{' '}
+          feeding Ratings into the GrapeRank calculator{' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>
+        </h3>
         <h4>(This may take 3 or 4 min)</h4>
       </center>
     </CContainer>
@@ -83,6 +92,24 @@ const CreateRatingsTable = ({ pubkey }) => {
   }
   return (
     <CContainer>
+      <center>
+        <h3>
+          {' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>{' '}
+          interpreting raw data to create the Ratings Table{' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>
+        </h3>
+        <h4>(This may take 2 or 3 min)</h4>
+      </center>
+    </CContainer>
+  )
+}
+
+/*
       <Confetti
         width={width}
         height={height}
@@ -99,17 +126,11 @@ const CreateRatingsTable = ({ pubkey }) => {
           ctx.closePath()
         }}
       />
-      <center>
-        <h3>... interpreting raw data to create the Ratings Table ...</h3>
-        <h4>(This may take 2 or 3 min)</h4>
-      </center>
-    </CContainer>
-  )
-}
+*/
 
 const CreateDosSummary = ({ pubkey }) => {
-  const { height, width } = useWindowDimensions()
-  const confettiColorsGreen = ['#009933']
+  // const { height, width } = useWindowDimensions()
+  // const confettiColorsGreen = ['#009933']
   const [dosSuccess, setDosSuccess] = useState(false)
   const url = `https://interpretation-brainstorm.vercel.app/api/manageData/singleUser/createDosSummary?pubkey=${pubkey}`
   useEffect(() => {
@@ -139,9 +160,17 @@ const CreateDosSummary = ({ pubkey }) => {
   }
   return (
     <CContainer>
-      <Confetti width={width} height={height} colors={confettiColorsGreen} />
       <center>
-        <h3>... calculating Degrees of Separation ...</h3>
+        <h3>
+          {' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>{' '}
+          calculating Degrees of Separation{' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>
+        </h3>
         <h4>(This may take a minute or two)</h4>
       </center>
     </CContainer>

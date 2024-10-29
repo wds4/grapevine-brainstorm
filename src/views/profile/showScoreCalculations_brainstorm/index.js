@@ -4,7 +4,7 @@ import { convertInputToConfidence } from '../../../helpers/grapevine'
 
 // https://calculation-brainstorm.vercel.app/api/grapevine/showFullStoredReport?name=notSpam&pubkey=e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f
 
-const ShowScoreCalculations = ({ activeUserPubkey, pubkey }) => {
+const ShowScoreCalculations = ({ activeUserPubkey, pubkey, setInfluence, setConfidence, setDos, setAverage, setInput }) => {
   const [areScoresSet, setAreScoresSet] = useState(false)
   const [areFollowsAndMutesSet, setAreFollowsAndMutesSet] = useState(false)
 
@@ -26,6 +26,8 @@ const ShowScoreCalculations = ({ activeUserPubkey, pubkey }) => {
       console.log(`processDataAllScores: success`)
       const oPubkeyLookupByUserId = data.data.pubkeyLookupByUserId
       setPubkeyLookupByUserId(oPubkeyLookupByUserId)
+
+      // scorecards
       const oScorecards = data.data.scorecardsData.scorecards
       setScorecards(oScorecards)
       const aUserIds = Object.keys(oPubkeyLookupByUserId)
@@ -37,11 +39,20 @@ const ShowScoreCalculations = ({ activeUserPubkey, pubkey }) => {
       }
       setUserIdLookupByPubkey(oUserIdLookupByPubkey)
       setAreScoresSet(true)
-      /*
-      const oScoresLookupByPubkey = arrayToObject(data, 'PubkeyHex')
-      setScoresLookup(oScoresLookupByPubkey)
-      setScores(data)
-      */
+
+      const observeeId = oUserIdLookupByPubkey[pubkey]
+
+      // DoS
+      const oDosData = data.data.dosData.dosData
+      const oLookupIdsByDos = data.data.dosData.lookupIdsByDos
+      const aDosToCheck = Object.keys(oLookupIdsByDos)
+      for (let z = 0; z < aDosToCheck.length; z++) {
+        const dosToCheck = aDosToCheck[z]
+        const aUserIds = oLookupIdsByDos[dosToCheck]
+        if (aUserIds && aUserIds.includes(Number(observeeId))) {
+          setDos(dosToCheck)
+        }
+      }
     }
   }
 
@@ -95,15 +106,25 @@ const ShowScoreCalculations = ({ activeUserPubkey, pubkey }) => {
   let input = 0
 
   let influenceOfObservee = 0
+  let confidenceOfObservee = 0
+  let averageOfObservee = 0
+  let inputOfObservee = 0
 
   if (areScoresSet && areFollowsAndMutesSet) {
     const myUserId = Object.keys(scorecards.notSpam)[0] // workaround hack until I revamp data format
     const oRatees = scorecards.notSpam[myUserId]
     const observeeUserId = userIdLookupByPubkey[pubkey]
-    if (
-      oRatees[observeeUserId]
-    ) {
+    if (oRatees[observeeUserId]) {
       influenceOfObservee = oRatees[observeeUserId].influence
+      setInfluence(influenceOfObservee)
+      confidenceOfObservee = oRatees[observeeUserId].confidence
+      const oFoo = oRatees[observeeUserId]
+      console.log(`oFoo: ${JSON.stringify(oFoo, null, 4)}`)
+      averageOfObservee = oRatees[observeeUserId].score
+      inputOfObservee = oRatees[observeeUserId].input
+      setConfidence(confidenceOfObservee)
+      setAverage(averageOfObservee)
+      setInput(inputOfObservee)
     }
 
     console.log(`myUserId: ${myUserId}`)
@@ -156,7 +177,8 @@ const ShowScoreCalculations = ({ activeUserPubkey, pubkey }) => {
       </center>
       <div>
         <div>
-          influence score as reported by brainstorm: <span style={{ color: 'green' }}>{influenceOfObservee}</span>
+          influence score as reported by brainstorm:{' '}
+          <span style={{ color: 'green' }}>{influenceOfObservee}</span>
         </div>
       </div>
       <br />

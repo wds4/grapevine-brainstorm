@@ -16,7 +16,17 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Apps under development',
+    name: 'My Web of Trust',
+    to: '/profiles',
+    icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
+    name: 'Under Development',
+  },
+  {
+    component: CNavItem,
+    name: 'Apps',
     to: '/dashboard',
     icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
   },
