@@ -231,6 +231,10 @@ const TanstackTable = ({ defaultData }) => {
         make list
       </CButton>
       <div>
+        Create a NIP-51 list composed of the top 1000 pubkeys that are currently depicted in the
+        table, as filtered and sorted. (currently outputs to console but does not publish)
+      </div>
+      <div>
         <CFormSwitch
           onChange={(e) => toggleShowColumnsControlPanel(e)}
           label="toggle columns"

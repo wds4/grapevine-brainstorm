@@ -9,7 +9,7 @@ const TableWhenReady = ({ tableReady, tableData }) => {
   if (!tableReady)
     return (
       <div>
-        preparing table data{' '}
+        downloading data (should take about 10 seconds){' '}
         <div style={{ display: 'inline-block' }}>
           <PulseLoader />
         </div>
