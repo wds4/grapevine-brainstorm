@@ -42,11 +42,11 @@ export let edges = new DataSet([
     id: 1,
     from: 1,
     to: 1,
-    label: 'Attestations: Not Spam',
+    label: 'follows & mutes',
     selfReference: { size: 55, angle: 1.5, renderBehindTheNode: 100 },
   },
-  { id: 2, from: 1, to: 2, label: 'Attestations: Nostr Devs' },
-  { id: 3, from: 2, to: 3, label: 'Attestations: eCash Mints' },
+  { id: 2, from: 1, to: 2, label: 'NIP-51: Nostr Devs' },
+  { id: 3, from: 2, to: 3, label: 'tbd: labels? badges?' },
   {
     id: 4,
     from: 1,
@@ -57,7 +57,7 @@ export let edges = new DataSet([
       from: { enabled: true },
       to: { enabled: true },
     },
-    label: 'Attestations: eCash Mints',
+    label: 'tbd: labels? badges?',
   },
 ])
 
