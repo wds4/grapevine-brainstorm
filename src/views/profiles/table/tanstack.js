@@ -130,6 +130,7 @@ function Filter({ column, table }) {
 }
 
 const TanstackTable = ({ defaultData }) => {
+  const [numPubkeys, setNumPubkeys] = React.useState(3000)
   const [data, _setData] = React.useState(() => [...defaultData])
 
   const [columnVisibility, setColumnVisibility] = React.useState({
@@ -207,11 +208,11 @@ const TanstackTable = ({ defaultData }) => {
         'a list of nostr npubs and their associated Grapevine WoT Scores as calculated by the Tapestry Protocol',
       ],
     ]
-    const dTag = ['d', 'influenceScoresList']
-    const titleTag = ['title', 'My Grapevine Recommended']
+    const dTag = ['d', 'influenceScoresList_' + numPubkeys]
+    const titleTag = ['title', 'My Grapevine Recommended (GrapeRank ' + numPubkeys + ')']
     aTags.push(dTag)
     aTags.push(titleTag)
-    for (let x = 0; x < Math.min(aRows.length, 3000); x++) {
+    for (let x = 0; x < Math.min(aRows.length, numPubkeys); x++) {
       const oNextRow = aRows[x]
       const pk = oNextRow.original.pubkey
       const influence = oNextRow.original.influence
@@ -231,7 +232,9 @@ const TanstackTable = ({ defaultData }) => {
         make list
       </CButton>
       <div>
-        Create a NIP-51 list composed of the top 3000 pubkeys that are currently depicted in the
+        Create a NIP-51 list composed of the top
+        <input type="text" value={numPubkeys} onChange={(e) => setNumPubkeys(e.target.value)} />
+        pubkeys that are currently depicted in the
         table, as filtered and sorted. (Currently outputs to console in addition to publish;
         although most relays will not accept a list that big.)
       </div>
