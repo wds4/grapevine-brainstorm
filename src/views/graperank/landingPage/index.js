@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useActiveUser } from 'nostr-hooks'
-// import CustomerStatusDoesNotExist from './customerStatusDoesNotExist'
+import CustomerStatusDoesNotExist from './customerStatusDoesNotExist'
 // import CustomerStatusExists from './customerStatusExists'
 
 /*
@@ -11,32 +11,33 @@ const QueryCalculationApi = ({ pubkey }) => {
   const [exists, setExists] = useState('pending')
   const [data, setData] = useState({})
 
-  // const url = 'https://calculation-brainstorm.vercel.app/api/grapevine/checkCustomerStatus?pubkey=' + pubkey
+  async function fetchData(url) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      // console.log(`fetchdata qwerty: ${JSON.stringify(data)}`)
+      if (!data.success) {
+        setExists('query failed')
+      }
+      if (data.success) {
+        if (data.exists) {
+          setExists('YES')
+        }
+        if (!data.exists) {
+          setExists('NO')
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('Fetch error:', error)
+    }
+  }
+
   const url = 'https://www.graperank.tech/api/customers/queryCustomerStatus?pubkey=' + pubkey
-  useEffect(() => {
-    fetch(url)
-      .then((response) => console.log(`qwerty ${typeof response} ${JSON.stringify(response, null, 4)}`))
-      .then((data) => console.log(`qwerty2 ${typeof data}`))
-      .catch((error) => console.error(error))
-    /*
-      .then((response) => response.json())
-      // .then(data => setResp(response))
-      .then((data) => {
-        setData(data)
-        if (!data.success) {
-          setExists('query failed')
-        }
-        if (data.success) {
-          if (data.exists) {
-            setExists('YES')
-          }
-          if (!data.exists) {
-            setExists('NO')
-          }
-        }
-      })
-        */
-  }, [])
+  fetchData(url)
 
   if (exists == 'YES') {
     return (
@@ -48,7 +49,7 @@ const QueryCalculationApi = ({ pubkey }) => {
   if (exists == 'NO') {
     return (
       <>
-        <div>CustomerStatusDoesNotExist</div>
+        <CustomerStatusDoesNotExist pubkey={pubkey} />
       </>
     )
   }
