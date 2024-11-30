@@ -37,7 +37,10 @@ const QueryCalculationApi = ({ pubkey }) => {
   }
 
   const url = 'https://www.graperank.tech/api/customers/queryCustomerStatus?pubkey=' + pubkey
-  fetchData(url)
+
+  useEffect(() => {
+    fetchData(url)
+  }, [])
 
   if (exists == 'YES') {
     return (

@@ -211,7 +211,7 @@ const TanstackTable = ({ defaultData }) => {
     const titleTag = ['title', 'My Grapevine Recommended']
     aTags.push(dTag)
     aTags.push(titleTag)
-    for (let x = 0; x < Math.min(aRows.length, 1000); x++) {
+    for (let x = 0; x < Math.min(aRows.length, 3000); x++) {
       const oNextRow = aRows[x]
       const pk = oNextRow.original.pubkey
       const influence = oNextRow.original.influence
@@ -222,7 +222,7 @@ const TanstackTable = ({ defaultData }) => {
     event.tags = aTags
     signer.sign(event)
     console.log('event: ' + JSON.stringify(event, null, 4))
-    // event.publish()
+    event.publish()
   }
 
   return (
@@ -231,8 +231,9 @@ const TanstackTable = ({ defaultData }) => {
         make list
       </CButton>
       <div>
-        Create a NIP-51 list composed of the top 1000 pubkeys that are currently depicted in the
-        table, as filtered and sorted. (currently outputs to console but does not publish)
+        Create a NIP-51 list composed of the top 3000 pubkeys that are currently depicted in the
+        table, as filtered and sorted. (Currently outputs to console in addition to publish;
+        although most relays will not accept a list that big.)
       </div>
       <div>
         <CFormSwitch
