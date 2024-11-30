@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { CCard, CCardBody, CContainer, CCardTitle, CRow } from '@coreui/react'
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network'
 import { noProfilePicUrl } from 'src/const'
 
@@ -114,7 +113,7 @@ export const options = {
   groups: groups,
 }
 
-const Worldviews = () => {
+const Graphic = () => {
   const domNode = useRef(null)
 
   const [nodeInformationBox, setNodeInformationBox] = useState('')
@@ -190,97 +189,35 @@ const Worldviews = () => {
   return (
     <>
       <center>
-        <h2>Coming Soon: Worldviews</h2>
+        <h2>
+          Worldview:
+          <br />
+          Curation of Trusted eCash Mints by your Grapevine
+        </h2>
+        <br />
+        <p>Hover over a node or an edge to learn how the Grapevine curates data for you.</p>
+        <div
+          style={{
+            height: '400px',
+            width: '1000px',
+            border: '2px solid purple',
+          }}
+          ref={domNode}
+        />
+        <div
+          style={{
+            display: 'inline-block',
+            width: '1000px',
+            textAlign: 'left',
+            padding: '10px',
+            fontSize: '22px',
+          }}
+        >
+          {edgeInformationBox}
+          {nodeInformationBox}
+        </div>
       </center>
-
-      <CContainer md>
-        <CRow className="justify-content-center">
-          <div className="col-auto">
-            <CCard className="w-80">
-              <CCardBody>
-                <center>
-                  <CCardTitle>What is a Worldview?</CCardTitle>
-                </center>
-                <p>
-                  Using raw data from all over nostr and the Grapevine Web of Trust Network as a
-                  base layer, your Grapevine will curate content, facts and information for you. A
-                  Worldview provides a graphic overview of the raw data being used and how it is
-                  processed.
-                </p>
-                <p>An example Worldview is presented below.</p>
-              </CCardBody>
-            </CCard>
-          </div>
-        </CRow>
-      </CContainer>
-
-      <br />
-
-      <CContainer md>
-        <center>
-          <h3>Curation of Trusted eCash Mints by your Grapevine</h3>
-          <p>Hover over a node or an edge to learn how the Grapevine curates data for you.</p>
-          <div
-            style={{
-              height: '400px',
-              width: '1000px',
-              border: '2px solid purple',
-            }}
-            ref={domNode}
-          />
-          <div
-            style={{
-              display: 'inline-block',
-              width: '1000px',
-              textAlign: 'left',
-              padding: '10px',
-              fontSize: '22px',
-            }}
-          >
-            {edgeInformationBox}
-            {nodeInformationBox}
-          </div>
-        </center>
-      </CContainer>
-
-      <CContainer md>
-        <CRow className="justify-content-center">
-          <div className="col-auto">
-            <CCard className="w-80">
-              <CCardBody>
-                <center>
-                  <CCardTitle>How do I read a Worldview?</CCardTitle>
-                </center>
-                <p>You can read the above Worldview from left to right:</p>
-                <li>
-                  ✅ Left node: Follows and mutes are used to generate a list of Regular, "not spam"
-                  npubs. Each npub gets a <i>Grapevine WoT Score</i> between 0 (spam) and 1 (not
-                  spam), analogous in some ways to Google's PageRank score for urls. This score is
-                  used as a weight in subsequent steps.
-                </li>
-                <li>
-                  🔲 Middle node: NIP-51 lists entitled Nostr Devs will be used to curate a list of
-                  Nostr Developers. This results in a "nostr dev" score between 0 and 1, similar to
-                  the Grapevine WoT Score. This particular score is not intended to rate developer
-                  skill, quality, output, etc, but merely to distinguish "dev" from "not dev"
-                </li>
-                <li>
-                  🔲 Right node: Regular users and Nostr Developers will curate the list of Trusted
-                  eCash Mints. The thickness of the arrows indicates that we have chosen to give
-                  Nostr Developers more weight than Regular Npubs. (The relative weighting will be
-                  adjustable by you.) The source of data for this curation is as-yet undetermined,
-                  but can in principle come from anywhere: labels, badges, transactions, whatever
-                  data <i>you</i> think is most appropriate and useful.
-                </li>
-              </CCardBody>
-            </CCard>
-          </div>
-        </CRow>
-      </CContainer>
-
-      <br />
-      <br />
     </>
   )
 }
-export default Worldviews
+export default Graphic

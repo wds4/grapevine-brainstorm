@@ -6,8 +6,8 @@ import { CNavItem, CNavTitle } from '@coreui/react'
 const _nav = [
   {
     component: CNavItem,
-    name: 'App 2 Home',
-    to: '/app2',
+    name: 'GrapeRank Home',
+    to: '/graperank',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
   {
@@ -17,13 +17,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Feature A',
-    to: '/app2/featureA',
+    to: '/graperank/featureA',
     icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Feature B',
-    to: '/app2/featureB',
+    to: '/graperank/featureB',
     icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
   },
   {
@@ -33,7 +33,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'About',
-    to: '/app2/about',
+    to: '/graperank/about',
     icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
   },
 ]

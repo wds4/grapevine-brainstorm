@@ -104,7 +104,7 @@ const CheckingActiveUser = () => {
   return <QueryCustomerStatus pubkey={activeUser.pubkey} />
 }
 
-const App1Settings = () => {
+const GrapevineSettings = () => {
   return (
     <>
       <center>
@@ -115,4 +115,4 @@ const App1Settings = () => {
   )
 }
 
-export default App1Settings
+export default GrapevineSettings

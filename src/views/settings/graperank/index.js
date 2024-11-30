@@ -1,10 +1,10 @@
 import React from 'react'
 
-const App2Settings = () => {
+const GrapeRankSettings = () => {
   return (
     <>
       <center>
-        <h3>App 2 Settings</h3>
+        <h3>GrapeRank Settings</h3>
       </center>
       <div>
         <p>Lorem ipsum</p>
@@ -13,4 +13,4 @@ const App2Settings = () => {
   )
 }
 
-export default App2Settings
+export default GrapeRankSettings

@@ -35,12 +35,12 @@ const Dashboard = () => {
               className="mb-3 border-primary"
               textColor="primary"
             >
-              <CNavLink style={{ display: 'inline-block' }} href="#/app2">
+              <CNavLink style={{ display: 'inline-block' }} href="#/graperank">
                 <CCardHeader>
-                  <strong>App 2</strong>
+                  <strong>GrapeRank</strong>
                 </CCardHeader>
                 <CCardBody>
-                  <CCardText>Lorem ipsum!</CCardText>
+                  <CCardText>Refactoring the Grapevine using neo4j!</CCardText>
                 </CCardBody>
               </CNavLink>
             </CCard>

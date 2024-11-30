@@ -1,6 +1,6 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import { cibTwitter, cibWikipedia, cilApps, cilBuilding, cilGlobeAlt, cilGraph, cilHome, cilInfo, cilPeople, cilSitemap, cilSpeedometer, cilUser, cilUserPlus } from '@coreui/icons'
+import { cilApps, cilGlobeAlt, cilGraph, cilHome, cilInfo, cilSitemap } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
@@ -13,12 +13,6 @@ const _nav = [
     name: 'Landing Page',
     to: '/landingPage',
     icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'My Web of Trust',
-    to: '/profiles',
-    icon: <CIcon icon={cilGraph} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
@@ -58,8 +52,8 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: 'App 2',
-        to: '/app2',
+        name: 'GrapeRank',
+        to: '/graperank',
       },
       {
         component: CNavItem,

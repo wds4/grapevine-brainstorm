@@ -51,13 +51,13 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'App 1',
+        name: 'Grapevine',
         to: '/grapevine',
       },
       {
         component: CNavItem,
-        name: 'App 2',
-        to: '/app2',
+        name: 'GrapeRank',
+        to: '/graperank',
       },
       {
         component: CNavItem,

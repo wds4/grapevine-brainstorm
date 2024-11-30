@@ -7,14 +7,14 @@ const Settings = React.lazy(() => import('src/views/settings/index'))
 const Developer = React.lazy(() => import('src/views/settings/developer/index'))
 
 // App Settings
-const App1 = React.lazy(() => import('src/views/settings/grapevine/index'))
-const App2 = React.lazy(() => import('src/views/settings/app2/index'))
+const Grapevine = React.lazy(() => import('src/views/settings/grapevine/index'))
+const GrapeRank = React.lazy(() => import('src/views/settings/graperank/index'))
 const App3 = React.lazy(() => import('src/views/settings/app3/index'))
 
 const routes = [
   { path: '/settings', name: 'Settings', element: Settings },
-  { path: '/settings/grapevine', name: 'App 1', element: App1 },
-  { path: '/settings/app2', name: 'App 2', element: App2 },
+  { path: '/settings/grapevine', name: 'Grapevine', element: Grapevine },
+  { path: '/settings/graperank', name: 'GrapeRank', element: GrapeRank },
   { path: '/settings/app3', name: 'App 3', element: App3 },
   { path: '/settings/developer', name: 'Developer', element: Developer },
 ]

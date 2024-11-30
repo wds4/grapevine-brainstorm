@@ -19,8 +19,8 @@ import navigationDashboard from 'src/nav/_navDashboard'
 import navigationHelloWorld from 'src/nav/_navHelloWorld'
 import navigationProfile from 'src/nav/_navProfile'
 import navigationHSettings from 'src/nav/_navSettings'
-import navigationApp1 from 'src/nav/_navGrapevine'
-import navigationApp2 from 'src/nav/_navApp2'
+import navigationGrapevine from 'src/nav/_navGrapevine'
+import navigationGrapeRank from 'src/nav/_navGrapeRank'
 import navigationApp3 from 'src/nav/_navApp3'
 
 // const iconSrc = 'src/assets/brand/brainstorm010_white.svg'
@@ -41,9 +41,9 @@ function getNavigation(activeApp) {
     case 'settings':
       return navigationHSettings
     case 'grapevine':
-      return navigationApp1
-    case 'app2':
-      return navigationApp2
+      return navigationGrapevine
+    case 'graperank':
+      return navigationGrapeRank
     case 'app3':
       return navigationApp3
     default:

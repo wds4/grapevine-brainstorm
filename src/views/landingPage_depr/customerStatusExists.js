@@ -12,7 +12,10 @@ const CustomerStatusExists = ({ pubkey }) => {
                 <center>
                   <CCardTitle>Your Grapevine has been calculated.</CCardTitle>
                 </center>
-                <li>click on My Web of Trust (left) to see your Grapevine and to export results into NIP-51 lists</li>
+                <li>
+                  click on My Web of Trust (left) to see your Grapevine and to export results into
+                  NIP-51 lists
+                </li>
                 <li>Coming soon: Nostr Dev lists and other Worldviews</li>
               </CCardBody>
             </CCard>

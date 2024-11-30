@@ -2,18 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { CContainer } from '@coreui/react'
 import Confetti from 'react-confetti'
 import { useWindowDimensions } from 'src/helpers/windowDimensions'
-import PulseLoader from 'react-spinners/PulseLoader'
 
 const CreateScorecardsTable = ({ pubkey }) => {
-  const { height, width } = useWindowDimensions()
-  // const confettiColorsPurple = ['#993366']
-  const confettiWind = '10'
   const [createScorecardsTableSuccess, setCreateScorecardsTableSuccess] = useState(false)
   const url = `https://calculation-brainstorm.vercel.app/api/grapevine/calculate/basicNetwork?name=default&pubkey=${pubkey}`
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        setData(data)
         if (!data.success) {
           console.log('Interpretation failed')
         }
@@ -26,49 +23,26 @@ const CreateScorecardsTable = ({ pubkey }) => {
     return (
       <>
         <CContainer>
-          <Confetti width={width} height={height} wind={confettiWind} />
-          <center>
-            <h2>GrapeRank Calculations are complete!!</h2>
-            <p>Use the navbar on the left to:</p>
-            <li>view results in table format</li>
-            <li>export results as NIP-51 lists</li>
-            <li>
-              Worldviews: use your Grapevine to curate lists, like lists of Nostr Devs (coming
-              soon!)
-            </li>
-          </center>
+          <div>GrapeRank Calculations are complete and you are ready to view the table of results!!!</div>
         </CContainer>
       </>
     )
   }
   return (
     <CContainer>
-      <center>
-        <h3>
-          {' '}
-          <div style={{ display: 'inline-block' }}>
-            <PulseLoader />
-          </div>{' '}
-          feeding Ratings into the GrapeRank calculator{' '}
-          <div style={{ display: 'inline-block' }}>
-            <PulseLoader />
-          </div>
-        </h3>
-        <h4>(This may take 3 or 4 min)</h4>
-      </center>
+      <div>... feeding Ratings into the GrapeRank calculator ...</div>
     </CContainer>
   )
 }
 
 const CreateRatingsTable = ({ pubkey }) => {
-  const { height, width } = useWindowDimensions()
-  const confettiColorsBrown = ['#663300']
   const [createRatingsTableSuccess, setCreateRatingsTableSuccess] = useState(false)
   const url = `https://interpretation-brainstorm.vercel.app/api/requestInterpretation?req={"universalInterpretationProtocolID":"recommendedBrainstormNotBotsInterpretationProtocol","parameters":{"context":"notSpam","pubkeys":["${pubkey}"],"depth":5,"follows":{"score":1.0,"confidence":0.05},"mutes":{"score":0.0,"confidence":0.10}}}`
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        setData(data)
         if (!data.success) {
           console.log('Interpretation failed')
         }
@@ -81,10 +55,7 @@ const CreateRatingsTable = ({ pubkey }) => {
     return (
       <>
         <CContainer>
-          <center>
-            <h3>successfully created Ratings Table.</h3>
-          </center>
-          <br />
+          <div>successfully created Ratings Table.</div>
         </CContainer>
         <CreateScorecardsTable pubkey={pubkey} />
       </>
@@ -92,51 +63,19 @@ const CreateRatingsTable = ({ pubkey }) => {
   }
   return (
     <CContainer>
-      <center>
-        <h3>
-          {' '}
-          <div style={{ display: 'inline-block' }}>
-            <PulseLoader />
-          </div>{' '}
-          interpreting raw data to create the Ratings Table{' '}
-          <div style={{ display: 'inline-block' }}>
-            <PulseLoader />
-          </div>
-        </h3>
-        <h4>(This may take 2 or 3 min)</h4>
-      </center>
+      <div>... interpreting raw data to create the Ratings Table ...</div>
     </CContainer>
   )
 }
 
-/*
-      <Confetti
-        width={width}
-        height={height}
-        colors={confettiColorsBrown}
-        drawShape={(ctx) => {
-          ctx.beginPath()
-          for (let i = 0; i < 22; i++) {
-            const angle = 0.35 * i
-            const x = (0.2 + 1.5 * angle) * Math.cos(angle)
-            const y = (0.2 + 1.5 * angle) * Math.sin(angle)
-            ctx.lineTo(x, y)
-          }
-          ctx.stroke()
-          ctx.closePath()
-        }}
-      />
-*/
-
 const CreateDosSummary = ({ pubkey }) => {
-  // const { height, width } = useWindowDimensions()
-  // const confettiColorsGreen = ['#009933']
   const [dosSuccess, setDosSuccess] = useState(false)
   const url = `https://interpretation-brainstorm.vercel.app/api/manageData/singleUser/createDosSummary?pubkey=${pubkey}`
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        setData(data)
         if (!data.success) {
           console.log('DoS Summary failed')
         }
@@ -149,10 +88,7 @@ const CreateDosSummary = ({ pubkey }) => {
     return (
       <>
         <CContainer>
-          <center>
-            <h3>successfully calculated Degrees of Separation.</h3>
-          </center>
-          <br />
+          <div>successfully calculated Degrees of Separation.</div>
         </CContainer>
         <CreateRatingsTable pubkey={pubkey} />
       </>
@@ -160,43 +96,41 @@ const CreateDosSummary = ({ pubkey }) => {
   }
   return (
     <CContainer>
-      <center>
-        <h3>
-          {' '}
-          <div style={{ display: 'inline-block' }}>
-            <PulseLoader />
-          </div>{' '}
-          calculating Degrees of Separation{' '}
-          <div style={{ display: 'inline-block' }}>
-            <PulseLoader />
-          </div>
-        </h3>
-        <h4>(This may take a minute or two)</h4>
-      </center>
+      <div>... calculating Degrees of Separation ...</div>
     </CContainer>
   )
 }
 
 const CelebrateSuccessfulSignUp = ({ data, pubkey }) => {
-  if (data?.success) {
+  const { height, width } = useWindowDimensions()
+  if (data.success) {
     return (
       <CContainer>
+        <Confetti width={width} height={height} />
         <div>
           <center>
-            <h2>You are signed up to the Brainstorm: Grapevine Service.</h2>
+            <h1>SUCCESS</h1>
             <br />
-            <h2>Your Grapevine is being calculated!!!</h2>
             <br />
-            <CreateDosSummary pubkey={pubkey} />
+            <h2>You are now ready to set up your Grapevine!!!</h2>
+            <br />
+            <h3>
+              Central to the Grapevine experience is the <i>Worldview</i>, which provides the
+              high-level summary + control panel for the information that your Grapevine curates for
+              you.
+            </h3>
+            <br />
+            <h3>Refresh the page and set up your first Worldview!</h3>
           </center>
         </div>
+        <CreateDosSummary pubkey={pubkey} />
       </CContainer>
     )
   }
   return (
     <div>
       CelebrateSuccessfulSignUp; not succes??
-      <div>message from the calculation enging: {data?.message}</div>
+      <div>message from the calculation enging: {data.message}</div>
       <pre>{JSON.stringify(data, null, 4)}</pre>
     </div>
   )

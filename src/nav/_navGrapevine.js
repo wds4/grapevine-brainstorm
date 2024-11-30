@@ -11,6 +11,12 @@ const _nav = [
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
   {
+    component: CNavItem,
+    name: 'My Web of Trust',
+    to: '/profiles',
+    icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
+  },
+  {
     component: CNavTitle,
     name: 'Features',
   },

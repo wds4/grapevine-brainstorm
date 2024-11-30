@@ -22,8 +22,8 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'App2 Settings',
-    to: '/settings/app2',
+    name: 'GrapeRank Settings',
+    to: '/settings/graperank',
     icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
   },
   {

@@ -26,6 +26,10 @@ Candidate tutorials:
 - candidate: clean and simple, but no pm2? https://www.codegirl0101.dev/2024/04/deploy-nextjs-to-aws-ec2-with-github.html 
 - also uses docker and mongoDB https://www.youtube.com/watch?v=sjTdluu1yDU - next.js, EC2, github Actions
 
+Plan to use:
+- https://dev.to/j3rry320/deploy-your-nextjs-app-like-a-pro-a-step-by-step-guide-using-nginx-pm2-certbot-and-git-on-your-linux-server-3286
+
+
 2. Decide what to use as database. SQL versus other options available at AWS. May want to consider in-memory options (ElastiCache, MemoryDB) for faster performance.
 
 
