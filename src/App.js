@@ -14,10 +14,16 @@ const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 // Pages
 const Login = React.lazy(() => import('./views/login/Login'))
 
+/*
 const explicitRelayUrls = [
   'wss://purplepag.es',
   'wss://profiles.nostr1.com',
   'wss://relay.damus.io',
+  'wss://nostr21.com',
+]
+*/
+
+const explicitRelayUrls = [
   'wss://nostr21.com',
 ]
 
