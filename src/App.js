@@ -18,6 +18,7 @@ const explicitRelayUrls = [
   'wss://purplepag.es',
   'wss://profiles.nostr1.com',
   'wss://relay.damus.io',
+  'wss://nostr1.com',
 ]
 
 const customNDK = new NDK({ explicitRelayUrls })
