@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useActiveUser } from 'nostr-hooks'
 import CustomerStatusDoesNotExist from './customerStatusDoesNotExist'
-// import CustomerStatusExists from './customerStatusExists'
-
-/*
-
-*/
+import CustomerStatusExists from './customerStatusExists'
 
 const QueryCalculationApi = ({ pubkey }) => {
   const [exists, setExists] = useState('pending')
@@ -18,7 +14,7 @@ const QueryCalculationApi = ({ pubkey }) => {
         throw new Error('Network response was not ok')
       }
       const data = await response.json()
-      // console.log(`fetchdata qwerty: ${JSON.stringify(data)}`)
+      console.log(`fetchdata qwerty: ${JSON.stringify(data)}`)
       if (!data.success) {
         setExists('query failed')
       }
@@ -43,11 +39,7 @@ const QueryCalculationApi = ({ pubkey }) => {
   }, [])
 
   if (exists == 'YES') {
-    return (
-      <>
-        <div>CustomerStatusExists</div>
-      </>
-    )
+    return <CustomerStatusExists pubkey={pubkey} />
   }
   if (exists == 'NO') {
     return (
