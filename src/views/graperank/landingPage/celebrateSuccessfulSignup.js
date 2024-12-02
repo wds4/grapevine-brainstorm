@@ -50,6 +50,7 @@ const CreateDosSummary = ({ pubkey }) => {
       })
     */
   }, [])
+  return <div>FOO</div>
   if (dosSuccess) {
     return (
       <>
@@ -88,7 +89,7 @@ const CelebrateSuccessfulSignUp = ({ data, pubkey }) => {
       <CContainer>
         <div>
           <center>
-            <h2>You are signed up to the Brainstorm: Grapevine Service.</h2>
+            <h2>You are signed up to the Brainstorm: Grapevine Service (v2)</h2>
             <br />
             <CreateDosSummary pubkey={pubkey} />
             <br />
