@@ -4,6 +4,95 @@ import Confetti from 'react-confetti'
 import { useWindowDimensions } from 'src/helpers/windowDimensions'
 import PulseLoader from 'react-spinners/PulseLoader'
 
+const CalculationsAreCompleted = () => {
+  const { height, width } = useWindowDimensions()
+  // const confettiColorsPurple = ['#993366']
+  const confettiWind = '10'
+  return (
+    <>
+      <CContainer>
+        <Confetti width={width} height={height} wind={confettiWind} />
+        <center>
+          <h2>GrapeRank Calculations are complete!!</h2>
+          <p>Use the navbar on the left to:</p>
+          <li>view results in table format</li>
+          <li>export results as NIP-51 lists</li>
+          <li>
+            Worldviews: use your Grapevine to curate lists, like lists of Nostr Devs (coming soon!)
+          </li>
+        </center>
+      </CContainer>
+    </>
+  )
+}
+
+const CreatePersonalizedPageRankSummary = ({ pubkey }) => {
+  const { height, width } = useWindowDimensions()
+  // const confettiColorsGreen = ['#009933']
+  const [wotSuccess, setWotSuccess] = useState(false)
+
+  async function fetchData(url) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      console.log(`fetchData: ${JSON.stringify(data)}`)
+      if (!data.success) {
+        setExists('DoS calculations failed')
+      }
+      if (data.success) {
+        if (data.exists) {
+          setWotSuccess(true)
+        }
+        if (!data.exists) {
+          setWotSuccess(false)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/algos/personalizedPageRank/fullWoT_updateS3 endpoint error:', error)
+    }
+  }
+
+  const url = `https://www.graperank.tech/api/algos/personalizedPageRank/fullWoT_updateS3?pubkey=${pubkey}`
+  useEffect(() => {
+    fetchData(url)
+  }, [])
+  if (wotSuccess) {
+    return (
+      <>
+        <CContainer>
+          <Confetti width={width} height={height} />
+          <center>
+            <h3>successfully calculated Personalized PageRank scores.</h3>
+          </center>
+          <br />
+        </CContainer>
+        <div>Todo: next step (interp? graperank?)</div>
+      </>
+    )
+  }
+  return (
+    <CContainer>
+      <center>
+        <h3>
+          {' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>{' '}
+          calculating Personalized PageRank{' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>
+        </h3>
+        <h4>(This may take a minute or so)</h4>
+      </center>
+    </CContainer>
+  )
+}
+
 const CreateDosSummary = ({ pubkey }) => {
   // const { height, width } = useWindowDimensions()
   // const confettiColorsGreen = ['#009933']
@@ -37,18 +126,6 @@ const CreateDosSummary = ({ pubkey }) => {
   const url = `https://www.graperank.tech/api/algos/dos/fullWoT_updateS3?pubkey=${pubkey}`
   useEffect(() => {
     fetchData(url)
-    /*
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        if (!data.success) {
-          console.log('DoS Summary failed')
-        }
-        if (data.success) {
-          setDosSuccess(true)
-        }
-      })
-    */
   }, [])
   if (dosSuccess) {
     return (
@@ -59,7 +136,8 @@ const CreateDosSummary = ({ pubkey }) => {
           </center>
           <br />
         </CContainer>
-        <div>Todo: next step (personalized pagerank?)</div>
+        <br />
+        <CreatePersonalizedPageRankSummary pubkey={pubkey} />
       </>
     )
   }
