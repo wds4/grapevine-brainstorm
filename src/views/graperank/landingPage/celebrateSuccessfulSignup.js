@@ -4,6 +4,84 @@ import Confetti from 'react-confetti'
 import { useWindowDimensions } from 'src/helpers/windowDimensions'
 import PulseLoader from 'react-spinners/PulseLoader'
 
+const CreateDosSummary = ({ pubkey }) => {
+  // const { height, width } = useWindowDimensions()
+  // const confettiColorsGreen = ['#009933']
+  const [dosSuccess, setDosSuccess] = useState(false)
+
+  async function fetchData(url) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      console.log(`fetchData: ${JSON.stringify(data)}`)
+      if (!data.success) {
+        setExists('DoS calculations failed')
+      }
+      if (data.success) {
+        if (data.exists) {
+          setDosSuccess(true)
+        }
+        if (!data.exists) {
+          setDosSuccess(false)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/algos/dos/fullWoT_updateS3 endpoint error:', error)
+    }
+  }
+
+  const url = `https://www.graperank.tech/api/algos/dos/fullWoT_updateS3?pubkey=${pubkey}`
+  useEffect(() => {
+    fetchData(url)
+    /*
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data.success) {
+          console.log('DoS Summary failed')
+        }
+        if (data.success) {
+          setDosSuccess(true)
+        }
+      })
+    */
+  }, [])
+  if (dosSuccess) {
+    return (
+      <>
+        <CContainer>
+          <center>
+            <h3>successfully calculated Degrees of Separation.</h3>
+          </center>
+          <br />
+        </CContainer>
+        <div>Todo: next step (personalized pagerank?)</div>
+      </>
+    )
+  }
+  return (
+    <CContainer>
+      <center>
+        <h3>
+          {' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>{' '}
+          calculating Degrees of Separation{' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>
+        </h3>
+        <h4>(This may take a minute or two)</h4>
+      </center>
+    </CContainer>
+  )
+}
+
 const CelebrateSuccessfulSignUp = ({ data, pubkey }) => {
   if (data?.success) {
     return (
@@ -11,6 +89,8 @@ const CelebrateSuccessfulSignUp = ({ data, pubkey }) => {
         <div>
           <center>
             <h2>You are signed up to the Brainstorm: Grapevine Service.</h2>
+            <br />
+            <CreateDosSummary pubkey={pubkey} />
             <br />
             <div>Todo: calculate DoS</div>
             <div>Todo: calculate personalized PageRank</div>
