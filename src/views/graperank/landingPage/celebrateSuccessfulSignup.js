@@ -50,7 +50,6 @@ const CreateDosSummary = ({ pubkey }) => {
       })
     */
   }, [])
-  return <div>FOO</div>
   if (dosSuccess) {
     return (
       <>
