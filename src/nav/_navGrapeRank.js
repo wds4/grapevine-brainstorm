@@ -16,6 +16,12 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: 'My Webs of Trust',
+    to: '/graperank/profiles',
+    icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
     name: 'Feature A',
     to: '/graperank/featureA',
     icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
