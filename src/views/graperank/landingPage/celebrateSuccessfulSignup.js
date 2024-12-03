@@ -26,7 +26,7 @@ const CalculationsAreCompleted = () => {
   )
 }
 
-const CreatePersonalizedPageRankSummary = ({ pubkey }) => {
+const CreateCompositeWoTSummary = ({ pubkey }) => {
   const { height, width } = useWindowDimensions()
   // const confettiColorsGreen = ['#009933']
   const [wotSuccess, setWotSuccess] = useState(false)
@@ -38,7 +38,73 @@ const CreatePersonalizedPageRankSummary = ({ pubkey }) => {
         throw new Error('Network response was not ok')
       }
       const data = await response.json()
-      console.log(`fetchData: ${JSON.stringify(data)}`)
+      if (!data.success) {
+        setExists('file creation failed')
+      }
+      if (data.success) {
+        if (data.exists) {
+          setWotSuccess(true)
+        }
+        if (!data.exists) {
+          setWotSuccess(false)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/algos/combineAllWebsOfTrust/outputToS3 endpoint error:', error)
+    }
+  }
+
+  const url = `https://www.graperank.tech/api/algos/combineAllWebsOfTrust/outputToS3?pubkey=${pubkey}`
+  useEffect(() => {
+    fetchData(url)
+  }, [])
+  if (wotSuccess) {
+    return (
+      <>
+        <CContainer>
+          <Confetti width={width} height={height} />
+          <center>
+            <h3>successfully gathered data into your Composite Web of Trust file</h3>
+          </center>
+          <br />
+        </CContainer>
+        <div>TODO: calculate graperank</div>
+      </>
+    )
+  }
+  return (
+    <CContainer>
+      <center>
+        <h3>
+          {' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>{' '}
+          creating composite file of webs of trust (DoS and Personalized PageRank){' '}
+          <div style={{ display: 'inline-block' }}>
+            <PulseLoader />
+          </div>
+        </h3>
+        <h4>(This should take 20 secs; mayby up to a minute or two)</h4>
+      </center>
+    </CContainer>
+  )
+}
+
+const CreatePersonalizedPageRankSummary = ({ pubkey }) => {
+  // const { height, width } = useWindowDimensions()
+  // const confettiColorsGreen = ['#009933']
+  const [wotSuccess, setWotSuccess] = useState(false)
+
+  async function fetchData(url) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      // console.log(`fetchData: ${JSON.stringify(data)}`)
       if (!data.success) {
         setExists('DoS calculations failed')
       }
@@ -64,13 +130,12 @@ const CreatePersonalizedPageRankSummary = ({ pubkey }) => {
     return (
       <>
         <CContainer>
-          <Confetti width={width} height={height} />
           <center>
-            <h3>successfully calculated Personalized PageRank scores.</h3>
+            <h3>successfully calculated your Personalized PageRank Web of Trust</h3>
           </center>
           <br />
+          <CreateCompositeWoTSummary pubkey={pubkey} />
         </CContainer>
-        <div>Todo: next step (interp? graperank?)</div>
       </>
     )
   }
@@ -87,7 +152,7 @@ const CreatePersonalizedPageRankSummary = ({ pubkey }) => {
             <PulseLoader />
           </div>
         </h3>
-        <h4>(This may take a minute or so)</h4>
+        <h4>(This should take 20 secs; mayby up to a minute or two)</h4>
       </center>
     </CContainer>
   )
@@ -132,9 +197,8 @@ const CreateDosSummary = ({ pubkey }) => {
       <>
         <CContainer>
           <center>
-            <h3>successfully calculated Degrees of Separation.</h3>
+            <h3>successfully calculated your Degrees of Separation (DoS) Web of Trust</h3>
           </center>
-          <br />
         </CContainer>
         <br />
         <CreatePersonalizedPageRankSummary pubkey={pubkey} />
@@ -154,7 +218,7 @@ const CreateDosSummary = ({ pubkey }) => {
             <PulseLoader />
           </div>
         </h3>
-        <h4>(This may take a minute or two)</h4>
+        <h4>(This should take 25-30 secs; maybe up to a minute or two)</h4>
       </center>
     </CContainer>
   )
@@ -169,10 +233,6 @@ const CelebrateSuccessfulSignUp = ({ data, pubkey }) => {
             <h2>You are signed up to the Brainstorm: Grapevine Service (v2)</h2>
             <br />
             <CreateDosSummary pubkey={pubkey} />
-            <br />
-            <div>Todo: calculate DoS</div>
-            <div>Todo: calculate personalized PageRank</div>
-            <div>Todo: calculate personalized GrapeRank</div>
           </center>
         </div>
       </CContainer>
