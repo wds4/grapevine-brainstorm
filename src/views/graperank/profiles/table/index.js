@@ -1,7 +1,6 @@
 import { CButton, CCard, CCardBody, CContainer, CRow, CCol, CTable } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import TanstackTable from './tanstack'
-// import { oPubkeyLookup } from '../../../../const/pubkeyLookup'
 import { noProfilePicUrl } from 'src/const'
 import PulseLoader from 'react-spinners/PulseLoader'
 

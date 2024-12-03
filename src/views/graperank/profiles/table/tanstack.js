@@ -16,7 +16,7 @@ import { CButton, CFormSwitch, CNavLink } from '@coreui/react'
 import { useProfile } from 'nostr-hooks'
 import { noProfilePicUrl } from 'src/const'
 import { nip19 } from 'nostr-tools'
-import { safeNpubEncode } from '../../../helpers/nip19'
+import { safeNpubEncode } from '../../../../helpers/nip19'
 
 const columnHelper = createColumnHelper()
 
