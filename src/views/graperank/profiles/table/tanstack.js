@@ -84,13 +84,19 @@ const columns = [
   columnHelper.accessor((row) => row.influence, {
     id: 'influence',
     cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>influence</span>,
+    header: () => <span>personalized GrapeRank</span>,
+    footer: (info) => info.column.id,
+  }),
+  columnHelper.accessor((row) => row.personalizedPageRank, {
+    id: 'personalizedPageRank',
+    cell: (info) => <i>{info.getValue()}</i>,
+    header: () => <span>personalized PageRank</span>,
     footer: (info) => info.column.id,
   }),
   columnHelper.accessor((row) => row.degreeOfSeparation, {
     id: 'degreeOfSeparation',
     cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>DoS</span>,
+    header: () => <span>DoS (# hops from you by follows)</span>,
     footer: (info) => info.column.id,
   }),
 ]
@@ -140,6 +146,7 @@ const TanstackTable = ({ defaultData }) => {
     picture: true,
     displayName: true,
     influence: true,
+    personalizedPageRank: true,
     degreeOfSeparation: true,
   })
 
@@ -151,7 +158,7 @@ const TanstackTable = ({ defaultData }) => {
   const [columnResizeMode, setColumnResizeMode] = React.useState('onChange')
   const [columnResizeDirection, setColumnResizeDirection] = React.useState('ltr')
 
-  const [sorting, setSorting] = React.useState([{ id: 'influence', desc: true }])
+  const [sorting, setSorting] = React.useState([{ id: 'personalizedPageRank', desc: true }])
 
   const table = useReactTable({
     data,
@@ -216,8 +223,10 @@ const TanstackTable = ({ defaultData }) => {
       const oNextRow = aRows[x]
       const pk = oNextRow.original.pubkey
       const influence = oNextRow.original.influence
+      const personalizedPageRank = oNextRow.original.personalizedPageRank
       const degreeOfSeparation = oNextRow.original.degreeOfSeparation
-      const aNextTag = ['p', pk, degreeOfSeparation, influence]
+
+      const aNextTag = ['p', pk, degreeOfSeparation, personalizedPageRank, influence]
       aTags.push(aNextTag)
     }
     event.tags = aTags
@@ -229,14 +238,14 @@ const TanstackTable = ({ defaultData }) => {
   return (
     <>
       <CButton color="primary" onClick={() => makeNip51List()}>
-        make list
+        publish list to nostr
       </CButton>
       <div>
-        Create a NIP-51 list composed of the top
-        <input type="text" value={numPubkeys} onChange={(e) => setNumPubkeys(e.target.value)} />
-        pubkeys that are currently depicted in the
-        table, as filtered and sorted. (Currently outputs to console in addition to publish;
-        although most relays will not accept a list that big.)
+        Create a NIP-51 list composed of the top{' '}
+        <input type="text" value={numPubkeys} onChange={(e) => setNumPubkeys(e.target.value)} />{' '}
+        pubkeys that are currently depicted in the table below, as filtered and sorted. (Currently
+        outputs to console in addition to publish; although be aware, most relays will not accept a
+        list over about 800 or 900 pubkeys.)
       </div>
       <div>
         <CFormSwitch
@@ -281,10 +290,7 @@ const TanstackTable = ({ defaultData }) => {
       </div>
 
       <div>
-        <div>
-          {totalRowsPrePagination} rows displayed (core: {totalRowsCore}, filtered:{' '}
-          {totalRowsFiltered}, prePagination: {totalRowsPrePagination})
-        </div>
+        <div>{totalRowsPrePagination} rows displayed</div>
       </div>
       <div className="h-4" />
       <div style={{ direction: table.options.columnResizeDirection }}>

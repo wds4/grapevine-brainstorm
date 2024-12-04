@@ -124,4 +124,3 @@ or
 # build for production with minification
 $ yarn build
 ```
-
