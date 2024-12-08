@@ -170,7 +170,7 @@ const CreateDosSummary = ({ pubkey }) => {
         throw new Error('Network response was not ok')
       }
       const data = await response.json()
-      console.log(`fetchData: ${JSON.stringify(data)}`)
+      // console.log(`fetchData: ${JSON.stringify(data)}`)
       if (!data.success) {
         setExists('DoS calculations failed')
       }

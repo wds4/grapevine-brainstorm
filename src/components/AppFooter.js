@@ -18,10 +18,6 @@ const AppFooter = () => {
           david
         </a>
       </div>
-      <div className="me-1">
-        ={loggedInUser?.loggedIn ? 'yes' : 'no'}
-        ={loggedInUser?.pubkey}=
-      </div>
       <div className="ms-auto">
         <span className="ms-1">
           &copy; 2024{' '}

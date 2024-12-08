@@ -7,6 +7,7 @@ import ShowScoreCalculations_brainstorm from './showScoreCalculations_brainstorm
 import ShowScoreCalculations_gvEarth from './showScoreCalculations_gvRogue'
 import { nip19 } from 'nostr-tools'
 import { noProfilePicUrl } from 'src/const'
+import FollowersTable from './followersTable'
 
 const Profile = ({ activeUserPubkey }) => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -76,12 +77,12 @@ const Profile = ({ activeUserPubkey }) => {
     <>
       <CContainer>
         <CRow>
-          <CCol xs={2}>
+          <CCol sm="auto">
             <div className="profileAvatarContainer">
               <img src={profile?.image} className="profileAvatarLarge" />
             </div>
           </CCol>
-          <CCol xs={8}>
+          <CCol auto>
             <center>
               <CCardTitle>{profile?.displayName}</CCardTitle>
             </center>
@@ -89,36 +90,106 @@ const Profile = ({ activeUserPubkey }) => {
             <div>{profile?.name}</div>
             <div>{providedPubkey}</div>
             <div>{calculatedNpub}</div>
-            <div>DoS: {dos}</div>
-            <div>average: {average}</div>
-            <div>influence: {influence}</div>
-            <div>confidence: {confidence * 100} %</div>
-            <div>input: {input}</div>
           </CCol>
         </CRow>
-      </CContainer>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>DoS (v1)</div>
+          </CCol>
+          <CCol>{dos}</CCol>
+        </CRow>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>DoS (v2)</div>
+          </CCol>
+          <CCol>...</CCol>
+        </CRow>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>PageRank (v2)</div>
+          </CCol>
+          <CCol>...</CCol>
+        </CRow>
 
-      <div style={{ border: '1px solid purple', padding: '10px' }}>
-        <ShowScoreCalculations_brainstorm
-          activeUserPubkey={activeUserPubkey}
-          pubkey={providedPubkey}
-          setInfluence={setInfluence}
-          setConfidence={setConfidence}
-          setDos={setDos}
-          setAverage={setAverage}
-          setInput={setInput}
-        />
-      </div>
-      <div style={{ border: '1px solid purple', padding: '10px' }}>
-        <ShowScoreCalculations_gvEarth
-          activeUserPubkey={activeUserPubkey}
-          pubkey={providedPubkey}
-        />
-      </div>
-      <br />
-      <div>
-        <p>observee profile info:</p>
-        <pre>{JSON.stringify(profile, null, 4)}</pre>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>GrapeRank (init from DoS only):</div>
+          </CCol>
+          <CCol>influence, average, input, confidence</CCol>
+        </CRow>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>GrapeRank (one GrapeCalculation only):</div>
+          </CCol>
+          <CCol>influence, average, input, confidence</CCol>
+        </CRow>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>GrapeRank (iterate to completion)</div>
+          </CCol>
+          <CCol>influence, average, input, confidence</CCol>
+        </CRow>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>GrapeRank Verified?</div>
+          </CCol>
+          <CCol>yes vs no? green check vs (red flag? or simply unverified?)</CCol>
+        </CRow>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>Number of Followers (v2)</div>
+          </CCol>
+          <CCol>may include bots</CCol>
+        </CRow>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>Number of Verified Followers (v2)</div>
+          </CCol>
+          <CCol>...</CCol>
+        </CRow>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>GrapeRank (v1):</div>
+          </CCol>
+          <CCol>
+            influence: {influence}
+            <br />
+            average: {average}
+            <br />
+            input: {input}
+            <br />
+            confidence: {confidence * 100} %
+          </CCol>
+        </CRow>
+        <CRow>
+          <center>Followers (from neo4j)</center>
+        </CRow>
+      </CContainer>
+      <FollowersTable observer={activeUserPubkey} pubkey={providedPubkey} />
+
+      <div style={{ display: 'none' }}>
+        <div style={{ border: '1px solid purple', padding: '10px' }}>
+          <ShowScoreCalculations_brainstorm
+            activeUserPubkey={activeUserPubkey}
+            pubkey={providedPubkey}
+            setInfluence={setInfluence}
+            setConfidence={setConfidence}
+            setDos={setDos}
+            setAverage={setAverage}
+            setInput={setInput}
+          />
+        </div>
+        <div style={{ border: '1px solid purple', padding: '10px' }}>
+          <ShowScoreCalculations_gvEarth
+            activeUserPubkey={activeUserPubkey}
+            pubkey={providedPubkey}
+          />
+        </div>
+        <br />
+        <div>
+          <p>observee profile info:</p>
+          <pre>{JSON.stringify(profile, null, 4)}</pre>
+        </div>
       </div>
       <div style={{ marginBottom: '200px' }}></div>
     </>
