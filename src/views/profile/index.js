@@ -17,13 +17,71 @@ const Profile = ({ activeUserPubkey }) => {
   const [profile, setProfile] = useState({})
   const [profilePicUrl, setProfilePicUrl] = useState(noProfilePicUrl)
 
+  const [numFollowers, setNumFollowers] = useState('?')
+  const [numFollows, setNumFollows] = useState('?')
+
   const [influence, setInfluence] = useState('?')
   const [confidence, setConfidence] = useState('?')
+  const [dosBrainstorm, setDosBrainstorm] = useState('?')
   const [dos, setDos] = useState('?')
   const [average, setAverage] = useState('?')
   const [input, setInput] = useState('?')
 
   const { ndk } = useNdk()
+
+  async function fetchNumFollowers(url) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      if (data.success) {
+        if (data.exists) {
+          setNumFollowers(data.data.numFollowers)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/outwardFacing/singlePubkey/numFollowers endpoint error:', error)
+    }
+  }
+
+  async function fetchNumFollows(url) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      if (data.success) {
+        if (data.exists) {
+          setNumFollows(data.data.numFollows)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/outwardFacing/singlePubkey/numFollowers endpoint error:', error)
+    }
+  }
+
+  async function fetchDos(url) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      if (data.success) {
+        if (data.exists) {
+          setDos(data.data.dos)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/outwardFacing/singlePubkey/numFollowers endpoint error:', error)
+    }
+  }
 
   useEffect(() => {
     let internalNpub = ''
@@ -37,6 +95,12 @@ const Profile = ({ activeUserPubkey }) => {
       const pubkeyFromUrl = searchParams.get('pubkey')
       if (pubkeyFromUrl) {
         setProvidedPubkey(pubkeyFromUrl)
+        const url1 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollowers?pubkey=${pubkeyFromUrl}`
+        fetchNumFollowers(url1)
+        const url2 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollows?pubkey=${pubkeyFromUrl}`
+        fetchNumFollows(url2)
+        const url3 = `https://www.graperank.tech/api/outwardFacing/getDos?observer=${activeUserPubkey}&observee=${pubkeyFromUrl}`
+        fetchDos(url3)
         internalPubkey = pubkeyFromUrl
         const np = nip19.npubEncode(pubkeyFromUrl)
         setCalculatedNpub(np)
@@ -94,9 +158,28 @@ const Profile = ({ activeUserPubkey }) => {
         </CRow>
         <CRow>
           <CCol sm="auto">
-            <div style={{ width: '250px' }}>DoS (v1)</div>
+            <div style={{ width: '250px' }}>followers:</div>
+          </CCol>
+          <CCol>{numFollowers}</CCol>
+        </CRow>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>follows:</div>
+          </CCol>
+          <CCol>{numFollows}</CCol>
+        </CRow>
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>DoS:</div>
           </CCol>
           <CCol>{dos}</CCol>
+        </CRow>
+        <hr />
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>DoS (v1)</div>
+          </CCol>
+          <CCol>{dosBrainstorm}</CCol>
         </CRow>
         <CRow>
           <CCol sm="auto">
@@ -174,7 +257,7 @@ const Profile = ({ activeUserPubkey }) => {
             pubkey={providedPubkey}
             setInfluence={setInfluence}
             setConfidence={setConfidence}
-            setDos={setDos}
+            setDos={setDosBrainstorm}
             setAverage={setAverage}
             setInput={setInput}
           />
