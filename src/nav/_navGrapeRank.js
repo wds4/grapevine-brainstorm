@@ -1,7 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import { cilInfo, cilListFilter, cilPen, cilSpeedometer } from '@coreui/icons'
-import { CNavItem, CNavTitle } from '@coreui/react'
+import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
   {
@@ -21,16 +21,26 @@ const _nav = [
     icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
   },
   {
-    component: CNavItem,
-    name: 'Feature A',
-    to: '/graperank/featureA',
+    component: CNavGroup,
+    name: 'Scattercharts',
     icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'Feature B',
-    to: '/graperank/featureB',
-    icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'PR v GR',
+        to: '/graperank/scattercharts/pr_v_gr',
+      },
+      {
+        component: CNavItem,
+        name: 'DoS vs PR',
+        to: '/graperank/scattercharts/dos_v_pr',
+      },
+      {
+        component: CNavItem,
+        name: 'DoS vs GR',
+        to: '/graperank/scattercharts/dos_v_gr',
+      },
+    ],
   },
   {
     component: CNavTitle,

@@ -5,7 +5,7 @@ import { noProfilePicUrl } from 'src/const'
 import PulseLoader from 'react-spinners/PulseLoader'
 import { npubEncode } from 'nostr-tools/nip19'
 
-const TableWhenReady = ({ tableReady, tableData }) => {
+const TableWhenReady = ({ tableReady, tableData, tableConfig }) => {
   if (!tableReady)
     return (
       <div>
@@ -17,7 +17,7 @@ const TableWhenReady = ({ tableReady, tableData }) => {
     )
   return (
     <>
-      <TanstackTable defaultData={tableData} />
+      <TanstackTable defaultData={tableData} tableConfig={tableConfig} />
     </>
   )
 }
@@ -55,7 +55,7 @@ const DisplayDosSummary = ({ dosDataToShow }) => {
   )
 }
 
-const SingleEndpointControlPanel = ({ pubkey }) => {
+const ProfilesTable = ({ pubkey, tableConfig }) => {
   const [tableData, setTableData] = useState([])
   const [tableReady, setTableReady] = useState(false)
   const [showButtonDisplay, setShowButtonDisplay] = useState('block')
@@ -79,37 +79,41 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
       const aScores = Object.keys(oScores)
       const aScorecardsData = []
       const oDosData = {}
+      let showAll = false
+      if (tableConfig.aPubkeys.length == 0) { showAll = true }
       for (let s = 0; s < aScores.length; s++) {
         const pk = aScores[s]
-        const aScore = oScores[pk]
-        const dos = aScore[0]
-        const personalizedPageRank = aScore[1]
-        const logPersonalizedPageRank = Math.log10(personalizedPageRank)
-        const grapeRank_average = aScore[2]
-        const grapeRank_confidence = aScore[3]
-        let grapeRank_influence = grapeRank_average * grapeRank_confidence
-        if (grapeRank_average < 0) {
-          grapeRank_influence = 0
-        }
-        if (!oDosData[dos]) {
-          oDosData[dos] = 0
-        }
-        oDosData[dos]++
+        if (showAll || tableConfig.aPubkeys.includes(pk)) {
+          const aScore = oScores[pk]
+          const dos = aScore[0]
+          const personalizedPageRank = aScore[1]
+          const logPersonalizedPageRank = Math.log10(personalizedPageRank)
+          const grapeRank_average = aScore[2]
+          const grapeRank_confidence = aScore[3]
+          let grapeRank_influence = grapeRank_average * grapeRank_confidence
+          if (grapeRank_average < 0) {
+            grapeRank_influence = 0
+          }
+          if (!oDosData[dos]) {
+            oDosData[dos] = 0
+          }
+          oDosData[dos]++
 
-        const oNewEntry = {
-          id: 'id',
-          pubkey: pk,
-          npub: npubEncode(pk),
-          picture: noProfilePicUrl,
-          displayName: 'alice',
-          influence: grapeRank_influence,
-          average: grapeRank_average,
-          confidence: grapeRank_confidence,
-          personalizedPageRank: personalizedPageRank,
-          logPersonalizedPageRank: logPersonalizedPageRank,
-          degreeOfSeparation: dos,
+          const oNewEntry = {
+            id: 'id',
+            pubkey: pk,
+            npub: npubEncode(pk),
+            picture: noProfilePicUrl,
+            displayName: 'alice',
+            influence: grapeRank_influence,
+            average: grapeRank_average,
+            confidence: grapeRank_confidence,
+            personalizedPageRank: personalizedPageRank,
+            logPersonalizedPageRank: logPersonalizedPageRank,
+            degreeOfSeparation: dos,
+          }
+          aScorecardsData.push(oNewEntry)
         }
-        aScorecardsData.push(oNewEntry)
       }
       setTableData(aScorecardsData)
       setDosDataToShow(oDosData)
@@ -152,9 +156,8 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
       <CRow className="justify-content-center">
         <CCol>
           <CCard className="w-100">
-            <CCardBody>
+            <CCardBody style={{display: tableConfig.displayDosTable}}>
               <center>
-                <h3>Your WoT Networks</h3>
                 <h4>DoS WoT Network: all users connected to you by follows</h4>
                 <DisplayDosSummary dosDataToShow={dosDataToShow} />
                 <h4>
@@ -167,7 +170,7 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
                 display: 'block',
               }}
             >
-              <TableWhenReady tableReady={tableReady} tableData={tableData} />
+              <TableWhenReady tableReady={tableReady} tableData={tableData} tableConfig={tableConfig} />
             </CCardBody>
           </CCard>
         </CCol>
@@ -176,7 +179,7 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
   )
 }
 
-export default SingleEndpointControlPanel
+export default ProfilesTable
 
 /*
   const oProfilesByNpub = {}

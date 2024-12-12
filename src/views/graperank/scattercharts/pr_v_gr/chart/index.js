@@ -1,11 +1,11 @@
 import { CButton, CCard, CCardBody, CContainer, CRow, CCol, CTable } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
-import TanstackTable from './tanstack'
 import { noProfilePicUrl } from 'src/const'
 import PulseLoader from 'react-spinners/PulseLoader'
 import { npubEncode } from 'nostr-tools/nip19'
+import { Chart } from 'react-google-charts'
 
-const TableWhenReady = ({ tableReady, tableData }) => {
+const ScatterplotWhenReady = ({ tableReady, tableData }) => {
   if (!tableReady)
     return (
       <div>
@@ -15,42 +15,31 @@ const TableWhenReady = ({ tableReady, tableData }) => {
         </div>
       </div>
     )
-  return (
-    <>
-      <TanstackTable defaultData={tableData} />
-    </>
-  )
-}
-
-const DisplayDosSummary = ({ dosDataToShow }) => {
-  const items = [
-    { hops: 0, num_users: 1 },
-    { hops: 1, num_users: 5 },
-  ]
-  const columns = [
-    {
-      key: 'hops',
-      _props: { scope: 'col' },
-    },
-    {
-      key: 'num_users',
-      label: '# of users',
-      _props: { scope: 'col' },
-    },
-  ]
-  const aDataItemKeys = Object.keys(dosDataToShow)
-  const aItems = []
-  for (let x = 0; x < aDataItemKeys.length; x++) {
-    const nextKey = aDataItemKeys[x]
-    const nextVal = dosDataToShow[nextKey]
-    // console.log(`nextKey: ${nextKey}`)
-    // console.log(`nextVal: ${nextVal}`)
-    const oNextRow = { hops: nextKey, num_users: nextVal }
-    aItems.push(oNextRow)
+  const aData = []
+  aData.push(['PageRank', 'pubkey'])
+  for (let x = 1; x < Math.min(3000, tableData.length); x++) {
+    const oNextUser = tableData[x * 60]
+    const influence = oNextUser.influence
+    const pageRank = oNextUser.personalizedPageRank
+    const logPageRank = Math.log10(pageRank)
+    const dos = oNextUser.degreeOfSeparation
+    if (dos < 20) {
+      aData.push([logPageRank, influence])
+    }
   }
   return (
     <>
-      <CTable columns={columns} items={aItems} />
+      <Chart
+        chartType="ScatterChart"
+        data={aData}
+        style={{ height: '500px' }}
+        options={{
+          title: 'GrapeRank versus PageRank for determination of your Web of Trust',
+          hAxis: { title: 'log(Personalized PageRank)' },
+          vAxis: { title: 'GrapeRank (Influence)' },
+        }}
+        legendToggle
+      />
     </>
   )
 }
@@ -61,8 +50,8 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
   const [showButtonDisplay, setShowButtonDisplay] = useState('block')
   const [showRequestSentDisplay, setShowRequestSentDisplay] = useState('none')
   const [dosDataToShow, setDosDataToShow] = useState({})
-
   const processData = (data) => {
+    console.log('qwerty B')
     const success = data.success
     if (!success) {
       // display empty table
@@ -81,35 +70,34 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
       const oDosData = {}
       for (let s = 0; s < aScores.length; s++) {
         const pk = aScores[s]
-        const aScore = oScores[pk]
-        const dos = aScore[0]
-        const personalizedPageRank = aScore[1]
-        const logPersonalizedPageRank = Math.log10(personalizedPageRank)
-        const grapeRank_average = aScore[2]
-        const grapeRank_confidence = aScore[3]
-        let grapeRank_influence = grapeRank_average * grapeRank_confidence
-        if (grapeRank_average < 0) {
-          grapeRank_influence = 0
-        }
-        if (!oDosData[dos]) {
-          oDosData[dos] = 0
-        }
-        oDosData[dos]++
+        if (pk != 'undefined') {
+          const aScore = oScores[pk]
+          // console.log(`s: ${s}; oScores: ${JSON.stringify(oScores[pk])}; pk: ${pk}`)
+          const dos = aScore[0]
+          const personalizedPageRank = aScore[1]
+          const grapeRank_average = aScore[2]
+          const grapeRank_confidence = aScore[3]
+          let grapeRank_influence = grapeRank_average * grapeRank_confidence
+          if (grapeRank_influence < 0) {
+            grapeRank_influence = 0
+          }
+          if (!oDosData[dos]) {
+            oDosData[dos] = 0
+          }
+          oDosData[dos]++
 
-        const oNewEntry = {
-          id: 'id',
-          pubkey: pk,
-          npub: npubEncode(pk),
-          picture: noProfilePicUrl,
-          displayName: 'alice',
-          influence: grapeRank_influence,
-          average: grapeRank_average,
-          confidence: grapeRank_confidence,
-          personalizedPageRank: personalizedPageRank,
-          logPersonalizedPageRank: logPersonalizedPageRank,
-          degreeOfSeparation: dos,
+          const oNewEntry = {
+            id: 'id',
+            pubkey: pk,
+            npub: npubEncode(pk),
+            picture: noProfilePicUrl,
+            displayName: 'alice',
+            influence: grapeRank_influence,
+            personalizedPageRank: personalizedPageRank,
+            degreeOfSeparation: dos,
+          }
+          aScorecardsData.push(oNewEntry)
         }
-        aScorecardsData.push(oNewEntry)
       }
       setTableData(aScorecardsData)
       setDosDataToShow(oDosData)
@@ -129,9 +117,10 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
       const data = await response.json()
       // console.log(`fetchData: ${JSON.stringify(data)}`)
       if (!data.success) {
-        setExists('fetchWebsOfTrust/composite endpoint failed')
+        setExists('DoS calculations failed')
       }
       if (data.success) {
+        console.log('qwerty success')
         if (data.exists) {
           processData(data)
         }
@@ -154,20 +143,9 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
           <CCard className="w-100">
             <CCardBody>
               <center>
-                <h3>Your WoT Networks</h3>
-                <h4>DoS WoT Network: all users connected to you by follows</h4>
-                <DisplayDosSummary dosDataToShow={dosDataToShow} />
-                <h4>
-                  Grapevine WoT Network: all users with a nonzero Grapevine WoT Influence Score
-                </h4>
+                <h4>GrapeRank versus PageRank</h4>
               </center>
-            </CCardBody>
-            <CCardBody
-              style={{
-                display: 'block',
-              }}
-            >
-              <TableWhenReady tableReady={tableReady} tableData={tableData} />
+              <ScatterplotWhenReady tableReady={tableReady} tableData={tableData} />
             </CCardBody>
           </CCard>
         </CCol>

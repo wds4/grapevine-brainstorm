@@ -45,11 +45,6 @@ const DisplayDosSummary = ({dosDataToShow}) => {
     }
   }
   return <CTable columns={columns} items={items} />
-  return (
-    <div style={{ textAlign: 'left' }}>
-      <pre>{JSON.stringify(dosDataToShow, null, 4)}</pre>
-    </div>
-  )
 }
 
 const SingleEndpointControlPanel = ({ pubkey }) => {

@@ -152,7 +152,7 @@ function Filter({ column, table }) {
   )
 }
 
-const TanstackTable = ({ defaultData }) => {
+const TanstackTable = ({ defaultData, tableConfig }) => {
   const [numPubkeys, setNumPubkeys] = React.useState(3000)
   const [data, _setData] = React.useState(() => [...defaultData])
 
@@ -254,22 +254,24 @@ const TanstackTable = ({ defaultData }) => {
 
   return (
     <>
-      <CButton color="primary" onClick={() => makeNip51List()}>
-        publish list to nostr
-      </CButton>
-      <div>
-        Create a NIP-51 list composed of the top{' '}
-        <input type="text" value={numPubkeys} onChange={(e) => setNumPubkeys(e.target.value)} />{' '}
-        pubkeys that are currently depicted in the table below, as filtered and sorted. (Currently
-        outputs to console in addition to publish; although be aware, most relays will not accept a
-        list over about 800 or 900 pubkeys.)
-      </div>
-      <div>
-        <CFormSwitch
-          onChange={(e) => toggleShowColumnsControlPanel(e)}
-          label="toggle columns"
-          id="formSwitchCheckDefault"
-        />
+      <div style={{ display:tableConfig.displayPublishButton }}>
+        <CButton color="primary" onClick={() => makeNip51List()}>
+          publish list to nostr
+        </CButton>
+        <div>
+          Create a NIP-51 list composed of the top{' '}
+          <input type="text" value={numPubkeys} onChange={(e) => setNumPubkeys(e.target.value)} />{' '}
+          pubkeys that are currently depicted in the table below, as filtered and sorted. (Currently
+          outputs to console in addition to publish; although be aware, most relays will not accept a
+          list over about 800 or 900 pubkeys.)
+        </div>
+        <div>
+          <CFormSwitch
+            onChange={(e) => toggleShowColumnsControlPanel(e)}
+            label="toggle columns"
+            id="formSwitchCheckDefault"
+          />
+        </div>
       </div>
       <div className={showColsControlPanelButton}>
         <div style={{ display: 'flex', flexGrow: 'auto' }}>

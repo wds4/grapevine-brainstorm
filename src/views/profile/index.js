@@ -1,13 +1,13 @@
 import { useActiveUser, useNdk } from 'nostr-hooks'
 import React, { useState, useEffect } from 'react'
-import { CCard, CCardBody, CContainer, CCardTitle, CRow, CCol } from '@coreui/react'
+import { CCard, CCardBody, CContainer, CCardTitle, CRow, CCol, CNavLink } from '@coreui/react'
 import { useSearchParams } from 'react-router-dom'
 import { asyncFetchProfile } from 'src/helpers/ndk'
 import ShowScoreCalculations_brainstorm from './showScoreCalculations_brainstorm'
 import ShowScoreCalculations_gvEarth from './showScoreCalculations_gvRogue'
 import { nip19 } from 'nostr-tools'
 import { noProfilePicUrl } from 'src/const'
-import FollowersTable from './followersTable'
+// import FollowersTable from './followersTable'
 
 const Profile = ({ activeUserPubkey }) => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -20,12 +20,18 @@ const Profile = ({ activeUserPubkey }) => {
   const [numFollowers, setNumFollowers] = useState('?')
   const [numFollows, setNumFollows] = useState('?')
 
-  const [influence, setInfluence] = useState('?')
-  const [confidence, setConfidence] = useState('?')
   const [dosBrainstorm, setDosBrainstorm] = useState('?')
   const [dos, setDos] = useState('?')
+
+  const [influence, setInfluence] = useState('?')
+  const [confidence, setConfidence] = useState('?')
   const [average, setAverage] = useState('?')
   const [input, setInput] = useState('?')
+
+  const [influenceV1, setInfluenceV1] = useState('?')
+  const [confidenceV1, setConfidenceV1] = useState('?')
+  const [averageV1, setAverageV1] = useState('?')
+  const [inputV1, setInputV1] = useState('?')
 
   const { ndk } = useNdk()
 
@@ -83,16 +89,40 @@ const Profile = ({ activeUserPubkey }) => {
     }
   }
 
+  async function fetchGrapeRank(url) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      if (data.success) {
+        if (data.exists) {
+          setInfluence(data.data.grapeRank.influence)
+          setInput(data.data.grapeRank.input)
+          setAverage(data.data.grapeRank.average)
+          setConfidence(data.data.grapeRank.confidence)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/outwardFacing/singlePubkey/grapeRank endpoint error:', error)
+    }
+  }
+
   useEffect(() => {
     let internalNpub = ''
     let internalPubkey = ''
     function updateUserDataFromUrl() {
+      let pubkeyFromUrl = searchParams.get('pubkey')
       const npubFromUrl = searchParams.get('npub')
       if (npubFromUrl) {
         setProvidedNpub(npubFromUrl)
         internalNpub = npubFromUrl
+        const pk = nip19.decode(npubFromUrl)
+        // console.log(`pk: ${JSON.stringify(pk)}`)
+        pubkeyFromUrl = pk.data
       }
-      const pubkeyFromUrl = searchParams.get('pubkey')
       if (pubkeyFromUrl) {
         setProvidedPubkey(pubkeyFromUrl)
         const url1 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollowers?pubkey=${pubkeyFromUrl}`
@@ -101,6 +131,8 @@ const Profile = ({ activeUserPubkey }) => {
         fetchNumFollows(url2)
         const url3 = `https://www.graperank.tech/api/outwardFacing/getDos?observer=${activeUserPubkey}&observee=${pubkeyFromUrl}`
         fetchDos(url3)
+        const url4 = `https://www.graperank.tech/api/outwardFacing/getGrapeRank?observer=${activeUserPubkey}&observee=${pubkeyFromUrl}`
+        fetchGrapeRank(url4)
         internalPubkey = pubkeyFromUrl
         const np = nip19.npubEncode(pubkeyFromUrl)
         setCalculatedNpub(np)
@@ -137,6 +169,8 @@ const Profile = ({ activeUserPubkey }) => {
       </div>
     )
   }
+  const hrefFollows = `#/profile/follows?npub=${calculatedNpub}`
+  const hrefFollowers = `#/profile/followers?npub=${calculatedNpub}`
   return (
     <>
       <CContainer>
@@ -158,81 +192,34 @@ const Profile = ({ activeUserPubkey }) => {
         </CRow>
         <CRow>
           <CCol sm="auto">
-            <div style={{ width: '250px' }}>followers:</div>
+            <div style={{ width: '250px' }}>follows:</div>
           </CCol>
-          <CCol>{numFollowers}</CCol>
+          <CCol>
+            <CNavLink href={hrefFollows}>
+              {numFollows} <span style={{ color: 'grey' }}>follows</span>
+            </CNavLink>
+          </CCol>
         </CRow>
         <CRow>
           <CCol sm="auto">
-            <div style={{ width: '250px' }}>follows:</div>
+            <div style={{ width: '250px' }}>followers:</div>
           </CCol>
-          <CCol>{numFollows}</CCol>
+          <CCol>
+            <CNavLink href={hrefFollowers}>
+              {numFollowers} <span style={{ color: 'grey' }}>followers</span>
+            </CNavLink>
+          </CCol>
         </CRow>
+
         <CRow>
           <CCol sm="auto">
             <div style={{ width: '250px' }}>DoS:</div>
           </CCol>
           <CCol>{dos}</CCol>
         </CRow>
-        <hr />
         <CRow>
           <CCol sm="auto">
-            <div style={{ width: '250px' }}>DoS (v1)</div>
-          </CCol>
-          <CCol>{dosBrainstorm}</CCol>
-        </CRow>
-        <CRow>
-          <CCol sm="auto">
-            <div style={{ width: '250px' }}>DoS (v2)</div>
-          </CCol>
-          <CCol>...</CCol>
-        </CRow>
-        <CRow>
-          <CCol sm="auto">
-            <div style={{ width: '250px' }}>PageRank (v2)</div>
-          </CCol>
-          <CCol>...</CCol>
-        </CRow>
-
-        <CRow>
-          <CCol sm="auto">
-            <div style={{ width: '250px' }}>GrapeRank (init from DoS only):</div>
-          </CCol>
-          <CCol>influence, average, input, confidence</CCol>
-        </CRow>
-        <CRow>
-          <CCol sm="auto">
-            <div style={{ width: '250px' }}>GrapeRank (one GrapeCalculation only):</div>
-          </CCol>
-          <CCol>influence, average, input, confidence</CCol>
-        </CRow>
-        <CRow>
-          <CCol sm="auto">
-            <div style={{ width: '250px' }}>GrapeRank (iterate to completion)</div>
-          </CCol>
-          <CCol>influence, average, input, confidence</CCol>
-        </CRow>
-        <CRow>
-          <CCol sm="auto">
-            <div style={{ width: '250px' }}>GrapeRank Verified?</div>
-          </CCol>
-          <CCol>yes vs no? green check vs (red flag? or simply unverified?)</CCol>
-        </CRow>
-        <CRow>
-          <CCol sm="auto">
-            <div style={{ width: '250px' }}>Number of Followers (v2)</div>
-          </CCol>
-          <CCol>may include bots</CCol>
-        </CRow>
-        <CRow>
-          <CCol sm="auto">
-            <div style={{ width: '250px' }}>Number of Verified Followers (v2)</div>
-          </CCol>
-          <CCol>...</CCol>
-        </CRow>
-        <CRow>
-          <CCol sm="auto">
-            <div style={{ width: '250px' }}>GrapeRank (v1):</div>
+            <div style={{ width: '250px' }}>GrapeRank:</div>
           </CCol>
           <CCol>
             influence: {influence}
@@ -244,22 +231,32 @@ const Profile = ({ activeUserPubkey }) => {
             confidence: {confidence * 100} %
           </CCol>
         </CRow>
-        <CRow>
-          <center>Followers (from neo4j)</center>
+        <CRow style={{ display: 'none' }}>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>GrapeRank (before neo4j):</div>
+          </CCol>
+          <CCol>
+            influence: {influenceV1}
+            <br />
+            average: {averageV1}
+            <br />
+            input: {inputV1}
+            <br />
+            confidence: {confidenceV1 * 100} %
+          </CCol>
         </CRow>
       </CContainer>
-      <FollowersTable observer={activeUserPubkey} pubkey={providedPubkey} />
 
       <div style={{ display: 'none' }}>
         <div style={{ border: '1px solid purple', padding: '10px' }}>
           <ShowScoreCalculations_brainstorm
             activeUserPubkey={activeUserPubkey}
             pubkey={providedPubkey}
-            setInfluence={setInfluence}
-            setConfidence={setConfidence}
+            setInfluence={setInfluenceV1}
+            setConfidence={setConfidenceV1}
             setDos={setDosBrainstorm}
-            setAverage={setAverage}
-            setInput={setInput}
+            setAverage={setAverageV1}
+            setInput={setInputV1}
           />
         </div>
         <div style={{ border: '1px solid purple', padding: '10px' }}>
