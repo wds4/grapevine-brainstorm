@@ -9,7 +9,7 @@ const TableWhenReady = ({ tableReady, tableData, tableConfig }) => {
   if (!tableReady)
     return (
       <div>
-        downloading data (should take about 10 seconds){' '}
+        downloading data from the Brainstorm server (big file; may take up to a minute){' '}
         <div style={{ display: 'inline-block' }}>
           <PulseLoader />
         </div>

@@ -194,6 +194,7 @@ const Profile = ({ activeUserPubkey }) => {
   }
   const hrefFollows = `#/profile/follows?npub=${calculatedNpub}`
   const hrefFollowers = `#/profile/followers?npub=${calculatedNpub}`
+  const hrefMuters = `#/profile/muters?npub=${calculatedNpub}`
   return (
     <>
       <CContainer>
@@ -237,33 +238,11 @@ const Profile = ({ activeUserPubkey }) => {
 
         <CRow>
           <CCol sm="auto">
-            <div style={{ width: '250px' }}>DoS-1 followers:</div>
-          </CCol>
-          <CCol>
-            <CNavLink href={hrefFollowers}>
-              tbd <span style={{ color: 'grey' }}>DoS-1 followers</span>
-            </CNavLink>
-          </CCol>
-        </CRow>
-
-        <CRow>
-          <CCol sm="auto">
             <div style={{ width: '250px' }}>muters:</div>
           </CCol>
           <CCol>
-            <CNavLink href={hrefFollowers}>
+            <CNavLink href={hrefMuters}>
               {numMuters} <span style={{ color: 'grey' }}>muters</span>
-            </CNavLink>
-          </CCol>
-        </CRow>
-
-        <CRow>
-          <CCol sm="auto">
-            <div style={{ width: '250px' }}>grapeWeight:</div>
-          </CCol>
-          <CCol>
-            <CNavLink href={hrefFollowers}>
-              {Number(input).toFixed(2)} <span style={{ color: 'grey' }}>grapes</span>
             </CNavLink>
           </CCol>
         </CRow>
@@ -289,13 +268,6 @@ const Profile = ({ activeUserPubkey }) => {
           </CCol>
         </CRow>
 
-        <CRow>
-          <CCol sm="auto">
-            <div style={{ width: '250px' }}>PageRank:</div>
-          </CCol>
-          <CCol>tbd</CCol>
-        </CRow>
-
         <CRow style={{ display: 'none' }}>
           <CCol sm="auto">
             <div style={{ width: '250px' }}>GrapeRank (before neo4j):</div>
@@ -310,6 +282,8 @@ const Profile = ({ activeUserPubkey }) => {
             confidence: {confidenceV1 * 100} %
           </CCol>
         </CRow>
+        <br />
+        <div>(May take up to a minute to download the above WoT data points.)</div>
       </CContainer>
 
       <div style={{ display: 'none' }}>

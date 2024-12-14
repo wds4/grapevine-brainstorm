@@ -5,9 +5,9 @@ import { useSearchParams } from 'react-router-dom'
 import { nip19 } from 'nostr-tools'
 import { asyncFetchProfile } from 'src/helpers/ndk'
 
-const Follows = () => {
+const Muters = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [follows, setFollows] = useState([])
+  const [muters, setMuters] = useState([])
   const [profile, setProfile] = useState({})
   const { activeUser } = useActiveUser()
   const { ndk } = useNdk()
@@ -23,7 +23,7 @@ const Follows = () => {
   }
   pubkeyFromUrl = pubkeyFromUrl.toLowerCase()
 
-  const url = `https://www.graperank.tech/api/neo4j/getFollows/singlePubkey?pubkey=${pubkeyFromUrl}`
+  const url = `https://www.graperank.tech/api/neo4j/getMuters/singlePubkey?pubkey=${pubkeyFromUrl}`
   async function fetchData(url) {
     const obj = {}
     obj.pubkey = pubkeyFromUrl
@@ -36,14 +36,14 @@ const Follows = () => {
       }
       const data = await response.json()
       if (!data.success) {
-        setExists('getFollows endpoint failed')
+        setExists('getMuters endpoint failed')
       }
       if (data.success) {
-        setFollows(data.data.aPubkeys)
+        setMuters(data.data.aPubkeys)
       }
       return data
     } catch (error) {
-      console.error('getFollows endpoint error:', error)
+      console.error('getMuters endpoint error:', error)
     }
   }
   useEffect(() => {
@@ -51,17 +51,17 @@ const Follows = () => {
   })
 
   const tableConfig = {
-    aPubkeys: follows, // array of pubkeys; if empty, show all. Plan to include array of follows or follows
+    aPubkeys: muters, // array of pubkeys; if empty, show all. Plan to include array of muters or follows
     displayDosTable: 'none', // none, block
     displayPublishButton: 'none', // none, block
   }
   if (!activeUser) return <div>retrieving the active user pubkey ...</div>
-  if (follows.length == 0) return <div>fetching follows ... </div>
+  if (muters.length == 0) return <div>fetching muters ... </div>
   return (
     <>
       <center>
         <h4>
-          {profile?.displayName} <span style={{ color: 'grey' }}>@{profile?.name}</span>: Follows
+          {profile?.displayName} <span style={{ color: 'grey' }}>@{profile?.name}</span>: Muters
         </h4>
       </center>
       <ProfilesTable pubkey={activeUser.pubkey} tableConfig={tableConfig} />
@@ -69,4 +69,4 @@ const Follows = () => {
   )
 }
 
-export default Follows
+export default Muters
