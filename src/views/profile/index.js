@@ -195,6 +195,7 @@ const Profile = ({ activeUserPubkey }) => {
   const hrefFollows = `#/profile/follows?npub=${calculatedNpub}`
   const hrefFollowers = `#/profile/followers?npub=${calculatedNpub}`
   const hrefMuters = `#/profile/muters?npub=${calculatedNpub}`
+  const hrefShortestPath = `#/profile/shortestPath?npub=${calculatedNpub}`
   return (
     <>
       <CContainer>
@@ -251,7 +252,11 @@ const Profile = ({ activeUserPubkey }) => {
           <CCol sm="auto">
             <div style={{ width: '250px' }}>DoS:</div>
           </CCol>
-          <CCol>{dos}</CCol>
+          <CCol>
+            <CNavLink href={hrefShortestPath}>
+              {dos} hops <span style={{ color: 'grey' }}>🔥 view path of follows from you to this user</span>
+            </CNavLink>
+          </CCol>
         </CRow>
         <CRow>
           <CCol sm="auto">
