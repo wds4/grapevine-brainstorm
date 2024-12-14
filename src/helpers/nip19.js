@@ -30,6 +30,18 @@ export function safeNpubEncode(str) {
   }
 }
 
+export function safeNpubEncodeOrError(str) {
+  try {
+    const npub = nip19.npubEncode(str)
+    if (npub) {
+      return npub
+    }
+    return 'npubEncode_error'
+  } catch (e) {
+    return 'npubEncode_error'
+  }
+}
+
 export function verifyPubkeyValidity(str) {
   try {
     const npub = nip19.npubEncode(str)

@@ -20,6 +20,9 @@ const Profile = ({ activeUserPubkey }) => {
   const [numFollowers, setNumFollowers] = useState('?')
   const [numFollows, setNumFollows] = useState('?')
 
+  const [numMuters, setNumMuters] = useState('?')
+  const [numMutes, setNumMutes] = useState('?')
+
   const [dosBrainstorm, setDosBrainstorm] = useState('?')
   const [dos, setDos] = useState('?')
 
@@ -85,7 +88,7 @@ const Profile = ({ activeUserPubkey }) => {
       }
       return data
     } catch (error) {
-      console.error('api/outwardFacing/singlePubkey/numFollowers endpoint error:', error)
+      console.error('api/outwardFacing/getDos endpoint error:', error)
     }
   }
 
@@ -107,6 +110,24 @@ const Profile = ({ activeUserPubkey }) => {
       return data
     } catch (error) {
       console.error('api/outwardFacing/singlePubkey/grapeRank endpoint error:', error)
+    }
+  }
+
+  async function fetchNumMuters(url) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('fetchNumMuters: Network response was not ok')
+      }
+      const data = await response.json()
+      if (data.success) {
+        if (data.exists) {
+          setNumMuters(data.data.numMuters)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/outwardFacing/singlePubkey/numMuters endpoint error:', error)
     }
   }
 
@@ -133,6 +154,8 @@ const Profile = ({ activeUserPubkey }) => {
         fetchDos(url3)
         const url4 = `https://www.graperank.tech/api/outwardFacing/getGrapeRank?observer=${activeUserPubkey}&observee=${pubkeyFromUrl}`
         fetchGrapeRank(url4)
+        const url5 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numMuters?pubkey=${pubkeyFromUrl}`
+        fetchNumMuters(url5)
         internalPubkey = pubkeyFromUrl
         const np = nip19.npubEncode(pubkeyFromUrl)
         setCalculatedNpub(np)
@@ -200,6 +223,7 @@ const Profile = ({ activeUserPubkey }) => {
             </CNavLink>
           </CCol>
         </CRow>
+
         <CRow>
           <CCol sm="auto">
             <div style={{ width: '250px' }}>followers:</div>
@@ -207,6 +231,39 @@ const Profile = ({ activeUserPubkey }) => {
           <CCol>
             <CNavLink href={hrefFollowers}>
               {numFollowers} <span style={{ color: 'grey' }}>followers</span>
+            </CNavLink>
+          </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>DoS-1 followers:</div>
+          </CCol>
+          <CCol>
+            <CNavLink href={hrefFollowers}>
+              tbd <span style={{ color: 'grey' }}>DoS-1 followers</span>
+            </CNavLink>
+          </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>muters:</div>
+          </CCol>
+          <CCol>
+            <CNavLink href={hrefFollowers}>
+              {numMuters} <span style={{ color: 'grey' }}>muters</span>
+            </CNavLink>
+          </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>grapeWeight:</div>
+          </CCol>
+          <CCol>
+            <CNavLink href={hrefFollowers}>
+              {Number(input).toFixed(2)} <span style={{ color: 'grey' }}>grapes</span>
             </CNavLink>
           </CCol>
         </CRow>
@@ -231,6 +288,14 @@ const Profile = ({ activeUserPubkey }) => {
             confidence: {confidence * 100} %
           </CCol>
         </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>PageRank:</div>
+          </CCol>
+          <CCol>tbd</CCol>
+        </CRow>
+
         <CRow style={{ display: 'none' }}>
           <CCol sm="auto">
             <div style={{ width: '250px' }}>GrapeRank (before neo4j):</div>

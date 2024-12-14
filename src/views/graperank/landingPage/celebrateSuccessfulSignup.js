@@ -65,11 +65,11 @@ const CreateCompositeWoTSummary = ({ pubkey }) => {
         <CContainer>
           <Confetti width={width} height={height} />
           <center>
-            <h3>successfully gathered data into your Composite Web of Trust file</h3>
+            <h3>successfully gathered data into your Composite Web of Trust file.</h3>
           </center>
           <br />
         </CContainer>
-        <div>TODO: calculate graperank</div>
+        <CalculationsAreCompleted />
       </>
     )
   }

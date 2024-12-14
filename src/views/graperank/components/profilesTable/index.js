@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import TanstackTable from './tanstack'
 import { noProfilePicUrl } from 'src/const'
 import PulseLoader from 'react-spinners/PulseLoader'
-import { npubEncode } from 'nostr-tools/nip19'
+import { safeNpubEncodeOrError } from '../../../../helpers/nip19'
 
 const TableWhenReady = ({ tableReady, tableData, tableConfig }) => {
   if (!tableReady)
@@ -102,7 +102,7 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
           const oNewEntry = {
             id: 'id',
             pubkey: pk,
-            npub: npubEncode(pk),
+            npub: safeNpubEncodeOrError(pk), // npubEncode(pk)
             picture: noProfilePicUrl,
             displayName: 'alice',
             influence: grapeRank_influence,

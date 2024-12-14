@@ -6,20 +6,25 @@ import CustomerStatusExists from './customerStatusExists'
 const QueryCalculationApi = ({ pubkey }) => {
   const [exists, setExists] = useState('pending')
   const [data, setData] = useState({})
+  const [grapeRankParams, setGrapeRankParams] = useState({})
 
   async function fetchData(url) {
+    console.log(`fetchData B: `)
     try {
       const response = await fetch(url)
       if (!response.ok) {
         throw new Error('Network response was not ok')
       }
       const data = await response.json()
-      // console.log(`fetchData: ${JSON.stringify(data)}`)
+      console.log(`fetchData: ${JSON.stringify(data)}`)
       if (!data.success) {
         setExists('query failed')
       }
       if (data.success) {
         if (data.exists) {
+          const oCustomerData = data.data.oCustomerData
+          const oGrapeRankParams = oCustomerData.grapeRankParams
+          setGrapeRankParams(oGrapeRankParams)
           setExists('YES')
         }
         if (!data.exists) {
@@ -35,11 +40,12 @@ const QueryCalculationApi = ({ pubkey }) => {
   const url = 'https://www.graperank.tech/api/customers/queryCustomerStatus?pubkey=' + pubkey
 
   useEffect(() => {
+    console.log(`fetchData A: `)
     fetchData(url)
   }, [])
 
   if (exists == 'YES') {
-    return <CustomerStatusExists pubkey={pubkey} />
+    return <CustomerStatusExists pubkey={pubkey} grapeRankParams={grapeRankParams} />
   }
   if (exists == 'NO') {
     return (
