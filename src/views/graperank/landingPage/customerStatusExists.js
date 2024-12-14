@@ -4,7 +4,7 @@ import { secsToTimeAgo } from '../../../helpers'
 // import RecalculateGrapeRank from './recalculateGrapeRank'
 
 const CustomerStatusExists = ({ pubkey, grapeRankParams }) => {
-  const howLongAgo = secsToTimeAgo(grapeRankParams.whenLastImplemented)
+  const howLongAgo = secsToTimeAgo(grapeRankParams?.whenLastImplemented)
 
   return (
     <>

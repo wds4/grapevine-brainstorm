@@ -56,7 +56,7 @@ const RecalculationModule = ({ recalculating, pubkey, grapeRankParams }) => {
 }
 
 const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
-  const howLongAgo = secsToTimeAgo(grapeRankParams.whenLastImplemented)
+  const howLongAgo = secsToTimeAgo(grapeRankParams?.whenLastImplemented)
   const [recalculateButtonDisplay, setRecalculateButtonDisplay] = useState('block')
   const [recalculating, setRecalculating] = useState(0)
 
@@ -92,47 +92,47 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
   }
 
   const [attenuationFactorX, setAttenuationFactorX] = useState(
-    grapeRankParams.paramsAtLastImplementation.attenuationFactor * 100,
+    grapeRankParams?.paramsAtLastImplementation.attenuationFactor * 100,
   )
   const changeAttenuationFactorX = useCallback(async (newValue) => {
     setAttenuationFactorX(newValue)
   }, [])
 
-  const [rigorX, setRigorX] = useState(grapeRankParams.paramsAtLastImplementation.rigor * 100)
+  const [rigorX, setRigorX] = useState(grapeRankParams?.paramsAtLastImplementation.rigor * 100)
   const changeRigorX = useCallback(async (newValue) => {
     setRigorX(newValue)
   }, [])
 
   const [followConfidenceX, setFollowConfidenceX] = useState(
-    grapeRankParams.paramsAtLastImplementation.followConfidence * 100,
+    grapeRankParams?.paramsAtLastImplementation.followConfidence * 100,
   )
   const changeFollowConfidenceX = useCallback(async (newValue) => {
     setFollowConfidenceX(newValue)
   }, [])
 
   const [muteConfidenceX, setMuteConfidenceX] = useState(
-    grapeRankParams.paramsAtLastImplementation.muteConfidence * 100,
+    grapeRankParams?.paramsAtLastImplementation.muteConfidence * 100,
   )
   const changeMuteConfidenceX = useCallback(async (newValue) => {
     setMuteConfidenceX(newValue)
   }, [])
 
   const [followRating, setFollowRating] = useState(
-    grapeRankParams.paramsAtLastImplementation.followRating,
+    grapeRankParams?.paramsAtLastImplementation.followRating,
   )
   const changeFollowRating = useCallback(async (newValue) => {
     setFollowRating(newValue)
   }, [])
 
   const [muteRating, setMuteRating] = useState(
-    grapeRankParams.paramsAtLastImplementation.muteRating,
+    grapeRankParams?.paramsAtLastImplementation.muteRating,
   )
   const changeMuteRating = useCallback(async (newValue) => {
     setMuteRating(newValue)
   }, [])
 
   const [followConfidenceOfObserverX, setFollowConfidenceOfObserverX] = useState(
-    grapeRankParams.paramsAtLastImplementation.followConfidenceOfObserver * 100,
+    grapeRankParams?.paramsAtLastImplementation.followConfidenceOfObserver * 100,
   )
   const changeFollowConfidenceOfObserverX = useCallback(async (newValue) => {
     setFollowConfidenceOfObserverX(newValue)
@@ -200,7 +200,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
                       rigor:
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
-                      {grapeRankParams.paramsAtLastImplementation.rigor}
+                      {grapeRankParams?.paramsAtLastImplementation.rigor}
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>{rigorX / 100}</div>
                   </div>
@@ -216,7 +216,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
                       attenuationFactor:
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
-                      {grapeRankParams.paramsAtLastImplementation.attenuationFactor}
+                      {grapeRankParams?.paramsAtLastImplementation.attenuationFactor}
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
                       {attenuationFactorX / 100}
@@ -234,7 +234,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
                       followRating:
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
-                      {grapeRankParams.paramsAtLastImplementation.followRating}
+                      {grapeRankParams?.paramsAtLastImplementation.followRating}
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
                       <CForm>
@@ -259,7 +259,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
                       followConfidence:
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
-                      {grapeRankParams.paramsAtLastImplementation.followConfidence}
+                      {grapeRankParams?.paramsAtLastImplementation.followConfidence}
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
                       {followConfidenceX / 100}
@@ -277,7 +277,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
                       muteRating:
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
-                      {grapeRankParams.paramsAtLastImplementation.muteRating}
+                      {grapeRankParams?.paramsAtLastImplementation.muteRating}
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
                       <CForm>
@@ -301,7 +301,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
                       muteConfidence:
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
-                      {grapeRankParams.paramsAtLastImplementation.muteConfidence}
+                      {grapeRankParams?.paramsAtLastImplementation.muteConfidence}
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
                       {muteConfidenceX / 100}
@@ -319,7 +319,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
                       followConfidenceOfObserver:
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
-                      {grapeRankParams.paramsAtLastImplementation.followConfidenceOfObserver}
+                      {grapeRankParams?.paramsAtLastImplementation.followConfidenceOfObserver}
                     </div>
                     <div style={{ display: 'inline-block', width: '200px' }}>
                       {followConfidenceOfObserverX / 100}
