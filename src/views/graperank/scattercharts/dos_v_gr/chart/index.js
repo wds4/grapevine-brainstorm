@@ -140,6 +140,10 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
             <CCardBody>
               <center>
                 <h4>DoS versus GrapeRank</h4>
+                <div>
+                  DoS: Degree of Separation; the minimum # of hops (by FOLLOW) required to get from
+                  YOU to the given user
+                </div>
               </center>
               <ScatterplotWhenReady tableReady={tableReady} tableData={tableData} />
             </CCardBody>

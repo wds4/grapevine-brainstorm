@@ -1,6 +1,6 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import { cilApps, cilGlobeAlt, cilGraph, cilHome, cilInfo, cilSitemap } from '@coreui/icons'
+import { cilApps, cilChart, cilChartLine, cilGlobeAlt, cilGraph, cilHome, cilInfo, cilListFilter, cilPeople, cilSitemap } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
@@ -10,15 +10,34 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Landing Page',
-    to: '/landingPage',
-    icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
+    name: 'My Webs of Trust',
+    to: '/profiles',
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   },
   {
-    component: CNavItem,
-    name: 'My Web of Trust',
-    to: '/profiles',
-    icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
+    component: CNavGroup,
+    name: 'Scattercharts',
+    icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'GrapeRank v PageRank',
+        icon: <CIcon icon={cilChartLine} customClassName="nav-icon" />,
+        to: '/scattercharts/pr_v_gr',
+      },
+      {
+        component: CNavItem,
+        name: 'DoS vs GrapeRank',
+        icon: <CIcon icon={cilChartLine} customClassName="nav-icon" />,
+        to: '/scattercharts/dos_v_gr',
+      },
+      {
+        component: CNavItem,
+        name: 'DoS vs PageRank',
+        icon: <CIcon icon={cilChartLine} customClassName="nav-icon" />,
+        to: '/scattercharts/dos_v_pr',
+      },
+    ],
   },
   {
     component: CNavItem,

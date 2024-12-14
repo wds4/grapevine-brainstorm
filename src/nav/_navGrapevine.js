@@ -12,7 +12,7 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'My Web of Trust',
+    name: 'My Webs of Trust',
     to: '/profiles',
     icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
   },

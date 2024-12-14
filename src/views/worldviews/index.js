@@ -198,16 +198,32 @@ const Worldviews = () => {
           <div className="col-auto">
             <CCard className="w-80">
               <CCardBody>
+                <p>
+                  The Grapevine enables you and your community to curate content according to YOUR
+                  values, YOUR beliefs, and YOUR preferences. Worldviews are designed to give you an
+                  intuitive, high level overview of the process of curation and will enable you to make
+                  changes to that process. Your choices will include: what content is of interest to
+                  you? What are the sources of raw data that you deem relevant to its curation? How
+                  is that data interpreted (what are the various parameters)? Which communities do
+                  you entrust to curate which pieces of data?
+                </p>
                 <center>
-                  <CCardTitle>What is a Worldview?</CCardTitle>
+                  <CCardTitle>Mechanics of a Worldview</CCardTitle>
                 </center>
                 <p>
-                  Using raw data from all over nostr and the Grapevine Web of Trust Network as a
-                  base layer, your Grapevine will curate content, facts and information for you. A
-                  Worldview provides a graphic overview of the raw data being used and how it is
-                  processed.
+                  A Worldview is a graphical overview, like the example below, typically read from
+                  left to right, that shows the curation process from start to finish. The process
+                  begins with one or more sources of raw data, interpretation of that data into a
+                  format ready for ingestion by the GrapeRank algorithm, one or more data processing
+                  steps each of which is managed by a trusted community of your choosing, and ends
+                  with curated content, often in the form of a ranked list. If the end result of one
+                  Worldview is a trusted community, that community may be utilized by your other
+                  Worldviews.
                 </p>
-                <p>An example Worldview is presented below.</p>
+                <p>
+                  The Worldview depicted below is currently in development and is just one example
+                  of the types of content that can be curated by the Grapevine.
+                </p>
               </CCardBody>
             </CCard>
           </div>

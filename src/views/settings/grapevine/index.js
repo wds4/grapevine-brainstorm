@@ -110,6 +110,10 @@ const GrapevineSettings = () => {
       <center>
         <h3>Grapevine Settings</h3>
       </center>
+      <div>
+        This page refers to an older version of Grapevine, prior to incorporation of the neo4j graph
+        database, and is being deprecated.
+      </div>
       <CheckingActiveUser />
     </>
   )
