@@ -9,14 +9,13 @@ const QueryCalculationApi = ({ pubkey }) => {
   const [grapeRankParams, setGrapeRankParams] = useState({})
 
   async function fetchData(url) {
-    console.log(`fetchData B: `)
     try {
       const response = await fetch(url)
       if (!response.ok) {
         throw new Error('Network response was not ok')
       }
       const data = await response.json()
-      console.log(`fetchData: ${JSON.stringify(data)}`)
+      // console.log(`fetchData: ${JSON.stringify(data)}`)
       if (!data.success) {
         setExists('query failed')
       }
@@ -40,7 +39,6 @@ const QueryCalculationApi = ({ pubkey }) => {
   const url = 'https://www.graperank.tech/api/customers/queryCustomerStatus?pubkey=' + pubkey
 
   useEffect(() => {
-    console.log(`fetchData A: `)
     fetchData(url)
   }, [])
 

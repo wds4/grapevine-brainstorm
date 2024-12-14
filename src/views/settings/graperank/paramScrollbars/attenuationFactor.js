@@ -32,7 +32,7 @@ const AttenuationFactor = ({ attenuationFactorX, changeAttenuationFactorX }) => 
           <CCardBody>
             <CFormLabel htmlFor="scoreScrollbar">
               <strong>Attenuation Factor</strong>{' '}
-              <small>range: from 0 (most conservative) to 100 (most trusting)</small>
+              <small>range: from 0 (most conservative) to 1 (most lax)</small>
             </CFormLabel>
             <CCardTitle>{attenuationFactorX/100}</CCardTitle>
             <CFormRange

@@ -125,7 +125,6 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
   const url = `https://graperank.tech/api/s3/fetchWebsOfTrust/composite?pubkey=${pubkey}`
   async function fetchData(url) {
     try {
-      console.log(`qwerty ${url}`)
       const response = await fetch(url)
       if (!response.ok) {
         throw new Error('Network response was not ok')
@@ -147,7 +146,6 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
   }
 
   useEffect(() => {
-    console.log('hello')
     fetchData(url)
   }, [])
 

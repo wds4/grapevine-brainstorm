@@ -12,16 +12,16 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilInfo } from '@coreui/icons'
 
-const MuteConfidence = ({ muteConfidenceX, changeMuteConfidenceX }) => {
+const FollowConfidenceOfObserver = ({ followConfidenceOfObserverX, changeFollowConfidenceOfObserverX }) => {
   return (
     <>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Mute Confidence</strong>
+            <strong>Follow ConfidenceOfObserver</strong>
             <span style={{ color: 'grey', marginLeft: '5px' }}>
               <CPopover
-                content="How confident are you in your interpretation of a mute, i.e. that the rating that you ascribe to a mute is the 'correct' one."
+                content="How confident are you in your interpretation of a follow, i.e. that the rating that you ascribe to a follow is the 'correct' one."
                 placement="top"
                 trigger={['hover', 'focus']}
               >
@@ -31,16 +31,16 @@ const MuteConfidence = ({ muteConfidenceX, changeMuteConfidenceX }) => {
           </CCardHeader>
           <CCardBody>
             <CFormLabel htmlFor="scoreScrollbar">
-              <strong>Mute Confidence</strong>{' '}
+              <strong>Follow ConfidenceOfObserver</strong>{' '}
               <small>range: from 0% (most lax) to 100% (most paranoid)</small>
             </CFormLabel>
-            <CCardTitle>{muteConfidenceX/100}</CCardTitle>
+            <CCardTitle>{followConfidenceOfObserverX/100}</CCardTitle>
             <CFormRange
-              onChange={(e) => changeMuteConfidenceX(e.target.value)}
+              onChange={(e) => changeFollowConfidenceOfObserverX(e.target.value)}
               min={0}
               max={100}
               step={1}
-              value={muteConfidenceX}
+              value={followConfidenceOfObserverX}
               id="scoreScrollbar"
             />
           </CCardBody>
@@ -50,4 +50,4 @@ const MuteConfidence = ({ muteConfidenceX, changeMuteConfidenceX }) => {
   )
 }
 
-export default MuteConfidence
+export default FollowConfidenceOfObserver

@@ -51,7 +51,6 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
   const [showRequestSentDisplay, setShowRequestSentDisplay] = useState('none')
   const [dosDataToShow, setDosDataToShow] = useState({})
   const processData = (data) => {
-    console.log('qwerty B')
     const success = data.success
     if (!success) {
       // display empty table
@@ -109,7 +108,6 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
   const url = `https://graperank.tech/api/s3/fetchWebsOfTrust/composite?pubkey=${pubkey}`
   async function fetchData(url) {
     try {
-      console.log(`qwerty ${url}`)
       const response = await fetch(url)
       if (!response.ok) {
         throw new Error('Network response was not ok')
@@ -120,7 +118,6 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
         setExists('DoS calculations failed')
       }
       if (data.success) {
-        console.log('qwerty success')
         if (data.exists) {
           processData(data)
         }
@@ -132,7 +129,6 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
   }
 
   useEffect(() => {
-    console.log('hello')
     fetchData(url)
   }, [])
 

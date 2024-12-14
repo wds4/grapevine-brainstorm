@@ -30,7 +30,6 @@ const Followers = () => {
     const oProfile = await asyncFetchProfile(ndk, obj)
     setProfile(oProfile)
     try {
-      console.log(`qwerty ${url}`)
       const response = await fetch(url)
       if (!response.ok) {
         throw new Error('Network response was not ok')

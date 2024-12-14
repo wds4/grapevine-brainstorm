@@ -69,7 +69,6 @@ const SingleEndpointControlPanel = ({ observer, pubkey }) => {
   console.log(url)
   async function fetchData(url) {
     try {
-      console.log(`qwerty ${url}`)
       const response = await fetch(url)
       if (!response.ok) {
         throw new Error('Network response was not ok')
@@ -80,7 +79,6 @@ const SingleEndpointControlPanel = ({ observer, pubkey }) => {
         setExists('DoS calculations failed')
       }
       if (data.success) {
-        console.log('qwerty success')
         if (data.exists) {
           processData(data)
         }
@@ -92,7 +90,6 @@ const SingleEndpointControlPanel = ({ observer, pubkey }) => {
   }
 
   useEffect(() => {
-    console.log('hello')
     fetchData(url)
   }, [])
 

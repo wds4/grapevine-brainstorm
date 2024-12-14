@@ -32,7 +32,7 @@ const FollowConfidence = ({ followConfidenceX, changeFollowConfidenceX }) => {
           <CCardBody>
             <CFormLabel htmlFor="scoreScrollbar">
               <strong>Follow Confidence</strong>{' '}
-              <small>range: from 0 (most conservative) to 100 (most trusting)</small>
+              <small>range: from 0% (most conservative) to 100% (most trusting)</small>
             </CFormLabel>
             <CCardTitle>{followConfidenceX/100}</CCardTitle>
             <CFormRange

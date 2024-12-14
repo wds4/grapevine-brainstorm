@@ -225,8 +225,6 @@ const CreatePersonalizedPageRankSummary = ({ pubkey }) => {
 }
 
 const CreateDosSummary = ({ pubkey }) => {
-  // const { height, width } = useWindowDimensions()
-  // const confettiColorsGreen = ['#009933']
   const [dosSuccess, setDosSuccess] = useState(false)
 
   async function fetchData(url) {
