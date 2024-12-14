@@ -27,6 +27,7 @@ import {
 
 import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
+import IsNeo4jServerUp from './isNeo4jServerUp'
 
 const AppHeader = () => {
   const headerRef = useRef()
@@ -59,6 +60,11 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-auto">
+          <CNavItem>
+            <CNavLink >
+              <IsNeo4jServerUp />
+            </CNavLink>
+          </CNavItem>
           <CNavItem>
             <CNavLink href="#/search">
               <CIcon
