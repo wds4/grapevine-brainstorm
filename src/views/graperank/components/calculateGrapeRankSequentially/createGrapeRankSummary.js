@@ -46,6 +46,15 @@ const CreateGrapeRankSummary = ({ pubkey, grapeRankParams }) => {
   if (grapeRankParams.muteConfidence) {
     url += `&muteConfidence=${grapeRankParams.muteConfidence}`
   }
+  if (grapeRankParams.followRating) {
+    url += `&followRating=${grapeRankParams.followRating}`
+  }
+  if (grapeRankParams.muteRating) {
+    url += `&muteRating=${grapeRankParams.muteRating}`
+  }
+  if (grapeRankParams.followConfidenceOfObserver) {
+    url += `&followConfidenceOfObserver=${grapeRankParams.followConfidenceOfObserver}`
+  }
   useEffect(() => {
     fetchData(url)
   }, [])
