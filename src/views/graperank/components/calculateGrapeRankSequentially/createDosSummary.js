@@ -63,9 +63,6 @@ const CreateDosSummary = ({ pubkey, grapeRankParams }) => {
         </h3>
         <h4>(This should take 25-30 secs; maybe up to a minute or two)</h4>
       </center>
-      <pre>
-        {JSON.stringify(grapeRankParams, null, 4)}
-      </pre>
     </CContainer>
   )
 }

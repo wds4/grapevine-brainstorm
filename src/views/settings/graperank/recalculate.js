@@ -42,6 +42,7 @@ const ThreeModes = ({ resetParamsByMode }) => {
     </>
   )
 }
+
 const RecalculationModule = ({ recalculating, pubkey, grapeRankParams }) => {
   if (recalculating == 0) {
     return <></>
@@ -56,6 +57,8 @@ const RecalculationModule = ({ recalculating, pubkey, grapeRankParams }) => {
 }
 
 const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
+  // console.log(`RecalculateGrapeRank`)
+  // console.log(grapeRankParams)
   const howLongAgo = secsToTimeAgo(grapeRankParams?.whenLastImplemented)
   const [recalculateButtonDisplay, setRecalculateButtonDisplay] = useState('block')
   const [recalculating, setRecalculating] = useState(0)
