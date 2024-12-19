@@ -157,6 +157,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
     followConfidenceOfObserver: followConfidenceOfObserverX / 100,
   }
 
+  /*
   let url = `https://www.graperank.tech/api/algos/grapeRank?pubkey=${pubkey}`
   if (newGrapeRankParams.attenuationFactor) {
     url += `&attenuationFactor=${newGrapeRankParams.attenuationFactor}`
@@ -179,6 +180,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
   if (newGrapeRankParams.followConfidenceOfObserver) {
     url += `&followConfidenceOfObserver=${newGrapeRankParams.followConfidenceOfObserver}`
   }
+  */
 
   return (
     <>
@@ -192,7 +194,6 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
                   <div>Your Grapevine was last calculated {howLongAgo}, using parameters:</div>
                 </center>
                 <br />
-                <div>url: {url}</div>
                 <div style={{ marginLeft: '50px' }}>
                   <div>
                     <div style={{ display: 'inline-block', width: '300px' }}></div>
