@@ -123,16 +123,16 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
   const [followRating, setFollowRating] = useState(
     grapeRankParams?.paramsAtLastImplementation.followRating,
   )
-  const changeFollowRating = useCallback(async (newValue) => {
-    setFollowRating(newValue)
-  }, [])
+  const changeFollowRating = (newValue) => {
+    setFollowRating(newValue.target.value)
+  }
 
   const [muteRating, setMuteRating] = useState(
     grapeRankParams?.paramsAtLastImplementation.muteRating,
   )
-  const changeMuteRating = useCallback(async (newValue) => {
-    setMuteRating(newValue)
-  }, [])
+  const changeMuteRating = (newValue) => {
+    setMuteRating(newValue.target.value)
+  }
 
   const [followConfidenceOfObserverX, setFollowConfidenceOfObserverX] = useState(
     grapeRankParams?.paramsAtLastImplementation.followConfidenceOfObserver * 100,
@@ -152,9 +152,32 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
     rigor: rigorX / 100,
     followConfidence: followConfidenceX / 100,
     muteConfidence: muteConfidenceX / 100,
-    followRating,
-    muteRating,
+    followRating: followRating,
+    muteRating: muteRating,
     followConfidenceOfObserver: followConfidenceOfObserverX / 100,
+  }
+
+  let url = `https://www.graperank.tech/api/algos/grapeRank?pubkey=${pubkey}`
+  if (newGrapeRankParams.attenuationFactor) {
+    url += `&attenuationFactor=${newGrapeRankParams.attenuationFactor}`
+  }
+  if (newGrapeRankParams.rigor) {
+    url += `&rigor=${newGrapeRankParams.rigor}`
+  }
+  if (newGrapeRankParams.followConfidence) {
+    url += `&followConfidence=${newGrapeRankParams.followConfidence}`
+  }
+  if (newGrapeRankParams.muteConfidence) {
+    url += `&muteConfidence=${newGrapeRankParams.muteConfidence}`
+  }
+  if (newGrapeRankParams.followRating) {
+    url += `&followRating=${newGrapeRankParams.followRating}`
+  }
+  if (newGrapeRankParams.muteRating) {
+    url += `&muteRating=${newGrapeRankParams.muteRating}`
+  }
+  if (newGrapeRankParams.followConfidenceOfObserver) {
+    url += `&followConfidenceOfObserver=${newGrapeRankParams.followConfidenceOfObserver}`
   }
 
   return (
@@ -169,6 +192,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
                   <div>Your Grapevine was last calculated {howLongAgo}, using parameters:</div>
                 </center>
                 <br />
+                <div>url: {url}</div>
                 <div style={{ marginLeft: '50px' }}>
                   <div>
                     <div style={{ display: 'inline-block', width: '300px' }}></div>
@@ -244,7 +268,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
                         <CFormInput
                           type="number"
                           placeholder={followRating}
-                          onChange={changeFollowRating}
+                          onChange={(value) => changeFollowRating(value)}
                         />
                       </CForm>
                     </div>

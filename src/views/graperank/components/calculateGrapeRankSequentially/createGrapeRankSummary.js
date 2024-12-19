@@ -55,6 +55,7 @@ const CreateGrapeRankSummary = ({ pubkey, grapeRankParams }) => {
   if (grapeRankParams.followConfidenceOfObserver) {
     url += `&followConfidenceOfObserver=${grapeRankParams.followConfidenceOfObserver}`
   }
+  console.log(`qwerty url: ${url}`)
   useEffect(() => {
     fetchData(url)
   }, [])
