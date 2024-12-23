@@ -80,6 +80,13 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
           if (grapeRank_influence < 0) {
             grapeRank_influence = 0
           }
+          if (grapeRank_average < 0) {
+            grapeRank_influence = 0
+          }
+          if (dos == 999) {
+            grapeRank_influence = 0
+          }
+
           if (!oDosData[dos]) {
             oDosData[dos] = 0
           }

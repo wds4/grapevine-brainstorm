@@ -31,6 +31,8 @@ const Profile = ({ activeUserPubkey }) => {
   const [average, setAverage] = useState('?')
   const [input, setInput] = useState('?')
 
+  const [pagerank, setPagerank] = useState('?')
+
   const [influenceV1, setInfluenceV1] = useState('?')
   const [confidenceV1, setConfidenceV1] = useState('?')
   const [averageV1, setAverageV1] = useState('?')
@@ -254,10 +256,12 @@ const Profile = ({ activeUserPubkey }) => {
           </CCol>
           <CCol>
             <CNavLink href={hrefShortestPath}>
-              {dos} hops <span style={{ color: 'grey' }}>🔥 view path of follows from you to this user</span>
+              {dos} hops{' '}
+              <span style={{ color: 'grey' }}>🔥 view path of follows from you to this user</span>
             </CNavLink>
           </CCol>
         </CRow>
+
         <CRow>
           <CCol sm="auto">
             <div style={{ width: '250px' }}>GrapeRank:</div>
@@ -267,10 +271,17 @@ const Profile = ({ activeUserPubkey }) => {
             <br />
             average: {average}
             <br />
-            input: {input}
+            WEIGHT: {input}
             <br />
             confidence: {confidence * 100} %
           </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>pageRank:</div>
+          </CCol>
+          <CCol>{pagerank}</CCol>
         </CRow>
 
         <CRow style={{ display: 'none' }}>

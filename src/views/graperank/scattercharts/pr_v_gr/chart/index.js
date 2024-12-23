@@ -80,10 +80,20 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
           if (grapeRank_influence < 0) {
             grapeRank_influence = 0
           }
+          if (grapeRank_average < 0) {
+            grapeRank_influence = 0
+          }
+          if (dos == 999) {
+            grapeRank_influence = 0
+          }
           if (!oDosData[dos]) {
             oDosData[dos] = 0
           }
           oDosData[dos]++
+
+          if ((grapeRank_influence > 0.8) && (Math.log10(personalizedPageRank) < -6)) {
+            console.log(`qwerty pk: ${pk}; average: ${grapeRank_average}; confidence: ${grapeRank_confidence}; influence: ${grapeRank_influence}`)
+          }
 
           const oNewEntry = {
             id: 'id',
