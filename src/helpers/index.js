@@ -96,7 +96,11 @@ export const secsToTimeAgo = (secs) => {
       displayTime = `${ageHours} hour`
     }
     const residualMinutes = ageMins - 60 * ageHours
-    displayTime += `, ${residualMinutes}`
+    if (residualMinutes == 1) {
+      displayTime += `, ${residualMinutes} minute`
+    } else {
+      displayTime += `, ${residualMinutes} minutes`
+    }
     discoveredUnit = true
   }
   if (!discoveredUnit && ageSecs < 365 * 24 * 60 * 60) {
