@@ -80,7 +80,9 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
       const aScorecardsData = []
       const oDosData = {}
       let showAll = false
-      if (tableConfig.aPubkeys.length == 0) { showAll = true }
+      if (tableConfig.aPubkeys.length == 0) {
+        showAll = true
+      }
       for (let s = 0; s < aScores.length; s++) {
         const pk = aScores[s]
         if (showAll || tableConfig.aPubkeys.includes(pk)) {
@@ -105,10 +107,10 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
             npub: safeNpubEncodeOrError(pk), // npubEncode(pk)
             picture: noProfilePicUrl,
             displayName: 'alice',
-            influence: grapeRank_influence,
+            influence: Number(grapeRank_influence.toPrecision(3)),
             average: grapeRank_average,
             confidence: grapeRank_confidence,
-            personalizedPageRank: personalizedPageRank,
+            personalizedPageRank: Number(personalizedPageRank.toPrecision(3)),
             logPersonalizedPageRank: logPersonalizedPageRank,
             degreeOfSeparation: dos,
           }
@@ -151,27 +153,32 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
 
   return (
     <CContainer md>
+      <center>
+        <h4>Your Webs of Trust</h4>
+      </center>
       <CRow className="justify-content-center">
-        <CCol>
-          <CCard className="w-100">
-            <CCardBody style={{display: tableConfig.displayDosTable}}>
-              <center>
-                <h4>DoS WoT Network: all users connected to you by follows</h4>
-                <DisplayDosSummary dosDataToShow={dosDataToShow} />
-                <h4>
-                  Grapevine WoT Network: all users with a nonzero Grapevine WoT Influence Score
-                </h4>
-              </center>
-            </CCardBody>
-            <CCardBody
-              style={{
-                display: 'block',
-              }}
-            >
-              <TableWhenReady tableReady={tableReady} tableData={tableData} tableConfig={tableConfig} />
-            </CCardBody>
-          </CCard>
-        </CCol>
+        <CCard className="w-100">
+          <CCardBody
+            style={{
+              display: 'block',
+            }}
+          >
+            <TableWhenReady
+              tableReady={tableReady}
+              tableData={tableData}
+              tableConfig={tableConfig}
+            />
+          </CCardBody>
+        </CCard>
+        <br />
+        <CCard className="w-100">
+          <CCardBody style={{ display: tableConfig.displayDosTable }}>
+            <center>
+              <h4>Your Follows Network</h4>
+              <DisplayDosSummary dosDataToShow={dosDataToShow} />
+            </center>
+          </CCardBody>
+        </CCard>
       </CRow>
     </CContainer>
   )

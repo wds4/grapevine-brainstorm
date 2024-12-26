@@ -10,6 +10,7 @@ const _nav = [
     to: '/settings',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
+  /*
   {
     component: CNavTitle,
     name: 'Apps',
@@ -32,6 +33,7 @@ const _nav = [
     to: '/settings/app3',
     icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
   },
+  */
   {
     component: CNavTitle,
     name: 'Technical',

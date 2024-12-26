@@ -69,39 +69,59 @@ const columns = [
   columnHelper.accessor((row) => row.pubkey, {
     id: 'picture',
     cell: (info) => <ProfileImageCell pubkey={info.getValue()} />,
-    header: () => <span>picture</span>,
+    header: () => (
+      <span>
+        <center>pic</center>
+      </span>
+    ),
     footer: (info) => info.column.id,
     enableColumnFilter: false,
   }),
   columnHelper.accessor((row) => row.pubkey, {
     id: 'displayName',
     cell: (info) => <ProfileDisplayName pubkey={info.getValue()} />,
-    header: () => <span>displayName</span>,
+    header: () => (
+      <span>
+        <center>display name</center>
+      </span>
+    ),
     footer: (info) => info.column.id,
     enableColumnFilter: false,
   }),
   columnHelper.accessor((row) => row.influence, {
     id: 'influence',
     cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>GrapeRank: Influence</span>,
+    header: () => (
+      <span>
+        <center>GrapeRank</center>
+      </span>
+    ),
     footer: (info) => info.column.id,
   }),
   columnHelper.accessor((row) => row.personalizedPageRank, {
     id: 'personalizedPageRank',
     cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>personalized PageRank</span>,
+    header: () => (
+      <span>
+        <center>PageRank</center>
+      </span>
+    ),
     footer: (info) => info.column.id,
   }),
   columnHelper.accessor((row) => row.degreeOfSeparation, {
     id: 'degreeOfSeparation',
     cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>DoS (# hops from you by follows)</span>,
+    header: () => (
+      <span>
+        <center>hops</center>
+      </span>
+    ),
     footer: (info) => info.column.id,
   }),
   columnHelper.accessor((row) => row.logPersonalizedPageRank, {
     id: 'logPersonalizedPageRank',
     cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>log personalized PageRank</span>,
+    header: () => <span>log PageRank</span>,
     footer: (info) => info.column.id,
   }),
   columnHelper.accessor((row) => row.average, {
@@ -165,6 +185,9 @@ const TanstackTable = ({ defaultData, tableConfig }) => {
     influence: true,
     personalizedPageRank: true,
     degreeOfSeparation: true,
+    logPersonalizedPageRank: false,
+    average: false,
+    confidence: false,
   })
 
   const [pagination, setPagination] = React.useState({
@@ -254,24 +277,12 @@ const TanstackTable = ({ defaultData, tableConfig }) => {
 
   return (
     <>
-      <div style={{ display:tableConfig.displayPublishButton }}>
-        <CButton color="primary" onClick={() => makeNip51List()}>
-          publish list to nostr
-        </CButton>
-        <div>
-          Create a NIP-51 list composed of the top{' '}
-          <input type="text" value={numPubkeys} onChange={(e) => setNumPubkeys(e.target.value)} />{' '}
-          pubkeys that are currently depicted in the table below, as filtered and sorted. (Currently
-          outputs to console in addition to publish; although be aware, most relays will not accept a
-          list over about 800 or 900 pubkeys.)
-        </div>
-        <div>
-          <CFormSwitch
-            onChange={(e) => toggleShowColumnsControlPanel(e)}
-            label="toggle columns"
-            id="formSwitchCheckDefault"
-          />
-        </div>
+      <div>
+        <CFormSwitch
+          onChange={(e) => toggleShowColumnsControlPanel(e)}
+          label="toggle columns"
+          id="formSwitchCheckDefault"
+        />
       </div>
       <div className={showColsControlPanelButton}>
         <div style={{ display: 'flex', flexGrow: 'auto' }}>
@@ -461,6 +472,18 @@ const TanstackTable = ({ defaultData, tableConfig }) => {
             </option>
           ))}
         </select>
+      </div>
+      <div style={{ display: tableConfig.displayPublishButton }}>
+        <CButton color="primary" onClick={() => makeNip51List()}>
+          publish list to nostr!
+        </CButton>
+        <div>
+          Create a NIP-51 list composed of the top{' '}
+          <input type="text" value={numPubkeys} onChange={(e) => setNumPubkeys(e.target.value)} />{' '}
+          pubkeys that are currently depicted in the table below, as filtered and sorted. (Currently
+          outputs to console in addition to publish; although be aware, most relays will not accept
+          a list over about 800 or 900 pubkeys.)
+        </div>
       </div>
     </>
   )

@@ -58,8 +58,8 @@ const CustomerStatusExists = ({ pubkey, grapeRankParams }) => {
   }
   return (
     <>
-      <Unsubscribe pubkey={pubkey} setData={setData} />
       <RecalculateGrapeRank pubkey={pubkey} grapeRankParams={grapeRankParams} />
+      <Unsubscribe pubkey={pubkey} setData={setData} />
     </>
   )
 }
@@ -115,7 +115,7 @@ const GrapeRankSettings = () => {
   return (
     <>
       <center>
-        <h3>GrapeRank Settings</h3>
+        <h3>Settings</h3>
       </center>
       <CheckingActiveUser />
     </>

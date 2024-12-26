@@ -30,7 +30,7 @@ const CustomerStatusExists = ({ pubkey, grapeRankParams }) => {
                 <li>
                   Navigate to{' '}
                   <div style={{ display: 'inline-block', color: 'blue' }}>
-                    <CNavLink href="#/settings/graperank">Settings</CNavLink>
+                    <CNavLink href="#/settings">Settings</CNavLink>
                   </div>{' '}
                   to adjust parameters and recalculate your Grapevine.
                 </li>
