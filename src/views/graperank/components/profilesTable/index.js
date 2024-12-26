@@ -107,10 +107,10 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
             npub: safeNpubEncodeOrError(pk), // npubEncode(pk)
             picture: noProfilePicUrl,
             displayName: 'alice',
-            influence: Number(grapeRank_influence.toPrecision(3)),
+            influence: Number(grapeRank_influence.toPrecision(4)),
             average: grapeRank_average,
             confidence: grapeRank_confidence,
-            personalizedPageRank: Number(personalizedPageRank.toPrecision(3)),
+            personalizedPageRank: Number(personalizedPageRank.toPrecision(4)),
             logPersonalizedPageRank: logPersonalizedPageRank,
             degreeOfSeparation: dos,
           }
@@ -153,9 +153,11 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
 
   return (
     <CContainer md>
-      <center>
-        <h4>Your Webs of Trust</h4>
-      </center>
+      <div style={{ display: tableConfig.displayDosTable }}>
+        <center>
+          <h4>Your Webs of Trust</h4>
+        </center>
+      </div>
       <CRow className="justify-content-center">
         <CCard className="w-100">
           <CCardBody
@@ -170,7 +172,6 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
             />
           </CCardBody>
         </CCard>
-        <br />
         <CCard className="w-100">
           <CCardBody style={{ display: tableConfig.displayDosTable }}>
             <center>

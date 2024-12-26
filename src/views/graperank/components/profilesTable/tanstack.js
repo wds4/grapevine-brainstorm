@@ -192,13 +192,13 @@ const TanstackTable = ({ defaultData, tableConfig }) => {
 
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 25,
   })
 
   const [columnResizeMode, setColumnResizeMode] = React.useState('onChange')
   const [columnResizeDirection, setColumnResizeDirection] = React.useState('ltr')
 
-  const [sorting, setSorting] = React.useState([{ id: 'personalizedPageRank', desc: true }])
+  const [sorting, setSorting] = React.useState([{ id: 'influence', desc: true }])
 
   const table = useReactTable({
     data,
