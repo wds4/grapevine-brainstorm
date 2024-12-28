@@ -16,7 +16,7 @@ const routes = [
   { path: '/settings', name: 'Settings', element: GrapeRank },
   { path: '/settings/grapevine', name: 'Grapevine', element: Grapevine },
   { path: '/settings/graperank', name: 'GrapeRank', element: GrapeRank },
-  { path: '/settings/hopstr', name: 'App 3', element: App3 },
+  { path: '/settings/hopstr', name: 'Hopstr', element: App3 },
   { path: '/settings/developer', name: 'Developer', element: Developer },
 ]
 

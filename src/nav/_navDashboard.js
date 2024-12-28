@@ -61,7 +61,7 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: 'App 3',
+        name: 'Hopstr',
         to: '/hopstr',
       },
     ],
