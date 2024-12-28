@@ -117,7 +117,7 @@ const ActiveHeaderDropdownLoggedIn = ({ activeUser }) => {
         </CDropdownItem>
         <CDropdownItem href="#/app3">
           <CIcon icon={cibApple} className="me-2" />
-          App 3
+          Hopstr
         </CDropdownItem>
         <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>
         <CDropdownItem href={myProfileRoute}>

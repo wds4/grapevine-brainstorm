@@ -66,6 +66,7 @@ const QueryCalculationApi = ({ pubkey }) => {
 }
 
 const AppDashboard = () => {
+  console.log(`rerender AppDashboard`)
   const { activeUser } = useActiveUser()
   if (!activeUser) return <div>retrieving the active user pubkey ...</div>
   return <QueryCalculationApi pubkey={activeUser.pubkey} />

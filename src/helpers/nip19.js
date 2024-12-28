@@ -62,5 +62,7 @@ export function getPubkeyFromNpub(str) {
     } else {
       return ''
     }
-  } catch (e) {}
+  } catch (e) {
+    return ''
+  }
 }

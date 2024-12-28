@@ -4,10 +4,10 @@ const AppDashboard = () => {
   return (
     <>
       <center>
-        <h3>App Dashboard</h3>
+        <h3>Hopstr.social</h3>
       </center>
       <div>
-        <p>Lorem ipsum</p>
+        <p>hippity hoppity hop!</p>
       </div>
     </>
   )

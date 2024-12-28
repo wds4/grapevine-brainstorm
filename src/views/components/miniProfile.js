@@ -9,15 +9,18 @@ export const MiniProfile = ({ pubkey }) => {
 
   React.useEffect(() => {
     const obj = {}
-    obj.pubkey = pubkey
-    const updateProfile = async () => {
-      const obj = {}
+    if (pubkey) {
       obj.pubkey = pubkey
-      const oProfile = await asyncFetchProfile(ndk, obj)
-      setProfile(oProfile)
+      const updateProfile = async () => {
+        const obj = {}
+        obj.pubkey = pubkey
+        const oProfile = await asyncFetchProfile(ndk, obj)
+        setProfile(oProfile)
+      }
+      updateProfile()
     }
-    updateProfile()
   })
+  if (!pubkey) return <></>
   const profileHref = `#/profile?pubkey=${pubkey}`
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
