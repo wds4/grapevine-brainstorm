@@ -7,13 +7,13 @@ const App3 = React.lazy(() => import('src/views/app3/index'))
 const About = React.lazy(() => import('src/views/app3/about/index'))
 
 // Features
-const FeatureA = React.lazy(() => import('src/views/app3/featureA/index'))
+const FeatureA = React.lazy(() => import('src/views/app3/shortestPath/index'))
 const FeatureB = React.lazy(() => import('src/views/app3/featureB/index'))
 
 const routes = [
   { path: '/app3', name: 'Hopstr', element: App3 },
   { path: '/app3/about', name: 'About', element: About },
-  { path: '/app3/featureA', name: 'Shortest Path', element: FeatureA },
+  { path: '/app3/shortestPath', name: 'Shortest Path', element: FeatureA },
   { path: '/app3/featureB', name: 'Feature B', element: FeatureB },
 ]
 

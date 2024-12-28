@@ -17,7 +17,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Shortest Path',
-    to: '/app3/featureA',
+    to: '/app3/shortestPath',
     icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
   },
   {
