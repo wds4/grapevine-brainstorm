@@ -30,7 +30,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'App3 Settings',
-    to: '/settings/app3',
+    to: '/settings/hopstr',
     icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
   },
   */

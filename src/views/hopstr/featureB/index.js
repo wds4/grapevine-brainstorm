@@ -4,10 +4,10 @@ const FeatureB = () => {
   return (
     <>
       <center>
-        <h3>Feature B</h3>
+        <h3>Calculate your Follows Network</h3>
       </center>
       <div>
-        <p>Lorem ipsum</p>
+        <p>hippity hoppity hop!</p>
       </div>
     </>
   )

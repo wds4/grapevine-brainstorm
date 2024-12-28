@@ -115,7 +115,7 @@ const ActiveHeaderDropdownLoggedIn = ({ activeUser }) => {
           <CIcon icon={cibTwitter} className="me-2" />
           GrapeRank
         </CDropdownItem>
-        <CDropdownItem href="#/app3">
+        <CDropdownItem href="#/hopstr">
           <CIcon icon={cibApple} className="me-2" />
           Hopstr
         </CDropdownItem>

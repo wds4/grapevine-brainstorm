@@ -52,7 +52,7 @@ const Dashboard = () => {
               className="mb-3 border-primary"
               textColor="success"
             >
-              <CNavLink style={{ display: 'inline-block' }} href="#/app3">
+              <CNavLink style={{ display: 'inline-block' }} href="#/hopstr">
                 <CCardHeader>
                   <strong>App 3</strong>
                 </CCardHeader>

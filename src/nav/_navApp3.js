@@ -7,7 +7,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Hopstr',
-    to: '/app3',
+    to: '/hopstr',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
   {
@@ -17,13 +17,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Shortest Path',
-    to: '/app3/shortestPath',
+    to: '/hopstr/shortestPath',
     icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Feature B',
-    to: '/app3/featureB',
+    to: '/hopstr/featureB',
     icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
   },
   {
@@ -33,7 +33,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'About',
-    to: '/app3/about',
+    to: '/hopstr/about',
     icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
   },
 ]

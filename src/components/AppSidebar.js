@@ -44,7 +44,7 @@ function getNavigation(activeApp) {
       return navigationGrapevine
     case 'graperank':
       return navigationGrapeRank
-    case 'app3':
+    case 'hopstr':
       return navigationApp3
     default:
       return navigationLandingPage
