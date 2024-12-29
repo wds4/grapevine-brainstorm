@@ -14,10 +14,11 @@ import MiniProfile from 'src/views/components/miniProfile'
 
 const InputFieldStatus = ({ pubkey }) => {
   if (!pubkey) {
-    return <span style={{ color: 'grey' }}>invalid</span>
+    // return <span style={{ color: 'grey' }}>invalid</span>
+    return <></>
   }
   return (
-    <div style={{ display: 'inline-block', fontSize: '32px' }}>
+    <div style={{ display: 'inline-block', fontSize: '24px' }}>
       <center>✅</center>
     </div>
   )
