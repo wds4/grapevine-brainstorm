@@ -10,6 +10,8 @@ import { noProfilePicUrl } from 'src/const'
 // import FollowersTable from './followersTable'
 
 const Profile = ({ activeUserPubkey }) => {
+  console.log(`rerender Profile`)
+
   const [searchParams, setSearchParams] = useSearchParams()
   const [providedNpub, setProvidedNpub] = useState('')
   const [calculatedNpub, setCalculatedNpub] = useState('')
@@ -41,6 +43,7 @@ const Profile = ({ activeUserPubkey }) => {
   const { ndk } = useNdk()
 
   async function fetchNumFollowers(url) {
+    console.log(`async function fetchNumFollowers`)
     try {
       const response = await fetch(url)
       if (!response.ok) {
@@ -59,6 +62,7 @@ const Profile = ({ activeUserPubkey }) => {
   }
 
   async function fetchNumFollows(url) {
+    console.log(`async function fetchNumFollows`)
     try {
       const response = await fetch(url)
       if (!response.ok) {
@@ -77,6 +81,7 @@ const Profile = ({ activeUserPubkey }) => {
   }
 
   async function fetchDos(url) {
+    console.log(`async function fetchDos`)
     try {
       const response = await fetch(url)
       if (!response.ok) {
@@ -95,6 +100,7 @@ const Profile = ({ activeUserPubkey }) => {
   }
 
   async function fetchGrapeRank(url) {
+    console.log(`async function fetchGrapeRank`)
     try {
       const response = await fetch(url)
       if (!response.ok) {
@@ -116,6 +122,7 @@ const Profile = ({ activeUserPubkey }) => {
   }
 
   async function fetchNumMuters(url) {
+    console.log(`async function fetchNumMuters`)
     try {
       const response = await fetch(url)
       if (!response.ok) {
@@ -332,6 +339,7 @@ const Profile = ({ activeUserPubkey }) => {
 }
 
 const RetrieveActiveUser = () => {
+  console.log(`rerender RetrieveActiveUser`)
   const { activeUser } = useActiveUser()
   if (!activeUser) return <div>retrieving the active user pubkey ...</div>
   return (

@@ -8,6 +8,7 @@ import { asyncFetchProfile } from 'src/helpers/ndk'
 const Muters = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [muters, setMuters] = useState([])
+  const [fetched, setFetched] = useState(false)
   const [profile, setProfile] = useState({})
   const { activeUser } = useActiveUser()
   const { ndk } = useNdk()
@@ -40,6 +41,7 @@ const Muters = () => {
       }
       if (data.success) {
         setMuters(data.data.aPubkeys)
+        setFetched(true)
       }
       return data
     } catch (error) {
@@ -48,15 +50,16 @@ const Muters = () => {
   }
   useEffect(() => {
     fetchData(url)
-  })
+  }, [])
 
   const tableConfig = {
-    aPubkeys: muters, // array of pubkeys; if empty, show all. Plan to include array of muters or follows
+    show: 'aPubkeys', // 'all' or 'aPubkeys'; if aPubkeys, limit table to pubkeys in aPubkeys
+    aPubkeys: muters,
     displayDosTable: 'none', // none, block
     displayPublishButton: 'none', // none, block
   }
   if (!activeUser) return <div>retrieving the active user pubkey ...</div>
-  if (muters.length == 0) return <div>fetching muters ... </div>
+  if (!fetched) return <div>fetching muters ... </div>
   return (
     <>
       <center>

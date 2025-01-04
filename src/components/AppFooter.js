@@ -15,9 +15,10 @@ const AppFooter = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          david
+          straycat
         </a>
       </div>
+      <div className="me-me" style={{ fontSize: '8px' }}>loggedInUser: {loggedInUser.pubkey}</div>
       <div className="ms-auto">
         <span className="ms-1">
           &copy; 2024{' '}

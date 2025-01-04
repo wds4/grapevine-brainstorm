@@ -5,6 +5,9 @@ import { convertInputToConfidence } from '../../../helpers/grapevine'
 // https://calculation-brainstorm.vercel.app/api/grapevine/showFullStoredReport?name=notSpam&pubkey=e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f
 
 const ShowScoreCalculations = ({ activeUserPubkey, pubkey, setInfluence, setConfidence, setDos, setAverage, setInput }) => {
+
+  console.log(`rerender ShowScoreCalculations`)
+
   const [areScoresSet, setAreScoresSet] = useState(false)
   const [areFollowsAndMutesSet, setAreFollowsAndMutesSet] = useState(false)
 
@@ -118,8 +121,6 @@ const ShowScoreCalculations = ({ activeUserPubkey, pubkey, setInfluence, setConf
       influenceOfObservee = oRatees[observeeUserId].influence
       setInfluence(influenceOfObservee)
       confidenceOfObservee = oRatees[observeeUserId].confidence
-      const oFoo = oRatees[observeeUserId]
-      console.log(`oFoo: ${JSON.stringify(oFoo, null, 4)}`)
       averageOfObservee = oRatees[observeeUserId].score
       inputOfObservee = oRatees[observeeUserId].input
       setConfidence(confidenceOfObservee)
@@ -127,7 +128,6 @@ const ShowScoreCalculations = ({ activeUserPubkey, pubkey, setInfluence, setConf
       setInput(inputOfObservee)
     }
 
-    console.log(`myUserId: ${myUserId}`)
     for (let x = 0; x < followers.length; x++) {
       const pk_follower = followers[x]
       const userId_follower = userIdLookupByPubkey[pk_follower]

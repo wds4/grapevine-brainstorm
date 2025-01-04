@@ -48,10 +48,11 @@ const Follows = () => {
   }
   useEffect(() => {
     fetchData(url)
-  })
+  }, [])
 
   const tableConfig = {
-    aPubkeys: follows, // array of pubkeys; if empty, show all. Plan to include array of follows or follows
+    show: 'aPubkeys', // 'all' or 'aPubkeys'; if aPubkeys, limit table to pubkeys in aPubkeys
+    aPubkeys: follows,
     displayDosTable: 'none', // none, block
     displayPublishButton: 'none', // none, block
   }

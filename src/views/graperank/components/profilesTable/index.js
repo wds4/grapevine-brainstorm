@@ -6,6 +6,7 @@ import PulseLoader from 'react-spinners/PulseLoader'
 import { safeNpubEncodeOrError } from '../../../../helpers/nip19'
 
 const TableWhenReady = ({ tableReady, tableData, tableConfig }) => {
+  console.log(`rerender TableWhenReady`)
   if (!tableReady)
     return (
       <div>
@@ -48,6 +49,7 @@ const DisplayDosSummary = ({ dosDataToShow }) => {
     const oNextRow = { hops: nextKey, num_users: nextVal }
     aItems.push(oNextRow)
   }
+  console.log(`rerender DisplayDosSummary`)
   return (
     <>
       <CTable columns={columns} items={aItems} />
@@ -56,6 +58,7 @@ const DisplayDosSummary = ({ dosDataToShow }) => {
 }
 
 const ProfilesTable = ({ pubkey, tableConfig }) => {
+  console.log(`rerender ProfilesTable`)
   const [tableData, setTableData] = useState([])
   const [tableReady, setTableReady] = useState(false)
   const [showButtonDisplay, setShowButtonDisplay] = useState('block')
@@ -80,7 +83,7 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
       const aScorecardsData = []
       const oDosData = {}
       let showAll = false
-      if (tableConfig.aPubkeys.length == 0) {
+      if (tableConfig.show == 'all') { // 'all' or 'aPubkeys'; if aPubkeys, limit table to pubkeys in aPubkeys
         showAll = true
       }
       for (let s = 0; s < aScores.length; s++) {

@@ -53,6 +53,8 @@ const QueryCalculationApi = ({ pubkey }) => {
     )
   }
 
+  console.log(`rerender graperank landingPage`)
+
   return (
     <div>
       <div>
@@ -66,7 +68,7 @@ const QueryCalculationApi = ({ pubkey }) => {
 }
 
 const AppDashboard = () => {
-  console.log(`rerender AppDashboard`)
+  console.log(`rerender graperank AppDashboard`)
   const { activeUser } = useActiveUser()
   if (!activeUser) return <div>retrieving the active user pubkey ...</div>
   return <QueryCalculationApi pubkey={activeUser.pubkey} />

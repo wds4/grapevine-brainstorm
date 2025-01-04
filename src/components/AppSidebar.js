@@ -28,7 +28,7 @@ import navigationApp3 from 'src/nav/_navApp3'
 const iconSrc = './brainstorm010_white.svg'
 
 function getNavigation(activeApp) {
-  console.log(`====== ${activeApp}`)
+  console.log(`getNavigation activeApp: ${activeApp}`)
   switch (activeApp) {
     case 'landingPage':
       return navigationLandingPage

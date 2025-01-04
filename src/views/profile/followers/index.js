@@ -6,8 +6,10 @@ import { nip19 } from 'nostr-tools'
 import { asyncFetchProfile } from 'src/helpers/ndk'
 
 const Followers = () => {
+  console.log(`=== rerender Followers`)
   const [searchParams, setSearchParams] = useSearchParams()
   const [followers, setFollowers] = useState([])
+
   const [profile, setProfile] = useState({})
   const { activeUser } = useActiveUser()
   const { ndk } = useNdk()
@@ -23,8 +25,13 @@ const Followers = () => {
   }
   pubkeyFromUrl = pubkeyFromUrl.toLowerCase()
 
+  const processData = (data) => {
+    setFollowers(data.data.aPubkeys)
+  }
+
   const url = `https://www.graperank.tech/api/neo4j/getFollowers/singlePubkey?pubkey=${pubkeyFromUrl}`
   async function fetchData(url) {
+    console.log(`========== call async function fetchData`)
     const obj = {}
     obj.pubkey = pubkeyFromUrl
     const oProfile = await asyncFetchProfile(ndk, obj)
@@ -39,22 +46,26 @@ const Followers = () => {
         setExists('getFollowers endpoint failed')
       }
       if (data.success) {
-        setFollowers(data.data.aPubkeys)
+        console.log(`========== call async function fetchData; setFollowers!`)
+        processData(data)
       }
       return data
     } catch (error) {
       console.error('getFollowers endpoint error:', error)
     }
   }
+
   useEffect(() => {
     fetchData(url)
-  })
+  }, [])
 
   const tableConfig = {
-    aPubkeys: followers, // array of pubkeys; if empty, show all. Plan to include array of followers or follows
+    show: 'aPubkeys', // 'all' or 'aPubkeys'; if aPubkeys, limit table to pubkeys in aPubkeys
+    aPubkeys: followers,
     displayDosTable: 'none', // none, block
     displayPublishButton: 'none', // none, block
   }
+
   if (!activeUser) return <div>retrieving the active user pubkey ...</div>
   if (followers.length == 0) return <div>fetching followers ... </div>
   return (

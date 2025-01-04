@@ -1,11 +1,13 @@
 import React from 'react'
 import { useActiveUser } from 'nostr-hooks'
-import ProfilesTable from '../components/profilesTable'
+// import ProfilesTable from '../components/profilesTable'
+import ProfilesTable from 'src/views/graperank/components/profilesTable'
 
 const RetrieveActiveUser = () => {
   const { activeUser } = useActiveUser()
   const tableConfig = {
-    aPubkeys: [], // array of pubkeys; if empty, show all. Plan to include array of followers or follows
+    show: 'all', // 'all' or 'aPubkeys'; if aPubkeys, limit table to pubkeys in aPubkeys
+    aPubkeys: [],
     displayDosTable: 'block', // none, block
     displayPublishButton: 'block', // none, block
   }
