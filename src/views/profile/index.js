@@ -362,8 +362,6 @@ const Profile = ({ activeUserPubkey }) => {
             confidence: {confidenceV1 * 100} %
           </CCol>
         </CRow>
-        <br />
-        <div>(May take up to a minute to download the above WoT data points.)</div>
       </CContainer>
 
       <div style={{ display: 'none' }}>

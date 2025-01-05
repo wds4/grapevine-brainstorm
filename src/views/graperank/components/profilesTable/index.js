@@ -175,7 +175,7 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
             />
           </CCardBody>
         </CCard>
-        <CCard className="w-100">
+        <CCard className="w-100" style={{ marginTop: '20px' }}>
           <CCardBody style={{ display: tableConfig.displayDosTable }}>
             <center>
               <h4>Your Follows Network</h4>

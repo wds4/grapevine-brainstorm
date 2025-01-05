@@ -22,8 +22,8 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Feature B',
-    to: '/hopstr/featureB',
+    name: 'Follows Network',
+    to: '/hopstr/followsNetwork',
     icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
   },
   {
