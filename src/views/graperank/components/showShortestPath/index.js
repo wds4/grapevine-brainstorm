@@ -27,13 +27,14 @@ const ShowShortestPath = ({ from_pubkey, to_pubkey }) => {
     console.log(`findShortestPath; url: ${url}`)
     fetchArrayOfPubkeys({ url })
   }
-  if (!from_pubkey || !to_pubkey) {
-    return <></>
-  }
 
   useEffect(() => {
     findShortestPath()
-  }, [])
+  }, [from_pubkey, to_pubkey])
+
+  if (!from_pubkey || !to_pubkey) {
+    return <></>
+  }
 
   return (
     <>

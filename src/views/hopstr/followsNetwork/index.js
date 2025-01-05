@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import PulseLoader from 'react-spinners/PulseLoader'
 import MiniProfile from 'src/views/components/miniProfile'
 import { secsToTimeAgo } from '../../../helpers'
+import ShowShortestPath from 'src/views/graperank/components/showShortestPath'
 
 function getRandomInt(min, max) {
   min = Math.ceil(min)
@@ -27,7 +28,7 @@ const SelectRandomNpub = ({ followsNetwork, hops, setRandomPubkey }) => {
     <CRow>
       <CCol style={{ display: 'inline-block', height: '50px' }}>
         <CButton color="primary" onClick={() => selectRandomNpub()}>
-          ... {hops} hops away from you
+          {hops} hops
         </CButton>
       </CCol>
       <CCol style={{ display: 'inline-block' }}>
@@ -51,7 +52,7 @@ const DisplayDosSummary = ({ followsNetwork, setRandomPubkey }) => {
     },
     {
       key: 'button',
-      label: 'select a profile at random ...',
+      label: 'select a profile at random, separated from you by:',
       _props: { scope: 'col' },
     },
   ]
@@ -87,29 +88,34 @@ const DisplayDosSummary = ({ followsNetwork, setRandomPubkey }) => {
   )
 }
 
-const FollowsNetworkExists = ({ pubkey, followsNetwork, setRandomPubkey }) => {
+const FollowsNetworkExists = ({ pubkey, followsNetwork, randomPubkey, setRandomPubkey }) => {
   return (
     <>
       <CContainer md>
         <CRow className="justify-content-center">
-          <CCard className="w-100" style={{ marginTop: '20px' }}>
-            <CCardBody>
-              <center>
-                <h4>Your Follows Network</h4>
-                <DisplayDosSummary
-                  followsNetwork={followsNetwork}
-                  setRandomPubkey={setRandomPubkey}
-                />
-              </center>
-            </CCardBody>
-          </CCard>
+          <CCol>
+            <CCard className="w-100">
+              <CCardBody>
+                <center>
+                  <h4>Your Follows Network</h4>
+                  <DisplayDosSummary
+                    followsNetwork={followsNetwork}
+                    setRandomPubkey={setRandomPubkey}
+                  />
+                </center>
+              </CCardBody>
+            </CCard>
+          </CCol>
+          <CCol>
+            <ShowShortestPath from_pubkey={pubkey} to_pubkey={randomPubkey} />
+          </CCol>
         </CRow>
       </CContainer>
     </>
   )
 }
 
-const ObtainFollowsNetworkIfExists = ({ pubkey, setRandomPubkey }) => {
+const ObtainFollowsNetworkIfExists = ({ pubkey, randomPubkey, setRandomPubkey }) => {
   const [exists, setExists] = useState('pending')
   const [followsNetwork, setFollowsNetwork] = useState({})
 
@@ -140,6 +146,7 @@ const ObtainFollowsNetworkIfExists = ({ pubkey, setRandomPubkey }) => {
         pubkey={pubkey}
         followsNetwork={followsNetwork}
         setRandomPubkey={setRandomPubkey}
+        randomPubkey={randomPubkey}
       />
     )
   if (exists == 'NO')
@@ -163,20 +170,24 @@ const ObtainFollowsNetworkIfExists = ({ pubkey, setRandomPubkey }) => {
   )
 }
 
-const CheckingActiveUser = ({ setRandomPubkey }) => {
+const CheckingActiveUser = ({ randomPubkey, setRandomPubkey }) => {
   console.log(`rerender IsMyFollowsNetworkCalculated`)
   const { activeUser } = useActiveUser()
   if (!activeUser) return <div>retrieving the active user pubkey ...</div>
   return (
-    <ObtainFollowsNetworkIfExists pubkey={activeUser.pubkey} setRandomPubkey={setRandomPubkey} />
+    <ObtainFollowsNetworkIfExists
+      pubkey={activeUser.pubkey}
+      randomPubkey={randomPubkey}
+      setRandomPubkey={setRandomPubkey}
+    />
   )
 }
 
 const FollowsNetwork = () => {
   const [randomPubkey, setRandomPubkey] = useState('')
   return (
-    <div style={ {marginBottom: '100px' }}>
-      <CheckingActiveUser setRandomPubkey={setRandomPubkey} />
+    <div style={{ marginBottom: '100px' }}>
+      <CheckingActiveUser randomPubkey={randomPubkey} setRandomPubkey={setRandomPubkey} />
     </div>
   )
 }
