@@ -8,7 +8,7 @@ import {
   CFormInput,
   CRow,
 } from '@coreui/react'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { getPubkeyFromNpub, safeNpubEncode, verifyPubkeyValidity } from 'src/helpers/nip19'
 import MiniProfile from 'src/views/components/miniProfile'
 
@@ -24,7 +24,9 @@ const InputFieldStatus = ({ pubkey }) => {
   )
 }
 
-const QueryShortestPath = ({ from_pubkey, to_pubkey }) => {
+const ShowShortestPath = ({ from_pubkey, to_pubkey }) => {
+  console.log(`rerender ShowShortestPath`)
+
   const [aPubkeys, setAPubkeys] = useState([])
   async function fetchArrayOfPubkeys({ url }) {
     try {
@@ -47,10 +49,11 @@ const QueryShortestPath = ({ from_pubkey, to_pubkey }) => {
     console.log(`findShortestPath; url: ${url}`)
     fetchArrayOfPubkeys({ url })
   }
+
   if (!from_pubkey || !to_pubkey) {
     return <></>
   }
-  console.log(`rerender QueryShortestPath`)
+
   return (
     <>
       <center>
@@ -61,7 +64,7 @@ const QueryShortestPath = ({ from_pubkey, to_pubkey }) => {
         </div>
       </center>
 
-      <CContainer md style={{ marginTop: '50px' }}>
+      <CContainer md style={{ marginTop: '20px' }}>
         <CRow className="justify-content-center">
           <div className="col-auto">
             <CCard className="w-80">
@@ -235,7 +238,7 @@ const FeatureA = () => {
       </div>
 
       <div style={{ marginTop: '20px' }}>
-        <QueryShortestPath from_pubkey={from_pubkey} to_pubkey={to_pubkey} />
+        <ShowShortestPath from_pubkey={from_pubkey} to_pubkey={to_pubkey} />
       </div>
     </>
   )

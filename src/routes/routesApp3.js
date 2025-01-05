@@ -7,7 +7,7 @@ const App3 = React.lazy(() => import('src/views/hopstr/index'))
 const About = React.lazy(() => import('src/views/hopstr/about/index'))
 
 // Features
-const ShortestPath = React.lazy(() => import('src/views/hopstr/shortestPath/index'))
+const ShortestPath = React.lazy(() => import('src/views/hopstr/showShortestPath/index'))
 const FollowsNetwork = React.lazy(() => import('src/views/hopstr/followsNetwork/index'))
 
 const routes = [

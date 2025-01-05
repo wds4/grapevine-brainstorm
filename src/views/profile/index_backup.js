@@ -256,112 +256,116 @@ const Profile = ({ activeUserPubkey }) => {
       <CContainer>
         <CRow>
           <CCol sm="auto">
-            column 1
-            <CRow>
-              <CCol sm="auto">
-                <div className="profileAvatarContainer">
-                  <img src={profile?.image} className="profileAvatarLarge" />
-                </div>
-              </CCol>
-              <CCol auto>
-                <br />
-                <div style={{ fontWeight: 'bold' }}>{profile?.displayName}</div>
-                <div style={{ color: 'grey' }}>@{profile?.name}</div>
-                <br />
-                <div style={{ fontSize: '12px' }}>
-                  <div>{providedPubkey}</div>
-                  <div>{calculatedNpub}</div>
-                </div>
-              </CCol>
-            </CRow>
-            <CRow>
-              <CCol sm="auto">
-                <div style={{ width: '250px' }}>follows:</div>
-              </CCol>
-              <CCol>
-                <CNavLink href={hrefFollows}>
-                  {numFollows} <span style={{ color: 'grey' }}>follows</span>
-                </CNavLink>
-              </CCol>
-            </CRow>
-            <CRow>
-              <CCol sm="auto">
-                <div style={{ width: '250px' }}>followers:</div>
-              </CCol>
-              <CCol>
-                <CNavLink href={hrefFollowers}>
-                  {numFollowers} <span style={{ color: 'grey' }}>followers</span>
-                </CNavLink>
-              </CCol>
-            </CRow>
-            <CRow>
-              <CCol sm="auto">
-                <div style={{ width: '250px' }}>muters:</div>
-              </CCol>
-              <CCol>
-                <CNavLink href={hrefMuters}>
-                  {numMuters} <span style={{ color: 'grey' }}>muters</span>
-                </CNavLink>
-              </CCol>
-            </CRow>
-            <CRow>
-              <CCol sm="auto">
-                <div style={{ width: '250px' }}>mutes:</div>
-              </CCol>
-              <CCol>
-                <CNavLink href={hrefMutes}>
-                  {numMutes} <span style={{ color: 'grey' }}>mutes</span>
-                </CNavLink>
-              </CCol>
-            </CRow>
-            <CRow>
-              <CCol sm="auto">
-                <div style={{ width: '250px' }}>DoS:</div>
-              </CCol>
-              <CCol>
-                <CNavLink href={hrefShortestPath}>{dos} hops </CNavLink>
-              </CCol>
-            </CRow>
-            <CRow>
-              <CCol sm="auto">
-                <div style={{ width: '250px' }}>GrapeRank:</div>
-              </CCol>
-              <CCol>
-                influence: {influence}
-                <br />
-                average: {average}
-                <br />
-                WEIGHT: {input}
-                <br />
-                confidence: {confidence * 100} %
-              </CCol>
-            </CRow>
-            <CRow>
-              <CCol sm="auto">
-                <div style={{ width: '250px' }}>pageRank:</div>
-              </CCol>
-              <CCol>{pagerank}</CCol>
-            </CRow>
-            <CRow style={{ display: 'none' }}>
-              <CCol sm="auto">
-                <div style={{ width: '250px' }}>GrapeRank (before neo4j):</div>
-              </CCol>
-              <CCol>
-                influence: {influenceV1}
-                <br />
-                average: {averageV1}
-                <br />
-                input: {inputV1}
-                <br />
-                confidence: {confidenceV1 * 100} %
-              </CCol>
-            </CRow>
+            <div className="profileAvatarContainer">
+              <img src={profile?.image} className="profileAvatarLarge" />
+            </div>
           </CCol>
+          <CCol auto>
+            <br />
+            <div style={{ fontWeight: 'bold' }}>{profile?.displayName}</div>
+            <div style={{ color: 'grey' }}>@{profile?.name}</div>
+            <br />
+            <div style={{ fontSize: '12px' }}>
+              <div>{providedPubkey}</div>
+              <div>{calculatedNpub}</div>
+            </div>
+          </CCol>
+        </CRow>
+        <CRow>
           <CCol sm="auto">
-            <ShowShortestPath from_pubkey={activeUserPubkey} to_pubkey={providedPubkey} />
+            <div style={{ width: '250px' }}>follows:</div>
+          </CCol>
+          <CCol>
+            <CNavLink href={hrefFollows}>
+              {numFollows} <span style={{ color: 'grey' }}>follows</span>
+            </CNavLink>
+          </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>followers:</div>
+          </CCol>
+          <CCol>
+            <CNavLink href={hrefFollowers}>
+              {numFollowers} <span style={{ color: 'grey' }}>followers</span>
+            </CNavLink>
+          </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>muters:</div>
+          </CCol>
+          <CCol>
+            <CNavLink href={hrefMuters}>
+              {numMuters} <span style={{ color: 'grey' }}>muters</span>
+            </CNavLink>
+          </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>mutes:</div>
+          </CCol>
+          <CCol>
+            <CNavLink href={hrefMutes}>
+              {numMutes} <span style={{ color: 'grey' }}>mutes</span>
+            </CNavLink>
+          </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>DoS:</div>
+          </CCol>
+          <CCol>
+            <CNavLink href={hrefShortestPath}>
+              {dos} hops{' '}
+              <span style={{ color: 'grey' }}>🔥 view path of follows from you to this user</span>
+            </CNavLink>
+          </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>GrapeRank:</div>
+          </CCol>
+          <CCol>
+            influence: {influence}
+            <br />
+            average: {average}
+            <br />
+            WEIGHT: {input}
+            <br />
+            confidence: {confidence * 100} %
+          </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>pageRank:</div>
+          </CCol>
+          <CCol>{pagerank}</CCol>
+        </CRow>
+
+        <CRow style={{ display: 'none' }}>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>GrapeRank (before neo4j):</div>
+          </CCol>
+          <CCol>
+            influence: {influenceV1}
+            <br />
+            average: {averageV1}
+            <br />
+            input: {inputV1}
+            <br />
+            confidence: {confidenceV1 * 100} %
           </CCol>
         </CRow>
       </CContainer>
+
+      <ShowShortestPath from_pubkey={activeUserPubkey} to_pubkey={providedPubkey} />
 
       <div style={{ display: 'none' }}>
         <div style={{ border: '1px solid purple', padding: '10px' }}>
