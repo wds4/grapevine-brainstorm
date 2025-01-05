@@ -76,8 +76,9 @@ const GetShortestPath_RetrieveActiveUser = () => {
     const pk = nip19.decode(npubFromUrl)
     pubkeyFromUrl = pk.data
   }
-  pubkeyFromUrl = pubkeyFromUrl.toLowerCase()
-
+  if (pubkeyFromUrl) {
+    pubkeyFromUrl = pubkeyFromUrl.toLowerCase()
+  }
   const { activeUser } = useActiveUser()
 
   console.log(`rerender GetShortestPath_RetrieveActiveUser`)

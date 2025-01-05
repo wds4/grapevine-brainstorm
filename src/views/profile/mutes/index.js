@@ -5,11 +5,10 @@ import { useSearchParams } from 'react-router-dom'
 import { nip19 } from 'nostr-tools'
 import { asyncFetchProfile } from 'src/helpers/ndk'
 
-const Followers = () => {
-  console.log(`=== rerender Followers`)
+const Mutes = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [followers, setFollowers] = useState([])
-
+  const [muters, setMutes] = useState([])
+  const [fetched, setFetched] = useState(false)
   const [profile, setProfile] = useState({})
   const { activeUser } = useActiveUser()
   const { ndk } = useNdk()
@@ -26,13 +25,9 @@ const Followers = () => {
   if (pubkeyFromUrl) {
     pubkeyFromUrl = pubkeyFromUrl.toLowerCase()
   }
-  const processData = (data) => {
-    setFollowers(data.data.aPubkeys)
-  }
 
-  const url = `https://www.graperank.tech/api/neo4j/getFollowers/singlePubkey?pubkey=${pubkeyFromUrl}`
+  const url = `https://www.graperank.tech/api/neo4j/getMutes/singlePubkey?pubkey=${pubkeyFromUrl}`
   async function fetchData(url) {
-    console.log(`========== call async function fetchData`)
     const obj = {}
     obj.pubkey = pubkeyFromUrl
     const oProfile = await asyncFetchProfile(ndk, obj)
@@ -44,39 +39,37 @@ const Followers = () => {
       }
       const data = await response.json()
       if (!data.success) {
-        setExists('getFollowers endpoint failed')
+        setExists('getMutes endpoint failed')
       }
       if (data.success) {
-        console.log(`========== call async function fetchData; setFollowers!`)
-        processData(data)
+        setMutes(data.data.aPubkeys)
+        setFetched(true)
       }
       return data
     } catch (error) {
-      console.error('getFollowers endpoint error:', error)
+      console.error('getMutes endpoint error:', error)
     }
   }
-
   useEffect(() => {
     fetchData(url)
   }, [])
 
   const tableConfig = {
     show: 'aPubkeys', // 'all' or 'aPubkeys'; if aPubkeys, limit table to pubkeys in aPubkeys
-    aPubkeys: followers,
+    aPubkeys: muters,
     displayDosTable: 'none', // none, block
     displayPublishButton: 'none', // none, block
   }
-
   if (!activeUser) return <div>retrieving the active user pubkey ...</div>
-  if (followers.length == 0) return <div>fetching followers ... </div>
+  if (!fetched) return <div>fetching muters ... </div>
   return (
     <>
       <center>
         <h4>
-          {profile?.displayName} <span style={{ color: 'grey' }}>@{profile?.name}</span>: Followers
+          {profile?.displayName} <span style={{ color: 'grey' }}>@{profile?.name}</span>: Mutes
         </h4>
         <p>
-          (profiles that follow {profile?.displayName}{' '}
+          (profiles that are muted by {profile?.displayName}{' '}
           <span style={{ color: 'grey' }}>@{profile?.name}</span>)
         </p>
       </center>
@@ -85,4 +78,4 @@ const Followers = () => {
   )
 }
 
-export default Followers
+export default Mutes

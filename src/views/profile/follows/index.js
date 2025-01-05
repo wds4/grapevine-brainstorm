@@ -21,7 +21,9 @@ const Follows = () => {
     // console.log(`pk: ${JSON.stringify(pk)}`)
     pubkeyFromUrl = pk.data
   }
-  pubkeyFromUrl = pubkeyFromUrl.toLowerCase()
+  if (pubkeyFromUrl) {
+    pubkeyFromUrl = pubkeyFromUrl.toLowerCase()
+  }
 
   const url = `https://www.graperank.tech/api/neo4j/getFollows/singlePubkey?pubkey=${pubkeyFromUrl}`
   async function fetchData(url) {
@@ -64,6 +66,10 @@ const Follows = () => {
         <h4>
           {profile?.displayName} <span style={{ color: 'grey' }}>@{profile?.name}</span>: Follows
         </h4>
+        <p>
+          (profiles that are followed by {profile?.displayName}{' '}
+          <span style={{ color: 'grey' }}>@{profile?.name}</span>)
+        </p>
       </center>
       <ProfilesTable pubkey={activeUser.pubkey} tableConfig={tableConfig} />
     </>

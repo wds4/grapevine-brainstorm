@@ -5,7 +5,11 @@ const initialState = {
   theme: 'light',
   loggedInUser: {
     loggedIn: false,
-    pubkey: 'defaultPk',
+    pubkey: 'defaultPk1',
+    npub: '',
+  },
+  profileBeingViewed: {
+    pubkey: 'defaultPk2',
     npub: '',
   },
 }

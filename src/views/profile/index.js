@@ -117,7 +117,26 @@ const Profile = ({ activeUserPubkey }) => {
       }
       return data
     } catch (error) {
-      console.error('api/outwardFacing/singlePubkey/grapeRank endpoint error:', error)
+      console.error('api/outwardFacing/getGrapeRank endpoint error:', error)
+    }
+  }
+
+  async function fetchPageRank(url) {
+    console.log(`async function fetchPageRank`)
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      if (data.success) {
+        if (data.exists) {
+          setPagerank(data.data.personalizedPageRankScore)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/outwardFacing/getPageRank endpoint error:', error)
     }
   }
 
@@ -137,6 +156,26 @@ const Profile = ({ activeUserPubkey }) => {
       return data
     } catch (error) {
       console.error('api/outwardFacing/singlePubkey/numMuters endpoint error:', error)
+    }
+  }
+
+  async function fetchNumMutes(url) {
+    console.log(`async function fetchNumMutes`)
+    console.log(url)
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('fetchNumMutes: Network response was not ok')
+      }
+      const data = await response.json()
+      if (data.success) {
+        if (data.exists) {
+          setNumMutes(data.data.numMutes)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/outwardFacing/singlePubkey/numMutes endpoint error:', error)
     }
   }
 
@@ -165,6 +204,11 @@ const Profile = ({ activeUserPubkey }) => {
         fetchGrapeRank(url4)
         const url5 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numMuters?pubkey=${pubkeyFromUrl}`
         fetchNumMuters(url5)
+        const url6 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numMutes?pubkey=${pubkeyFromUrl}`
+        fetchNumMutes(url6)
+        const url7 = `https://www.graperank.tech/api/outwardFacing/getPageRank?observer=${activeUserPubkey}&observee=${pubkeyFromUrl}`
+        fetchPageRank(url7)
+
         internalPubkey = pubkeyFromUrl
         const np = nip19.npubEncode(pubkeyFromUrl)
         setCalculatedNpub(np)
@@ -204,6 +248,7 @@ const Profile = ({ activeUserPubkey }) => {
   const hrefFollows = `#/profile/follows?npub=${calculatedNpub}`
   const hrefFollowers = `#/profile/followers?npub=${calculatedNpub}`
   const hrefMuters = `#/profile/muters?npub=${calculatedNpub}`
+  const hrefMutes = `#/profile/mutes?npub=${calculatedNpub}`
   const hrefShortestPath = `#/profile/shortestPath?npub=${calculatedNpub}`
   return (
     <>
@@ -219,7 +264,8 @@ const Profile = ({ activeUserPubkey }) => {
               <CCardTitle>{profile?.displayName}</CCardTitle>
             </center>
             <br />
-            <div>{profile?.name}</div>
+            <div style={{ fontWeight: 'bold' }}>{profile?.displayName}</div>
+            <div style={{ color: 'grey' }}>@{profile?.name}</div>
             <div>{providedPubkey}</div>
             <div>{calculatedNpub}</div>
           </CCol>
@@ -253,6 +299,17 @@ const Profile = ({ activeUserPubkey }) => {
           <CCol>
             <CNavLink href={hrefMuters}>
               {numMuters} <span style={{ color: 'grey' }}>muters</span>
+            </CNavLink>
+          </CCol>
+        </CRow>
+
+        <CRow>
+          <CCol sm="auto">
+            <div style={{ width: '250px' }}>mutes:</div>
+          </CCol>
+          <CCol>
+            <CNavLink href={hrefMutes}>
+              {numMutes} <span style={{ color: 'grey' }}>mutes</span>
             </CNavLink>
           </CCol>
         </CRow>
