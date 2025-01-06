@@ -5,7 +5,7 @@ import { secsToTimeAgo } from '../../../helpers'
 
 const CustomerStatusExists = ({ pubkey, grapeRankParams }) => {
   const howLongAgo = secsToTimeAgo(grapeRankParams?.whenLastImplemented)
-
+  const myFollowersHref = `#/profile/followers?pubkey=${pubkey}`
   return (
     <>
       <CContainer md>
@@ -22,6 +22,14 @@ const CustomerStatusExists = ({ pubkey, grapeRankParams }) => {
                     <CNavLink href="#/profiles">My Webs of Trust</CNavLink>
                   </div>{' '}
                   (left) to see your Grapevine and to export results into NIP-51 lists.
+                </li>
+                <li>
+                  Ever wonder how many of your followers are "real" (not bots or spam)?
+                  Navigate to{' '}
+                  <div style={{ display: 'inline-block', color: 'blue' }}>
+                    <CNavLink href={myFollowersHref} >my followers</CNavLink>
+                  </div>{' '}
+                  to sort your followers by GrapeRank score.
                 </li>
                 <li>
                   Navigate to Scattercharts (left) to compare and contrast three different ways to

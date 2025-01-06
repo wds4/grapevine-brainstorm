@@ -30,7 +30,7 @@ const ThreeModes = ({ resetParamsByMode }) => {
                 Lax, Trusting & Open
               </CButton>
               <CButton color="primary" onClick={() => resetParamsByMode(1)}>
-                Middle
+                Default
               </CButton>
               <CButton color="primary" onClick={() => resetParamsByMode(2)}>
                 Rigorous, Paranoid & Conservative
@@ -70,6 +70,7 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
       setAttenuationFactorX(95)
       setRigorX(30)
       setFollowConfidenceX(10)
+      setFollowRating(1)
       setMuteConfidenceX(10)
       setMuteRating(0)
       setFollowConfidenceOfObserverX(10)
@@ -79,15 +80,17 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
       setAttenuationFactorX(85)
       setRigorX(50)
       setFollowConfidenceX(3)
+      setFollowRating(1)
       setMuteConfidenceX(50)
       setMuteRating(-0.1)
-      setFollowConfidenceOfObserverX(30)
+      setFollowConfidenceOfObserverX(20)
     }
     if (mode == 2) {
       console.log(`mode 2: paranoid`)
       setAttenuationFactorX(50)
       setRigorX(65)
       setFollowConfidenceX(1)
+      setFollowRating(1)
       setMuteConfidenceX(90)
       setMuteRating(-0.9)
       setFollowConfidenceOfObserverX(50)

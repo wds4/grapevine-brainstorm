@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { CCard, CCardBody, CContainer, CCardTitle, CRow, CCol, CNavLink } from '@coreui/react'
 import { useSearchParams } from 'react-router-dom'
 import { asyncFetchProfile } from 'src/helpers/ndk'
-import ShowScoreCalculations_brainstorm from './showScoreCalculations_brainstorm'
-import ShowScoreCalculations_gvEarth from './showScoreCalculations_gvRogue'
+// import ShowScoreCalculations_brainstorm from './showScoreCalculations_brainstorm'
+// import ShowScoreCalculations_gvEarth from './showScoreCalculations_gvRogue'
 import { nip19 } from 'nostr-tools'
 import { noProfilePicUrl } from 'src/const'
 // import FollowersTable from './followersTable'
@@ -256,7 +256,6 @@ const Profile = ({ activeUserPubkey }) => {
       <CContainer>
         <CRow>
           <CCol sm="auto">
-            column 1
             <CRow>
               <CCol sm="auto">
                 <div className="profileAvatarContainer">
@@ -362,31 +361,6 @@ const Profile = ({ activeUserPubkey }) => {
           </CCol>
         </CRow>
       </CContainer>
-
-      <div style={{ display: 'none' }}>
-        <div style={{ border: '1px solid purple', padding: '10px' }}>
-          <ShowScoreCalculations_brainstorm
-            activeUserPubkey={activeUserPubkey}
-            pubkey={providedPubkey}
-            setInfluence={setInfluenceV1}
-            setConfidence={setConfidenceV1}
-            setDos={setDosBrainstorm}
-            setAverage={setAverageV1}
-            setInput={setInputV1}
-          />
-        </div>
-        <div style={{ border: '1px solid purple', padding: '10px' }}>
-          <ShowScoreCalculations_gvEarth
-            activeUserPubkey={activeUserPubkey}
-            pubkey={providedPubkey}
-          />
-        </div>
-        <br />
-        <div>
-          <p>observee profile info:</p>
-          <pre>{JSON.stringify(profile, null, 4)}</pre>
-        </div>
-      </div>
       <div style={{ marginBottom: '200px' }}></div>
     </>
   )
@@ -404,3 +378,30 @@ const RetrieveActiveUser = () => {
 }
 
 export default RetrieveActiveUser
+
+/*
+<div style={{ display: 'none' }}>
+  <div style={{ border: '1px solid purple', padding: '10px' }}>
+    <ShowScoreCalculations_brainstorm
+      activeUserPubkey={activeUserPubkey}
+      pubkey={providedPubkey}
+      setInfluence={setInfluenceV1}
+      setConfidence={setConfidenceV1}
+      setDos={setDosBrainstorm}
+      setAverage={setAverageV1}
+      setInput={setInputV1}
+    />
+  </div>
+  <div style={{ border: '1px solid purple', padding: '10px' }}>
+    <ShowScoreCalculations_gvEarth
+      activeUserPubkey={activeUserPubkey}
+      pubkey={providedPubkey}
+    />
+  </div>
+  <br />
+  <div>
+    <p>observee profile info:</p>
+    <pre>{JSON.stringify(profile, null, 4)}</pre>
+  </div>
+</div>
+*/

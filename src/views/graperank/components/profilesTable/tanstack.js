@@ -93,7 +93,9 @@ const columns = [
     cell: (info) => <i>{info.getValue()}</i>,
     header: () => (
       <span>
-        <center>GrapeRank</center>
+        <center>
+          GrapeRank (context: <i>not spam</i>)
+        </center>
       </span>
     ),
     footer: (info) => info.column.id,
@@ -239,6 +241,19 @@ const TanstackTable = ({ defaultData, tableConfig }) => {
     [showColsControlPanelButton],
   )
 
+  const [showTableInfoButton, setShowTableInfoButton] = React.useState('hide')
+  const toggleShowTableInfo = React.useCallback(
+    (e) => {
+      if (showTableInfoButton == 'hide') {
+        setShowTableInfoButton('show')
+      }
+      if (showTableInfoButton == 'show') {
+        setShowTableInfoButton('hide')
+      }
+    },
+    [showTableInfoButton],
+  )
+
   const { createNewEvent } = useNewEvent()
   const { signer } = useSigner()
   const makeNip51List = () => {
@@ -278,6 +293,53 @@ const TanstackTable = ({ defaultData, tableConfig }) => {
   return (
     <>
       <div>
+        <CFormSwitch
+          onChange={(e) => toggleShowTableInfo(e)}
+          label="toggle table information"
+          id="formSwitchShowInfo"
+        />
+        <div
+          className={showTableInfoButton}
+          style={{
+            marginBottom: '10px',
+            border: '1px solid grey',
+            padding: '10px',
+            borderRadius: '5px',
+          }}
+        >
+          Say goodbye to global scores.{' '}
+          <i>
+            You are always at the center of your Grapevine, which means that all scores in the table
+            below are relative to YOU, determined from YOUR perspective.
+          </i>
+          <li>
+            <b>hops:</b> the minimum number of follow connections to get from you to the indicated
+            profile
+          </li>
+          <li>
+            <b>PageRank:</b> the centrality score that put Google on the map. Designed for the fiat
+            world. Calculated using follows. Makes use of the open source{' '}
+            <a
+              target="_blank"
+              href="https://neo4j.com/docs/graph-data-science/current/algorithms/page-rank/"
+              rel="noreferrer"
+            >
+              neo4j Graph Data Science PageRank algorithm
+            </a>
+            .
+          </li>
+          <li>
+            <b>GrapeRank:</b> centrality score designed to serve the needs of the sovereign
+            individual, not the wannabe fiat overlords. Pioneered by{' '}
+            <a target="_blank" href="https://pgf.tech" rel="noreferrer">
+              Pretty Good Freedom Technology
+            </a>
+            . Calculated below for the <i>not spam</i> context using follows and mutes, but via the
+            process of <i>interpretation</i>, capable of calculating scores for any desired context,
+            incorporating an unlimited number of sources of data: reports, zaps, reactions, badges,
+            labels, etc.
+          </li>
+        </div>
         <CFormSwitch
           onChange={(e) => toggleShowColumnsControlPanel(e)}
           label="toggle columns"

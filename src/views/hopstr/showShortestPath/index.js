@@ -125,7 +125,7 @@ const FollowsDownArrow = ({ item }) => {
   return <></>
 }
 
-const FeatureA = () => {
+const ShowShortestPathWrapper = () => {
   const [error, setError] = useState(false)
   const [from, setFrom] = useState('')
   const [from_npub, setFrom_npub] = useState('')
@@ -244,4 +244,4 @@ const FeatureA = () => {
   )
 }
 
-export default FeatureA
+export default ShowShortestPathWrapper

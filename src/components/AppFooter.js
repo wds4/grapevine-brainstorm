@@ -21,7 +21,7 @@ const AppFooter = () => {
       <div className="me-me" style={{ fontSize: '8px' }}>loggedInUser: {loggedInUser.pubkey}</div>
       <div className="ms-auto">
         <span className="ms-1">
-          &copy; 2024{' '}
+          &copy; 2025{' '}
           <a target="_blank" href="https://pgf.tech" rel="noreferrer">
             Pretty Good Freedom Tech
           </a>

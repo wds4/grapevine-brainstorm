@@ -36,6 +36,10 @@ const ShowShortestPath = ({ from_pubkey, to_pubkey }) => {
     return <></>
   }
 
+  if (from_pubkey == to_pubkey) {
+    return <></>
+  }
+
   return (
     <>
       <CContainer md>
@@ -45,7 +49,7 @@ const ShowShortestPath = ({ from_pubkey, to_pubkey }) => {
               <CCardBody>
                 <center>
                   <CCardTitle>
-                    Shortest Path by Follows
+                    Shortest Path
                     <NumHops aPubkeys={aPubkeys} />
                   </CCardTitle>
                 </center>
@@ -61,6 +65,10 @@ const ShowShortestPath = ({ from_pubkey, to_pubkey }) => {
                     </div>
                   )
                 })}
+              </CCardBody>
+              <CCardBody>
+                <div style={{ fontSize: '18px' }}>⬇️ = follow</div>
+                <div style={{ fontSize: '12px' }}>(other paths of equal hop number may also exist)</div>
               </CCardBody>
             </CCard>
           </div>

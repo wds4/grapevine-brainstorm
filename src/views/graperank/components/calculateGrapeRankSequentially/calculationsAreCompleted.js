@@ -12,7 +12,7 @@ const CalculationsAreCompleted = () => {
       <CContainer>
         <Confetti width={width} height={height} wind={confettiWind} />
         <center>
-          <h2>GrapeRank Calculations are complete!!</h2>
+          <h2>Calculation of your Grapevine is complete!!</h2>
           <p>Use the navbar on the left to:</p>
           <li>view results in table format</li>
           <li>export results as NIP-51 lists</li>

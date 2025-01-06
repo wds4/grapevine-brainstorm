@@ -25,7 +25,7 @@ const CreateDosSummary = ({ pubkey, grapeRankParams }) => {
           setDosSuccess(false)
         }
       }
-      return data
+      // return data
     } catch (error) {
       console.error('api/algos/dos/fullWoT_updateS3 endpoint error:', error)
     }
