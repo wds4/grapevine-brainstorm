@@ -22,7 +22,8 @@ const IsNeo4jServerUp = () => {
   React.useEffect(() => {
     const url = `https://www.graperank.tech/api`
     isNeo4jServerUp(url)
-  })
+  }, [])
+
   if (serverState == 'YES') {
     return (
       <>

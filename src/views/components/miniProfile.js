@@ -19,7 +19,8 @@ export const MiniProfile = ({ pubkey }) => {
       }
       updateProfile()
     }
-  })
+  }, [])
+
   if (!pubkey) return <></>
   const profileHref = `#/profile?pubkey=${pubkey}`
   return (
