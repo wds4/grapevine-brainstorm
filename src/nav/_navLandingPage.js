@@ -47,6 +47,16 @@ const _nav = [
   },
   {
     component: CNavTitle,
+    name: 'hopstr',
+  },
+  {
+    component: CNavItem,
+    name: 'Follows Network',
+    to: '/hopstr/followsNetwork',
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
     name: 'About',
   },
   {
