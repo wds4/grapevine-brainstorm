@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Dashboard
-const GrapeRankHome = React.lazy(() => import('src/views/graperank/landingPage'))
+const GrapeRankHome = React.lazy(() => import('src/views/graperank/landingPage/index'))
 
 // About
 const About = React.lazy(() => import('src/views/graperank/about/index'))

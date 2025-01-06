@@ -6,11 +6,11 @@ import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 const _nav = [
   {
     component: CNavTitle,
-    name: 'Brainstorm',
+    name: 'My Webs of Trust',
   },
   {
     component: CNavItem,
-    name: 'My Webs of Trust',
+    name: 'Table',
     to: '/profiles',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   },
@@ -40,12 +40,6 @@ const _nav = [
     ],
   },
   {
-    component: CNavItem,
-    name: 'Worldviews',
-    to: '/worldviews',
-    icon: <CIcon icon={cilGlobeAlt} customClassName="nav-icon" />,
-  },
-  {
     component: CNavTitle,
     name: 'hopstr',
   },
@@ -61,10 +55,25 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'About PGFT',
+    name: 'PGFT',
     to: '/about',
     icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
   },
+
+]
+
+export default _nav
+
+/*
+  {
+    component: CNavItem,
+    name: 'GrapeRank',
+    to: '/about/graperank',
+    icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
+  },
+  */
+
+/*
   {
     component: CNavTitle,
     name: 'Under Development',
@@ -97,6 +106,4 @@ const _nav = [
       },
     ],
   },
-]
-
-export default _nav
+*/

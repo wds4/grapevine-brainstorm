@@ -1,5 +1,5 @@
 import React from 'react'
-import { CButton, CContainer, CNavLink, CRow } from '@coreui/react'
+import { CContainer, CNavLink, CRow } from '@coreui/react'
 import { CCard, CCardBody, CCardHeader, CCardText, CCol } from '@coreui/react'
 
 const Dashboard = () => {

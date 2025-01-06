@@ -22,9 +22,9 @@ const SubscribeButton = ({ pubkey, setData }) => {
           display: showButtonDisplay,
         }}
       >
-        <div className="d-grid gap-2 col-6 mx-auto">
+        <div className="d-grid gap-2 col-10 mx-auto">
           <CButton color="primary" size="lg" onClick={() => signUpToBrainstorm()}>
-            Subscribe
+            Calculate my Webs of Trust
           </CButton>
         </div>
       </CCardBody>

@@ -155,7 +155,7 @@ const FollowsNetworkExists = ({ pubkey, followsNetwork, randomPubkey, setRandomP
             <CCard className="w-100">
               <CCardBody>
                 <center>
-                  <h4>Your Follows Network</h4>
+                  <h4>My Follows Network</h4>
                   <DisplayDosSummary
                     pubkey={pubkey}
                     followsNetwork={followsNetwork}
@@ -347,7 +347,7 @@ const ObtainFollowsNetworkIfExists = ({ pubkey, randomPubkey, setRandomPubkey })
                   </div>
                 </center>
                 <div style={{ marginBottom: '40px' }}>
-                  Your Follows Network has not yet been calculated.
+                  My Follows Network has not yet been calculated.
                 </div>
                 <CalculateFollowsNetworkButton pubkey={pubkey} />
               </div>

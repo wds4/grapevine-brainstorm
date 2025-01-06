@@ -1,5 +1,15 @@
 import React from 'react'
-import { CCard, CCardBody, CContainer, CRow, CCardTitle, CCol, CNavLink } from '@coreui/react'
+import {
+  CCard,
+  CCardBody,
+  CContainer,
+  CRow,
+  CCardTitle,
+  CCol,
+  CNavLink,
+  CCardHeader,
+  CCardText,
+} from '@coreui/react'
 import { secsToTimeAgo } from '../../../helpers'
 // import RecalculateGrapeRank from './recalculateGrapeRank'
 
@@ -16,40 +26,69 @@ const CustomerStatusExists = ({ pubkey, grapeRankParams }) => {
                 <center>
                   <CCardTitle>Your Grapevine was last calculated {howLongAgo}.</CCardTitle>
                 </center>
-                <li>
-                  Navigate to{' '}
-                  <div style={{ display: 'inline-block', color: 'blue' }}>
-                    <CNavLink href="#/profiles">My Webs of Trust</CNavLink>
-                  </div>{' '}
-                  (left) to see your Grapevine and to export results into NIP-51 lists.
-                </li>
-                <li>
-                  Ever wonder how many of your followers are "real" (not bots or spam)?
-                  Navigate to{' '}
-                  <div style={{ display: 'inline-block', color: 'blue' }}>
-                    <CNavLink href={myFollowersHref} >my followers</CNavLink>
-                  </div>{' '}
-                  to sort your followers by GrapeRank score.
-                </li>
-                <li>
-                  Navigate to Scattercharts (left) to compare and contrast three different ways to
-                  define your WoT Network: GrapeRank, PageRank, and DoS.
-                </li>
-                <li>
+                <center>
                   Navigate to{' '}
                   <div style={{ display: 'inline-block', color: 'blue' }}>
                     <CNavLink href="#/settings">Settings</CNavLink>
                   </div>{' '}
                   to adjust parameters and recalculate your Grapevine.
-                </li>
-                <br />
-                <li>
-                  Coming soon: Nostr Dev lists and other{' '}
-                  <div style={{ display: 'inline-block', color: 'blue' }}>
-                    <CNavLink href="#/worldviews">Worldviews</CNavLink>
-                  </div>
-                </li>
+                </center>
               </CCardBody>
+            </CCard>
+          </CCol>
+        </CRow>
+
+        <br />
+
+        <CRow className="justify-content-center" xs={{ gutter: 4 }}>
+          <CCol xs={12} sm={6} xl={4} xxl={3}>
+            <CCard
+              style={{ width: '100%', height: '100%' }}
+              className="mb-3 border-primary"
+              textColor="primary"
+            >
+              <CNavLink style={{ display: 'inline-block' }} href={myFollowersHref}>
+                <CCardHeader>
+                  <strong>My Followers</strong>
+                </CCardHeader>
+                <CCardBody>
+                  <CCardText>Sort your followers by their WoT scores.</CCardText>
+                </CCardBody>
+              </CNavLink>
+            </CCard>
+          </CCol>
+
+          <CCol xs={12} sm={6} xl={4} xxl={3}>
+            <CCard
+              style={{ width: '100%', height: '100%' }}
+              className="mb-3 border-primary"
+              textColor="primary"
+            >
+              <CNavLink style={{ display: 'inline-block' }} href="#/profiles">
+                <CCardHeader>
+                  <strong>My Webs of Trust</strong>
+                </CCardHeader>
+                <CCardBody>
+                  <CCardText>Table of profiles showing all 3 WoT scores.</CCardText>
+                </CCardBody>
+              </CNavLink>
+            </CCard>
+          </CCol>
+
+          <CCol xs={12} sm={6} xl={4} xxl={3}>
+            <CCard
+              style={{ width: '100%', height: '100%' }}
+              className="mb-3 border-primary"
+              textColor="success"
+            >
+              <CNavLink style={{ display: 'inline-block' }} href="#/hopstr">
+                <CCardHeader>
+                  <strong>Hopstr</strong>
+                </CCardHeader>
+                <CCardBody>
+                  <CCardText>Find profiles 3, 4, and more hops away!</CCardText>
+                </CCardBody>
+              </CNavLink>
             </CCard>
           </CCol>
         </CRow>

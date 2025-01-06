@@ -158,7 +158,7 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
     <CContainer md>
       <div style={{ display: tableConfig.displayDosTable }}>
         <center>
-          <h4>Your Webs of Trust</h4>
+          <h4>My Webs of Trust</h4>
         </center>
       </div>
       <CRow className="justify-content-center">
@@ -178,7 +178,7 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
         <CCard className="w-100" style={{ marginTop: '20px' }}>
           <CCardBody style={{ display: tableConfig.displayDosTable }}>
             <center>
-              <h4>Your Follows Network</h4>
+              <h4>My Follows Network</h4>
               <DisplayDosSummary dosDataToShow={dosDataToShow} />
             </center>
           </CCardBody>

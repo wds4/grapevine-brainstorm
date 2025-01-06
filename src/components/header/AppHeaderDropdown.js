@@ -17,6 +17,8 @@ import {
   cilInfo,
   cilArrowThickFromLeft,
   cilBuilding,
+  cilSitemap,
+  cilGlobeAlt,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
@@ -133,6 +135,15 @@ const ActiveHeaderDropdownLoggedIn = ({ activeUser }) => {
         <CDropdownItem href="#/about">
           <CIcon icon={cilInfo} className="me-2" />
           About
+        </CDropdownItem>
+        <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Under Development</CDropdownHeader>
+        <CDropdownItem href="#/dashboard">
+          <CIcon icon={cilSitemap} className="me-2" />
+          Apps Homepage
+        </CDropdownItem>
+        <CDropdownItem href="#/worldviews">
+          <CIcon icon={cilGlobeAlt} className="me-2" />
+          Worldviews
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

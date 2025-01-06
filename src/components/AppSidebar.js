@@ -21,6 +21,7 @@ import navigationProfile from 'src/nav/_navProfile'
 import navigationHSettings from 'src/nav/_navSettings'
 import navigationGrapevine from 'src/nav/_navGrapevine'
 import navigationGrapeRank from 'src/nav/_navGrapeRank'
+// import navigationGrapeRank from 'src/nav/_navGrapevine'
 import navigationApp3 from 'src/nav/_navApp3'
 import { nip19 } from 'nostr-tools'
 
