@@ -16,15 +16,15 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Shortest Path',
-    to: '/hopstr/shortestPath',
-    icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
     name: 'Follows Network',
     to: '/hopstr/followsNetwork',
     icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Shortest Path',
+    to: '/hopstr/shortestPath',
+    icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
   },
   {
     component: CNavTitle,
