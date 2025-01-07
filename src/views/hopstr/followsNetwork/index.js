@@ -14,7 +14,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-const RecalculateFollowsNetwork = ({pubkey}) => {
+const RecalculateFollowsNetwork = ({ pubkey }) => {
   const { height, width } = useWindowDimensions()
   const [dosSuccess, setDosSuccess] = useState(false)
   const [calculationsTriggered, setCalculationsTriggered] = useState(false)
@@ -70,7 +70,11 @@ const RecalculateFollowsNetwork = ({pubkey}) => {
       </h4>
     )
   }
-  return <CButton color="link" onClick={() => recalculateFollowsNetwork()}>recalculate follows network</CButton>
+  return (
+    <CButton color="link" onClick={() => recalculateFollowsNetwork()}>
+      recalculate follows network
+    </CButton>
+  )
 }
 
 const SelectRandomNpub = ({ followsNetwork, hops, setRandomPubkey }) => {
@@ -124,10 +128,12 @@ const DisplayDosSummary = ({ pubkey, followsNetwork, setRandomPubkey }) => {
   ]
   const aDataItemKeys = Object.keys(dosDataToShow)
   const aItems = []
+  let totalUserCount = 0
   for (let x = 0; x < aDataItemKeys.length; x++) {
     const nextKey = aDataItemKeys[x]
     const nextVal = dosDataToShow[nextKey]
     const hops = nextKey.substr(8)
+    totalUserCount += Number(nextVal)
     // console.log(`nextKey: ${nextKey}`)
     // console.log(`nextVal: ${nextVal}`)
     const oNextRow = {
@@ -146,9 +152,12 @@ const DisplayDosSummary = ({ pubkey, followsNetwork, setRandomPubkey }) => {
   console.log(`rerender DisplayDosSummary`)
   return (
     <>
+      <div>
+        <b>{totalUserCount}</b> users, up to {aDataItemKeys.length - 1} hops away
+      </div>
       <div>last updated: {secsToTimeAgo(followsNetwork.metaData.whenLastUpdated)} </div>
       <RecalculateFollowsNetwork pubkey={pubkey} />
-      <div style={{ marginTop: '50px' }}>
+      <div style={{ marginTop: '10px' }}>
         <CTable columns={columns} items={aItems} />
       </div>
     </>
@@ -237,9 +246,7 @@ const CalculateFollowsNetworkButton = ({ pubkey }) => {
       <>
         <CContainer>
           <center>
-            <h3>
-              Follows Network Web of Trust calculated successfully ✅
-            </h3>
+            <h3>Follows Network Web of Trust calculated successfully ✅</h3>
           </center>
           <div>Refresh the page to explore the results.</div>
         </CContainer>
