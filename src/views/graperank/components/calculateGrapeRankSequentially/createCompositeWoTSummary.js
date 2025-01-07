@@ -44,11 +44,11 @@ const CreateCompositeWoTSummary = ({ pubkey, grapeRankParams }) => {
         <CContainer>
           <Confetti width={width} height={height} />
           <center>
-            <h3>successfully gathered data into your Composite Web of Trust file.</h3>
+            <h4>Webs of Trust consolidated for export ✅</h4>
           </center>
           <br />
         </CContainer>
-        <CalculationsAreCompleted />
+        <CalculationsAreCompleted pubkey={pubkey} />
       </>
     )
   }
@@ -60,12 +60,12 @@ const CreateCompositeWoTSummary = ({ pubkey, grapeRankParams }) => {
           <div style={{ display: 'inline-block' }}>
             <PulseLoader />
           </div>{' '}
-          creating composite file of webs of trust (DoS and Personalized PageRank){' '}
+          consolidating data for export{' '}
           <div style={{ display: 'inline-block' }}>
             <PulseLoader />
           </div>
         </h3>
-        <h4>(This should take 20 secs; maybe up to a minute or two)</h4>
+        <h4>(This should take 20 secs; maybe up to a minute)</h4>
       </center>
     </CContainer>
   )

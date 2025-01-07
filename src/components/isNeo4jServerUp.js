@@ -14,7 +14,6 @@ const IsNeo4jServerUp = () => {
       if (data.success) {
         setServerState('YES')
       }
-      return data
     } catch (error) {
       console.error('api/tests/sql endpoint error:', error)
     }
@@ -35,7 +34,7 @@ const IsNeo4jServerUp = () => {
   }
   return (
     <>
-      <div style={{ display: 'inline-block' }}>... is brainstorm sql server up? ...</div>
+      <div style={{ display: 'inline-block' }}> ... is brainstorm server up? (sql test) ...</div>
     </>
   )
 }

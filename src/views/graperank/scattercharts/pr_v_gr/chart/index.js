@@ -91,9 +91,11 @@ const SingleEndpointControlPanel = ({ pubkey }) => {
           }
           oDosData[dos]++
 
+          /*
           if ((grapeRank_influence > 0.8) && (Math.log10(personalizedPageRank) < -6)) {
             console.log(`qwerty pk: ${pk}; average: ${grapeRank_average}; confidence: ${grapeRank_confidence}; influence: ${grapeRank_influence}`)
           }
+          */
 
           const oNewEntry = {
             id: 'id',

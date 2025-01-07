@@ -55,7 +55,6 @@ const CreateGrapeRankSummary = ({ pubkey, grapeRankParams }) => {
   if (grapeRankParams.followConfidenceOfObserver) {
     url += `&followConfidenceOfObserver=${grapeRankParams.followConfidenceOfObserver}`
   }
-  console.log(`qwerty url: ${url}`)
   useEffect(() => {
     fetchData(url)
   }, [])
@@ -64,7 +63,7 @@ const CreateGrapeRankSummary = ({ pubkey, grapeRankParams }) => {
       <>
         <CContainer>
           <center>
-            <h3>successfully calculated your GrapeRank Web of Trust</h3>
+            <h4>WoT 3: GrapeRank ✅</h4>
           </center>
           <br />
           <CreateCompositeWoTSummary pubkey={pubkey} grapeRankParams={grapeRankParams} />
@@ -85,7 +84,7 @@ const CreateGrapeRankSummary = ({ pubkey, grapeRankParams }) => {
             <PulseLoader />
           </div>
         </h3>
-        <h4>(This should take up to a minute or two)</h4>
+        <h4>(This should take up to a minute)</h4>
       </center>
     </CContainer>
   )

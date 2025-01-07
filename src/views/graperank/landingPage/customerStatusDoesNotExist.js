@@ -26,6 +26,7 @@ const SubscribeButton = ({ pubkey, setData }) => {
           <CButton color="primary" size="lg" onClick={() => signUpToBrainstorm()}>
             Calculate my Webs of Trust
           </CButton>
+          <div>This should take just a few minutes.</div>
         </div>
       </CCardBody>
       <CCardBody

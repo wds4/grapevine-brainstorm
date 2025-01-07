@@ -7,6 +7,7 @@ const Dashboard = React.lazy(() => import('src/views/dashboard/index'))
 // About
 const About = React.lazy(() => import('src/views/about/index'))
 const AboutGrapeRank = React.lazy(() => import('src/views/about/graperank/index'))
+const AboutPageRank = React.lazy(() => import('src/views/about/pagerank/index'))
 
 // Profiles
 // const Profiles = React.lazy(() => import('src/views/profiles/index'))
@@ -24,7 +25,8 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
 
   { path: '/about', name: 'About', element: About },
-  { path: '/about/graperank', name: 'About', element: AboutGrapeRank },
+  { path: '/about/graperank', name: 'GrapeRank', element: AboutGrapeRank },
+  { path: '/about/pagerank', name: 'PageRank', element: AboutPageRank },
 
   { path: '/scattercharts/pr_v_gr', name: 'PR v GR', element: Scatterplot_pr_v_gr },
   { path: '/scattercharts/dos_v_pr', name: 'DoS v PR', element: Scatterplot_dos_v_pr },

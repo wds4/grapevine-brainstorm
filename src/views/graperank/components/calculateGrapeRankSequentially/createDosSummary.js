@@ -40,7 +40,7 @@ const CreateDosSummary = ({ pubkey, grapeRankParams }) => {
       <>
         <CContainer>
           <center>
-            <h3>successfully calculated your Degrees of Separation (DoS) Web of Trust</h3>
+            <h4>WoT 1: your Follows Network ✅</h4>
           </center>
         </CContainer>
         <br />
@@ -56,12 +56,12 @@ const CreateDosSummary = ({ pubkey, grapeRankParams }) => {
           <div style={{ display: 'inline-block' }}>
             <PulseLoader />
           </div>{' '}
-          calculating Degrees of Separation{' '}
+          calculating Follows Network{' '}
           <div style={{ display: 'inline-block' }}>
             <PulseLoader />
           </div>
         </h3>
-        <h4>(This should take 25-30 secs; maybe up to a minute or two)</h4>
+        <h4>(This should take 25-30 secs; maybe up to a minute)</h4>
       </center>
     </CContainer>
   )

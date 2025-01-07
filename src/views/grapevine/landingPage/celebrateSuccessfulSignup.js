@@ -3,6 +3,7 @@ import { CContainer } from '@coreui/react'
 import Confetti from 'react-confetti'
 import { useWindowDimensions } from 'src/helpers/windowDimensions'
 import PulseLoader from 'react-spinners/PulseLoader'
+import WotHighlightsNav from 'src/views/graperank/components/wotHighlightsNav'
 
 const CreateScorecardsTable = ({ pubkey }) => {
   const { height, width } = useWindowDimensions()
@@ -28,15 +29,9 @@ const CreateScorecardsTable = ({ pubkey }) => {
         <CContainer>
           <Confetti width={width} height={height} wind={confettiWind} />
           <center>
-            <h2>Calculation of your Grapevine is complete!!</h2>
-            <p>Use the navbar on the left to:</p>
-            <li>view results in table format</li>
-            <li>export results as NIP-51 lists</li>
-            <li>
-              Worldviews: use your Grapevine to curate lists, like lists of Nostr Devs (coming
-              soon!)
-            </li>
+            <h3>Calculation of your Grapevine is complete!</h3>
           </center>
+          <WotHighlightsNav pubkey={pubkey} />
         </CContainer>
       </>
     )

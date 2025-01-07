@@ -50,7 +50,6 @@ const RecalculationModule = ({ recalculating, pubkey, grapeRankParams }) => {
   return (
     <>
       <br />
-      <div>Recalculations commencing ....</div>
       <CreateDosSummary pubkey={pubkey} grapeRankParams={grapeRankParams} />
     </>
   )

@@ -16,7 +16,6 @@ const QueryCalculationApi = ({ pubkey }) => {
         throw new Error('Network response was not ok')
       }
       const data = await response.json()
-      // console.log(`fetchData: ${JSON.stringify(data)}`)
       if (!data.success) {
         setExists('query failed')
       }
@@ -24,14 +23,17 @@ const QueryCalculationApi = ({ pubkey }) => {
         if (data.exists) {
           const oCustomerData = data.data.oCustomerData
           const oGrapeRankParams = oCustomerData.grapeRankParams
-          setGrapeRankParams(oGrapeRankParams)
-          setExists('YES')
+          if (oGrapeRankParams?.whenLastImplemented) {
+            setGrapeRankParams(oGrapeRankParams)
+            setExists('YES')
+          } else {
+            setExists('NO')
+          }
         }
         if (!data.exists) {
           setExists('NO')
         }
       }
-      return data
     } catch (error) {
       console.error('Fetch error:', error)
     }

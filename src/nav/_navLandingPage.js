@@ -59,7 +59,12 @@ const _nav = [
     to: '/about/graperank',
     icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
   },
-
+  {
+    component: CNavItem,
+    name: 'PageRank',
+    to: '/about/pagerank',
+    icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
+  },
 ]
 
 export default _nav

@@ -78,12 +78,12 @@ const CreateCompositeWoTSummary = ({ pubkey }) => {
           <div style={{ display: 'inline-block' }}>
             <PulseLoader />
           </div>{' '}
-          creating composite file of webs of trust (DoS and Personalized PageRank){' '}
+          consolidating data for export{' '}
           <div style={{ display: 'inline-block' }}>
             <PulseLoader />
           </div>
         </h3>
-        <h4>(This should take 20 secs; maybe up to a minute or two)</h4>
+        <h4>(This should take 20 secs; maybe up to a minute)</h4>
       </center>
     </CContainer>
   )
@@ -215,7 +215,7 @@ const CreatePersonalizedPageRankSummary = ({ pubkey }) => {
             <PulseLoader />
           </div>
         </h3>
-        <h4>(This should take 20 secs; maybe up to a minute or two)</h4>
+        <h4>(This should take 20 secs; maybe up to a minute)</h4>
       </center>
     </CContainer>
   )

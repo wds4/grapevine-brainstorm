@@ -40,7 +40,7 @@ const CreatePersonalizedPageRankSummary = ({ pubkey, grapeRankParams }) => {
       <>
         <CContainer>
           <center>
-            <h3>successfully calculated your Personalized PageRank Web of Trust</h3>
+            <h4>WoT 2: Personalized PageRank ✅</h4>
           </center>
           <br />
           <CreateGrapeRankSummary pubkey={pubkey} grapeRankParams={grapeRankParams} />
@@ -61,7 +61,7 @@ const CreatePersonalizedPageRankSummary = ({ pubkey, grapeRankParams }) => {
             <PulseLoader />
           </div>
         </h3>
-        <h4>(This should take 20 secs; maybe up to a minute or two)</h4>
+        <h4>(This should take 20 secs; maybe up to a minute)</h4>
       </center>
     </CContainer>
   )
