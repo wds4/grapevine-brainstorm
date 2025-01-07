@@ -35,9 +35,9 @@ const Unsubscribe = ({ pubkey, setData }) => {
               <CCardBody>
                 <div className="d-grid gap-2">
                   <div>
-                    You are subscribed to the Grapevine (GrapeRank) as a customer.
+                    You are subscribed to Brainstorm.
                     <CButton color="primary" style={{float: 'right'}} onClick={() => unsubscribeFromBrainstorm()}>
-                      Unsubscribe
+                      Unsubscribe and delete WoT data
                     </CButton>
                   </div>
                 </div>

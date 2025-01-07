@@ -56,10 +56,6 @@ const CustomerStatusDoesNotExist = ({ pubkey }) => {
                 <div style={{ fontSize: '48px', marginBottom: '60px' }}>
                   the Grapevine &#127815;
                 </div>
-                <div style={{ marginBottom: '70px' }}>next-generation Web of Trust for Nostr</div>
-                <div style={{ marginBottom: '80px' }}>
-                  Let us calculate your Grapevine WoT network for you.
-                </div>
                 <SubscribeButton pubkey={pubkey} setData={setData} />
               </div>
             </center>

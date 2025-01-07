@@ -55,8 +55,8 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'PGFT',
-    to: '/about',
+    name: 'GrapeRank',
+    to: '/about/graperank',
     icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
   },
 

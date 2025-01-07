@@ -193,10 +193,18 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
             <CCard className="w-100">
               <CCardBody>
                 <center>
-                  <CCardTitle>Recalculate GrapeRank</CCardTitle>
-                  <div>Your Grapevine was last calculated {howLongAgo}, using parameters:</div>
+                  <div style={{ display: recalculateButtonDisplay }}>
+                    <div>Your Webs of Trust were last calculated {howLongAgo}.</div>
+                    <br />
+                    <CButton color="primary" onClick={() => recalculateGrapeRank()}>
+                      Recalculate your Webs of Trust
+                    </CButton>
+                    <br /><br />
+                    <div>You can edit GrapeRank parameters below.</div>
+                  </div>
                 </center>
                 <br />
+                <ThreeModes resetParamsByMode={resetParamsByMode} />
                 <div style={{ marginLeft: '50px' }}>
                   <div>
                     <div style={{ display: 'inline-block', width: '300px' }}></div>
@@ -357,16 +365,6 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
                     </div>
                   </div>
                 </div>
-                <br />
-                <div style={{ display: recalculateButtonDisplay }}>
-                  <CButton
-                    color="primary"
-                    style={{ float: 'right' }}
-                    onClick={() => recalculateGrapeRank()}
-                  >
-                    Recalculate using new parameters
-                  </CButton>
-                </div>
                 <RecalculationModule
                   recalculating={recalculating}
                   pubkey={pubkey}
@@ -375,19 +373,9 @@ const RecalculateGrapeRank = ({ pubkey, grapeRankParams }) => {
               </CCardBody>
             </CCard>
           </CCol>
-
-          <CCol xs={12} style={{ marginTop: '20px' }}>
-            <CCard className="mb-4">
-              <CCardHeader>
-                <strong>
-                  <center>Edit GrapeRank Parameters</center>
-                </strong>
-              </CCardHeader>
-            </CCard>
-          </CCol>
-
-          <ThreeModes resetParamsByMode={resetParamsByMode} />
-
+        </CRow>
+        <br />
+        <CRow>
           <Rigor rigorX={rigorX} changeRigorX={changeRigorX} />
 
           <AttenuationFactor

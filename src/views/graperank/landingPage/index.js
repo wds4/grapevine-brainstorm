@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useActiveUser } from 'nostr-hooks'
 import CustomerStatusDoesNotExist from './customerStatusDoesNotExist'
 import CustomerStatusExists from './customerStatusExists'
+import { CContainer, CRow } from '@coreui/react'
 
 const QueryCalculationApi = ({ pubkey }) => {
   const [exists, setExists] = useState('pending')
@@ -70,7 +71,26 @@ const QueryCalculationApi = ({ pubkey }) => {
 const AppDashboard = () => {
   console.log(`rerender graperank AppDashboard`)
   const { activeUser } = useActiveUser()
-  if (!activeUser) return <div>retrieving the active user pubkey ...</div>
+  if (!activeUser) {
+    return (
+      <>
+        <CContainer md style={{ marginTop: '50px' }}>
+          <CRow className="justify-content-center">
+            <div className="col-auto">
+              <center>
+                <div className="d-flex justify-content-between flex-column">
+                  <div style={{ fontSize: '48px', marginBottom: '60px' }}>
+                    the Grapevine &#127815;
+                  </div>
+                  <div>Log in to calculate your Webs of Trust!</div>
+                </div>
+              </center>
+            </div>
+          </CRow>
+        </CContainer>
+      </>
+    )
+  }
   return <QueryCalculationApi pubkey={activeUser.pubkey} />
 }
 

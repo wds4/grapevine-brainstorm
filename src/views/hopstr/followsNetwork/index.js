@@ -5,6 +5,8 @@ import PulseLoader from 'react-spinners/PulseLoader'
 import MiniProfile from 'src/views/components/miniProfile'
 import { secsToTimeAgo } from '../../../helpers'
 import ShowShortestPath from 'src/views/graperank/components/showShortestPath'
+import { useWindowDimensions } from 'src/helpers/windowDimensions'
+import Confetti from 'react-confetti'
 
 function getRandomInt(min, max) {
   min = Math.ceil(min)
@@ -13,6 +15,7 @@ function getRandomInt(min, max) {
 }
 
 const RecalculateFollowsNetwork = ({pubkey}) => {
+  const { height, width } = useWindowDimensions()
   const [dosSuccess, setDosSuccess] = useState(false)
   const [calculationsTriggered, setCalculationsTriggered] = useState(false)
   const recalculateFollowsNetwork = async () => {
@@ -44,6 +47,7 @@ const RecalculateFollowsNetwork = ({pubkey}) => {
   if (dosSuccess) {
     return (
       <CContainer>
+        <Confetti width={width} height={height} wind={confettiWind} />
         <center>
           <h4>
             successfully recalculated your Follows Network Degrees of Separation (DoS) Web of Trust
@@ -95,11 +99,16 @@ const SelectRandomNpub = ({ followsNetwork, hops, setRandomPubkey }) => {
   )
 }
 
+const ShowHops = ({ hops }) => {
+  return <b>{hops}</b>
+}
+
 const DisplayDosSummary = ({ pubkey, followsNetwork, setRandomPubkey }) => {
   const dosDataToShow = followsNetwork.data.numPubkeysByDoS
   const columns = [
     {
       key: 'hops',
+      label: '# of hops',
       _props: { scope: 'col' },
     },
     {
@@ -109,7 +118,7 @@ const DisplayDosSummary = ({ pubkey, followsNetwork, setRandomPubkey }) => {
     },
     {
       key: 'button',
-      label: 'select a profile at random, separated from you by:',
+      label: '🔥 select a profile at random, separated from you by:',
       _props: { scope: 'col' },
     },
   ]
@@ -122,7 +131,7 @@ const DisplayDosSummary = ({ pubkey, followsNetwork, setRandomPubkey }) => {
     // console.log(`nextKey: ${nextKey}`)
     // console.log(`nextVal: ${nextVal}`)
     const oNextRow = {
-      hops: hops,
+      hops: <ShowHops hops={hops} />,
       num_users: nextVal,
       button: (
         <SelectRandomNpub
@@ -229,9 +238,10 @@ const CalculateFollowsNetworkButton = ({ pubkey }) => {
         <CContainer>
           <center>
             <h3>
-              successfully calculated your Follows Network Degrees of Separation (DoS) Web of Trust
+              Follows Network Web of Trust calculated successfully ✅
             </h3>
           </center>
+          <div>Refresh the page to explore the results.</div>
         </CContainer>
       </>
     )
@@ -248,12 +258,12 @@ const CalculateFollowsNetworkButton = ({ pubkey }) => {
             <div style={{ display: 'inline-block' }}>
               <PulseLoader />
             </div>{' '}
-            calculating Degrees of Separation{' '}
+            calculating your Follows Network{' '}
             <div style={{ display: 'inline-block' }}>
               <PulseLoader />
             </div>
           </h3>
-          <h4>(This should take 25-30 secs; maybe up to a minute or two)</h4>
+          <h4>(This should take 25-30 secs; maybe up to a minute)</h4>
         </center>
       </CContainer>
     )
@@ -324,30 +334,8 @@ const ObtainFollowsNetworkIfExists = ({ pubkey, randomPubkey, setRandomPubkey })
           <div className="col-auto">
             <center>
               <div className="d-flex justify-content-between flex-column">
-                <div style={{ fontSize: '48px', marginBottom: '60px' }}>
+                <div style={{ fontSize: '48px', marginBottom: '40px' }}>
                   your ➡️ Follows ➡️ Network ➡️
-                </div>
-                <center>
-                  <div style={{ marginBottom: '70px', width: '500px', textAlign: 'left' }}>
-                    <p>The Follows Network is one type of Web of Trust.</p>
-                    <p>
-                      It is composed of the nostr profiles you follow, the ones they follow, and so
-                      on. The maximum number of allowed "hops" can be restricted or unrestricted.
-                    </p>
-                    <p>
-                      As of Jan 2025, the unrestricted Follows Network for most users extends as far
-                      away as 7-8 hops and is composed of over 175,000 npubs.
-                    </p>
-                    <p>
-                      Our service keeps track of kind 3 notes (follows) and maintains a graph
-                      database of nostr profiles and their follow relationships. This toold allows
-                      for efficient determination of any user's Follows Network. It can also be used
-                      for efficient calculation of the shortest follows path between any two npubs.
-                    </p>
-                  </div>
-                </center>
-                <div style={{ marginBottom: '40px' }}>
-                  My Follows Network has not yet been calculated.
                 </div>
                 <CalculateFollowsNetworkButton pubkey={pubkey} />
               </div>

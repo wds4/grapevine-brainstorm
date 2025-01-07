@@ -3,8 +3,9 @@ import { CContainer } from '@coreui/react'
 import Confetti from 'react-confetti'
 import { useWindowDimensions } from 'src/helpers/windowDimensions'
 import PulseLoader from 'react-spinners/PulseLoader'
+import WotHighlightsNav from 'src/views/graperank/components/wotHighlightsNav'
 
-const CalculationsAreCompleted = () => {
+const CalculationsAreCompleted = ({ pubkey }) => {
   const { height, width } = useWindowDimensions()
   // const confettiColorsPurple = ['#993366']
   const confettiWind = '10'
@@ -13,15 +14,11 @@ const CalculationsAreCompleted = () => {
       <CContainer>
         <Confetti width={width} height={height} wind={confettiWind} />
         <center>
-          <h2>Calculation of your Grapevine is complete!!</h2>
-          <p>Use the navbar on the left to:</p>
-          <li>view results in table format</li>
-          <li>export results as NIP-51 lists</li>
-          <li>
-            Worldviews: use your Grapevine to curate lists, like lists of Nostr Devs (coming soon!)
-          </li>
+          <h3>Calculation of your Grapevine is complete!!</h3>
         </center>
+        <WotHighlightsNav pubkey={pubkey} />
       </CContainer>
+
     </>
   )
 }
@@ -65,11 +62,11 @@ const CreateCompositeWoTSummary = ({ pubkey }) => {
         <CContainer>
           <Confetti width={width} height={height} />
           <center>
-            <h3>successfully gathered data into your Composite Web of Trust file.</h3>
+            <h4>Webs of Trust consolidated for export ✅</h4>
           </center>
           <br />
         </CContainer>
-        <CalculationsAreCompleted />
+        <CalculationsAreCompleted pubkey={pubkey} />
       </>
     )
   }
@@ -131,7 +128,7 @@ const CreateGrapeRankSummary = ({ pubkey }) => {
       <>
         <CContainer>
           <center>
-            <h3>successfully calculated your GrapeRank Web of Trust</h3>
+            <h4>WoT 3: GrapeRank ✅</h4>
           </center>
           <br />
           <CreateCompositeWoTSummary pubkey={pubkey} />
@@ -197,7 +194,7 @@ const CreatePersonalizedPageRankSummary = ({ pubkey }) => {
       <>
         <CContainer>
           <center>
-            <h3>successfully calculated your Personalized PageRank Web of Trust</h3>
+            <h4>WoT 2: Personalized PageRank ✅</h4>
           </center>
           <br />
           <CreateGrapeRankSummary pubkey={pubkey} />
@@ -261,7 +258,7 @@ const CreateDosSummary = ({ pubkey }) => {
       <>
         <CContainer>
           <center>
-            <h3>successfully calculated your Degrees of Separation (DoS) Web of Trust</h3>
+            <h4>WoT 1: your Follows Network ✅</h4>
           </center>
         </CContainer>
         <br />
@@ -277,12 +274,12 @@ const CreateDosSummary = ({ pubkey }) => {
           <div style={{ display: 'inline-block' }}>
             <PulseLoader />
           </div>{' '}
-          calculating Degrees of Separation{' '}
+          calculating your Follows Network{' '}
           <div style={{ display: 'inline-block' }}>
             <PulseLoader />
           </div>
         </h3>
-        <h4>(This should take 25-30 secs; maybe up to a minute or two)</h4>
+        <h4>(This should take 25-30 secs; maybe up to a minute)</h4>
       </center>
     </CContainer>
   )
@@ -294,7 +291,7 @@ const CelebrateSuccessfulSignUp = ({ data, pubkey }) => {
       <CContainer>
         <div>
           <center>
-            <h2>You are signed up to the Brainstorm: Grapevine Service (v2)</h2>
+            <h3>Initiating calculation of your Webs of Trust </h3>
             <br />
             <CreateDosSummary pubkey={pubkey} />
           </center>

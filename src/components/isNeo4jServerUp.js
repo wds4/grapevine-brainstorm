@@ -11,16 +11,16 @@ const IsNeo4jServerUp = () => {
         throw new Error('Network response was not ok')
       }
       const data = await response.json()
-      if (data.message) {
+      if (data.success) {
         setServerState('YES')
       }
       return data
     } catch (error) {
-      console.error('api/outwardFacing/singlePubkey/grapeRank endpoint error:', error)
+      console.error('api/tests/sql endpoint error:', error)
     }
   }
   React.useEffect(() => {
-    const url = `https://www.graperank.tech/api`
+    const url = `https://www.graperank.tech/api/tests/sql`
     isNeo4jServerUp(url)
   }, [])
 
@@ -35,7 +35,7 @@ const IsNeo4jServerUp = () => {
   }
   return (
     <>
-      <div style={{ display: 'inline-block' }}>... is brainstorm neo4j server up? ...</div>
+      <div style={{ display: 'inline-block' }}>... is brainstorm sql server up? ...</div>
     </>
   )
 }

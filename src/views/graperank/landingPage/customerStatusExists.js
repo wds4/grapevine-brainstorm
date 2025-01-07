@@ -10,12 +10,11 @@ import {
   CCardHeader,
   CCardText,
 } from '@coreui/react'
+import WotHighlightsNav from 'src/views/graperank/components/wotHighlightsNav'
 import { secsToTimeAgo } from '../../../helpers'
-// import RecalculateGrapeRank from './recalculateGrapeRank'
 
 const CustomerStatusExists = ({ pubkey, grapeRankParams }) => {
   const howLongAgo = secsToTimeAgo(grapeRankParams?.whenLastImplemented)
-  const myFollowersHref = `#/profile/followers?pubkey=${pubkey}`
   return (
     <>
       <CContainer md>
@@ -37,62 +36,9 @@ const CustomerStatusExists = ({ pubkey, grapeRankParams }) => {
             </CCard>
           </CCol>
         </CRow>
-
-        <br />
-
-        <CRow className="justify-content-center" xs={{ gutter: 4 }}>
-          <CCol xs={12} sm={6} xl={4} xxl={3}>
-            <CCard
-              style={{ width: '100%', height: '100%' }}
-              className="mb-3 border-primary"
-              textColor="primary"
-            >
-              <CNavLink style={{ display: 'inline-block' }} href={myFollowersHref}>
-                <CCardHeader>
-                  <strong>My Followers</strong>
-                </CCardHeader>
-                <CCardBody>
-                  <CCardText>Sort your followers by their WoT scores.</CCardText>
-                </CCardBody>
-              </CNavLink>
-            </CCard>
-          </CCol>
-
-          <CCol xs={12} sm={6} xl={4} xxl={3}>
-            <CCard
-              style={{ width: '100%', height: '100%' }}
-              className="mb-3 border-primary"
-              textColor="primary"
-            >
-              <CNavLink style={{ display: 'inline-block' }} href="#/profiles">
-                <CCardHeader>
-                  <strong>My Webs of Trust</strong>
-                </CCardHeader>
-                <CCardBody>
-                  <CCardText>Table of profiles showing all 3 WoT scores.</CCardText>
-                </CCardBody>
-              </CNavLink>
-            </CCard>
-          </CCol>
-
-          <CCol xs={12} sm={6} xl={4} xxl={3}>
-            <CCard
-              style={{ width: '100%', height: '100%' }}
-              className="mb-3 border-primary"
-              textColor="success"
-            >
-              <CNavLink style={{ display: 'inline-block' }} href="#/hopstr">
-                <CCardHeader>
-                  <strong>Hopstr</strong>
-                </CCardHeader>
-                <CCardBody>
-                  <CCardText>Find profiles 3, 4, and more hops away!</CCardText>
-                </CCardBody>
-              </CNavLink>
-            </CCard>
-          </CCol>
-        </CRow>
       </CContainer>
+      <br />
+      <WotHighlightsNav pubkey={pubkey} />
     </>
   )
 }
