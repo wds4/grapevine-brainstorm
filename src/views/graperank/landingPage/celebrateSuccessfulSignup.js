@@ -96,7 +96,11 @@ const CreateGrapeRankSummary = ({ pubkey }) => {
 
   async function fetchData(url) {
     try {
-      const response = await fetch(url)
+      // const response = await fetch(url)
+      const response = await fetch(url, {
+        timeout: 120000, // 1200 seconds
+      })
+
       if (!response.ok) {
         throw new Error('Network response was not ok')
       }
