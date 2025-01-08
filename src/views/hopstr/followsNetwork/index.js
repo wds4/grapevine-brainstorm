@@ -15,6 +15,7 @@ function getRandomInt(min, max) {
 }
 
 const RecalculateFollowsNetwork = ({ pubkey }) => {
+  const confettiWind = '10'
   const { height, width } = useWindowDimensions()
   const [dosSuccess, setDosSuccess] = useState(false)
   const [calculationsTriggered, setCalculationsTriggered] = useState(false)
