@@ -24,6 +24,24 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: 'Mutuals',
+    to: '/profile/mutuals',
+    icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Fans',
+    to: '/profile/fans',
+    icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Idols',
+    to: '/profile/idols',
+    icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
     name: 'Muters',
     to: '/profile/muters',
     icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,

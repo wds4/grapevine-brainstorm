@@ -26,6 +26,10 @@ const Profile = ({ activeUserPubkey }) => {
   const [numMuters, setNumMuters] = useState('?')
   const [numMutes, setNumMutes] = useState('?')
 
+  const [numMutuals, setNumMutuals] = useState('?')
+  const [numFans, setNumFans] = useState('?')
+  const [numIdols, setNumIdols] = useState('?')
+
   const [dosBrainstorm, setDosBrainstorm] = useState('?')
   const [dos, setDos] = useState('?')
 
@@ -180,6 +184,33 @@ const Profile = ({ activeUserPubkey }) => {
     }
   }
 
+  async function fetchFollowersFollowsMutualsFansIdols(url) {
+    console.log(`async function fetchFollowersFollowsMutualsFansIdols`)
+    console.log(url)
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('fetchFollowersFollowsMutualsFansIdols: Network response was not ok')
+      }
+      const data = await response.json()
+      if (data.success) {
+        if (data.exists) {
+          setNumFollowers(data.data.numFollowers)
+          setNumFollows(data.data.numFollows)
+          setNumMutuals(data.data.numMutuals)
+          setNumFans(data.data.numFans)
+          setNumIdols(data.data.numIdols)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error(
+        'api/outwardFacing/singlePubkey/fetchFollowersFollowsMutualsFansIdols endpoint error:',
+        error,
+      )
+    }
+  }
+
   useEffect(() => {
     let internalNpub = ''
     let internalPubkey = ''
@@ -196,9 +227,9 @@ const Profile = ({ activeUserPubkey }) => {
       if (pubkeyFromUrl) {
         setProvidedPubkey(pubkeyFromUrl)
         const url1 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollowers?pubkey=${pubkeyFromUrl}`
-        fetchNumFollowers(url1)
+        // fetchNumFollowers(url1)
         const url2 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollows?pubkey=${pubkeyFromUrl}`
-        fetchNumFollows(url2)
+        // fetchNumFollows(url2)
         const url3 = `https://www.graperank.tech/api/outwardFacing/getDos?observer=${activeUserPubkey}&observee=${pubkeyFromUrl}`
         fetchDos(url3)
         const url4 = `https://www.graperank.tech/api/outwardFacing/getGrapeRank?observer=${activeUserPubkey}&observee=${pubkeyFromUrl}`
@@ -209,6 +240,9 @@ const Profile = ({ activeUserPubkey }) => {
         fetchNumMutes(url6)
         const url7 = `https://www.graperank.tech/api/outwardFacing/getPageRank?observer=${activeUserPubkey}&observee=${pubkeyFromUrl}`
         fetchPageRank(url7)
+
+        const url8 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollowersFollowsMutualsFansIdols?pubkey=${pubkeyFromUrl}`
+        fetchFollowersFollowsMutualsFansIdols(url8)
 
         internalPubkey = pubkeyFromUrl
         const np = nip19.npubEncode(pubkeyFromUrl)
@@ -248,6 +282,10 @@ const Profile = ({ activeUserPubkey }) => {
   }
   const hrefFollows = `#/profile/follows?npub=${calculatedNpub}`
   const hrefFollowers = `#/profile/followers?npub=${calculatedNpub}`
+  const hrefMutuals = `#/profile/mutuals?npub=${calculatedNpub}`
+  const hrefFans = `#/profile/fans?npub=${calculatedNpub}`
+  const hrefIdols = `#/profile/idols?npub=${calculatedNpub}`
+
   const hrefMuters = `#/profile/muters?npub=${calculatedNpub}`
   const hrefMutes = `#/profile/mutes?npub=${calculatedNpub}`
   const hrefShortestPath = `#/profile/shortestPath?npub=${calculatedNpub}`
@@ -293,6 +331,42 @@ const Profile = ({ activeUserPubkey }) => {
                 </CNavLink>
               </CCol>
             </CRow>
+
+            <CRow>
+              <CCol sm="auto">
+                <div style={{ width: '250px' }}>mutuals:</div>
+              </CCol>
+              <CCol>
+                <CNavLink href={hrefMutuals}>
+                  {numMutuals} <span style={{ color: 'grey' }}>mutuals</span>
+                </CNavLink>
+              </CCol>
+            </CRow>
+
+            <CRow>
+              <CCol sm="auto">
+                <div style={{ width: '250px' }}>fans:</div>
+              </CCol>
+              <CCol>
+                <CNavLink href={hrefFans}>
+                  {numFans} <span style={{ color: 'grey' }}>fans</span>
+                </CNavLink>
+              </CCol>
+            </CRow>
+
+            <CRow>
+              <CCol sm="auto">
+                <div style={{ width: '250px' }}>idols:</div>
+              </CCol>
+              <CCol>
+                <CNavLink href={hrefIdols}>
+                  {numIdols} <span style={{ color: 'grey' }}>idols</span>
+                </CNavLink>
+              </CCol>
+            </CRow>
+
+            <hr />
+
             <CRow>
               <CCol sm="auto">
                 <div style={{ width: '250px' }}>muters:</div>
