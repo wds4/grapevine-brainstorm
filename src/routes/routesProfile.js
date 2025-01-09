@@ -12,6 +12,10 @@ const Fans = React.lazy(() => import('src/views/profile/fans/index'))
 const Idols = React.lazy(() => import('src/views/profile/idols/index'))
 const Muters = React.lazy(() => import('src/views/profile/muters'))
 const Mutes = React.lazy(() => import('src/views/profile/mutes'))
+
+const FollowRecsForYou = React.lazy(() => import('src/views/profile/followRecsForYou'))
+const FollowRecsByYou = React.lazy(() => import('src/views/profile/followRecsByYou'))
+
 const ShortestPath = React.lazy(() => import('src/views/profile/shortestPath'))
 const Scores = React.lazy(() => import('src/views/profile/scores/index'))
 
@@ -26,6 +30,10 @@ const routes = [
 
   { path: '/profile/muters', name: 'Muters', element: Muters },
   { path: '/profile/mutes', name: 'Mutes', element: Mutes },
+
+  { path: '/profile/followRecsForYou', name: 'Follow Recs for You', element: FollowRecsForYou },
+  { path: '/profile/followRecsByYou', name: 'Follow Recs by You', element: FollowRecsByYou },
+
   { path: '/profile/shortestPath', name: 'ShortestPath', element: ShortestPath },
   { path: '/profile/scores', name: 'Scores', element: Scores },
 ]

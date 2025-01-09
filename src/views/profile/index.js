@@ -30,6 +30,9 @@ const Profile = ({ activeUserPubkey }) => {
   const [numFans, setNumFans] = useState('?')
   const [numIdols, setNumIdols] = useState('?')
 
+  const [numRecsForYou, setNumRecsForYou] = useState('?')
+  const [numRecsByYou, setNumRecsByYou] = useState('?')
+
   const [dosBrainstorm, setDosBrainstorm] = useState('?')
   const [dos, setDos] = useState('?')
 
@@ -211,6 +214,46 @@ const Profile = ({ activeUserPubkey }) => {
     }
   }
 
+  async function fetchFollowRecsForYou(url) {
+    console.log(`async function fetchFollowRecsForYou`)
+    console.log(url)
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('fetchFollowRecsForYou: Network response was not ok')
+      }
+      const data = await response.json()
+      if (data.success) {
+        if (data.exists) {
+          setNumRecsForYou(data.data.numFollowRecommendations)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/neo4j/getFollowRecommendations endpoint error:', error)
+    }
+  }
+
+  async function fetchFollowRecsByYou(url) {
+    console.log(`async function fetchFollowRecsByYou`)
+    console.log(url)
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error('fetchFollowRecsByYou: Network response was not ok')
+      }
+      const data = await response.json()
+      if (data.success) {
+        if (data.exists) {
+          setNumRecsByYou(data.data.numFollowRecommendations)
+        }
+      }
+      return data
+    } catch (error) {
+      console.error('api/neo4j/getFollowRecommendations endpoint error:', error)
+    }
+  }
+
   useEffect(() => {
     let internalNpub = ''
     let internalPubkey = ''
@@ -243,6 +286,11 @@ const Profile = ({ activeUserPubkey }) => {
 
         const url8 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollowersFollowsMutualsFansIdols?pubkey=${pubkeyFromUrl}`
         fetchFollowersFollowsMutualsFansIdols(url8)
+
+        const url9 = `https://www.graperank.tech/api/neo4j/getFollowRecommendations?recommender=${pubkeyFromUrl}&recommendee=${activeUserPubkey}`
+        fetchFollowRecsForYou(url9)
+        const url10 = `https://www.graperank.tech/api/neo4j/getFollowRecommendations?recommender=${activeUserPubkey}&recommendee=${pubkeyFromUrl}`
+        fetchFollowRecsByYou(url10)
 
         internalPubkey = pubkeyFromUrl
         const np = nip19.npubEncode(pubkeyFromUrl)
@@ -285,6 +333,9 @@ const Profile = ({ activeUserPubkey }) => {
   const hrefMutuals = `#/profile/mutuals?npub=${calculatedNpub}`
   const hrefFans = `#/profile/fans?npub=${calculatedNpub}`
   const hrefIdols = `#/profile/idols?npub=${calculatedNpub}`
+
+  const hrefFollowRecsForYou = `#/profile/followRecsForYou?npub=${calculatedNpub}&myPubkey=${activeUserPubkey}`
+  const hrefFollowRecsByYou = `#/profile/followRecsByYou?npub=${calculatedNpub}&myPubkey=${activeUserPubkey}`
 
   const hrefMuters = `#/profile/muters?npub=${calculatedNpub}`
   const hrefMutes = `#/profile/mutes?npub=${calculatedNpub}`
@@ -361,6 +412,38 @@ const Profile = ({ activeUserPubkey }) => {
               <CCol>
                 <CNavLink href={hrefIdols}>
                   {numIdols} <span style={{ color: 'grey' }}>idols</span>
+                </CNavLink>
+              </CCol>
+            </CRow>
+
+            <hr />
+
+            <CRow>
+              <CCol sm="auto">
+                <div style={{ width: '250px' }}>Recommended Follows:</div>
+              </CCol>
+            </CRow>
+
+            <CRow>
+              <CCol sm="auto">
+                <div style={{ width: '250px' }}></div>
+              </CCol>
+              <CCol>
+                <CNavLink href={hrefFollowRecsForYou}>
+                  {numRecsForYou}{' '}
+                  <span style={{ color: 'grey' }}>recommendations (for you to follow, by this user)</span>
+                </CNavLink>
+              </CCol>
+            </CRow>
+
+            <CRow>
+              <CCol sm="auto">
+                <div style={{ width: '250px' }}></div>
+              </CCol>
+              <CCol>
+                <CNavLink href={hrefFollowRecsByYou}>
+                  {numRecsByYou}{' '}
+                  <span style={{ color: 'grey' }}>recommendations (by you, for this user to follow)</span>
                 </CNavLink>
               </CCol>
             </CRow>

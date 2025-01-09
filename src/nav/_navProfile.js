@@ -42,6 +42,18 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: 'Follow Recs for You',
+    to: '/profile/followRecsForYou',
+    icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Follow Recs by You',
+    to: '/profile/followRecsByYou',
+    icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
     name: 'Muters',
     to: '/profile/muters',
     icon: <CIcon icon={cilListFilter} customClassName="nav-icon" />,
