@@ -85,12 +85,14 @@ const AppSidebar = () => {
         internalPubkey = pubkeyFromUrl
         const np = nip19.npubEncode(pubkeyFromUrl)
         setCalculatedNpub(np)
+        /*
         navigation[0].to = `/profile?pubkey=${internalPubkey}`
         navigation[1].to = `/profile/followers?pubkey=${internalPubkey}`
         navigation[2].to = `/profile/follows?pubkey=${internalPubkey}`
         navigation[3].to = `/profile/muters?pubkey=${internalPubkey}`
         navigation[4].to = `/profile/mutes?pubkey=${internalPubkey}`
         navigation[5].to = `/profile/about?pubkey=${internalPubkey}`
+        */
       }
     }
   }, [])

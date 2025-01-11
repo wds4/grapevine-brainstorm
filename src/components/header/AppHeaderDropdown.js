@@ -75,6 +75,7 @@ const ActiveHeaderDropdownLoggedIn = ({ activeUser }) => {
     dispatch({
       type: 'set',
       loggedInUser: { loggedIn: false, pubkey: '', npub: '' },
+      profileBeingViewed: { selected: false, pubkey: '', npub: '' },
     })
     navigate('/')
   }

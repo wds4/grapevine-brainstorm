@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux'
 
 const AppFooter = () => {
   const loggedInUser = useSelector((state) => state.loggedInUser)
+  const profileBeingViewed = useSelector((state) => state.profileBeingViewed)
+
   return (
     <CFooter className="px-4">
       <div className="me-1">
@@ -18,7 +20,10 @@ const AppFooter = () => {
           straycat
         </a>
       </div>
-      <div className="me-me" style={{ fontSize: '8px' }}>loggedInUser: {loggedInUser.pubkey}</div>
+      <div className="me-me" style={{ fontSize: '6px' }}>
+        <div>loggedInUser: {loggedInUser.pubkey}</div>
+        <div>profileBeingViewed: {profileBeingViewed.pubkey}</div>
+      </div>
       <div className="ms-auto">
         <span className="ms-1">
           &copy; 2025{' '}

@@ -9,9 +9,14 @@ import { nip19 } from 'nostr-tools'
 import { noProfilePicUrl } from 'src/const'
 // import FollowersTable from './followersTable'
 import ShowShortestPath from 'src/views/graperank/components/showShortestPath'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Profile = ({ activeUserPubkey }) => {
   console.log(`rerender Profile`)
+
+  const profileBeingViewed = useSelector((state) => state.profileBeingViewed)
+
+  const dispatch = useDispatch()
 
   const [searchParams, setSearchParams] = useSearchParams()
   const [providedNpub, setProvidedNpub] = useState('')
@@ -254,6 +259,31 @@ const Profile = ({ activeUserPubkey }) => {
     }
   }
 
+  const fetchData = (pk) => {
+    const url1 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollowers?pubkey=${pk}`
+    // fetchNumFollowers(url1)
+    const url2 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollows?pubkey=${pk}`
+    // fetchNumFollows(url2)
+    const url3 = `https://www.graperank.tech/api/outwardFacing/getDos?observer=${activeUserPubkey}&observee=${pk}`
+    fetchDos(url3)
+    const url4 = `https://www.graperank.tech/api/outwardFacing/getGrapeRank?observer=${activeUserPubkey}&observee=${pk}`
+    fetchGrapeRank(url4)
+    const url5 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numMuters?pubkey=${pk}`
+    fetchNumMuters(url5)
+    const url6 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numMutes?pubkey=${pk}`
+    fetchNumMutes(url6)
+    const url7 = `https://www.graperank.tech/api/outwardFacing/getPageRank?observer=${activeUserPubkey}&observee=${pk}`
+    fetchPageRank(url7)
+
+    const url8 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollowersFollowsMutualsFansIdols?pubkey=${pk}`
+    fetchFollowersFollowsMutualsFansIdols(url8)
+
+    const url9 = `https://www.graperank.tech/api/neo4j/getFollowRecommendations?recommender=${pk}&recommendee=${activeUserPubkey}`
+    fetchFollowRecsForYou(url9)
+    const url10 = `https://www.graperank.tech/api/neo4j/getFollowRecommendations?recommender=${activeUserPubkey}&recommendee=${pk}`
+    fetchFollowRecsByYou(url10)
+  }
+
   useEffect(() => {
     let internalNpub = ''
     let internalPubkey = ''
@@ -264,33 +294,11 @@ const Profile = ({ activeUserPubkey }) => {
         setProvidedNpub(npubFromUrl)
         internalNpub = npubFromUrl
         const pk = nip19.decode(npubFromUrl)
-        // console.log(`pk: ${JSON.stringify(pk)}`)
         pubkeyFromUrl = pk.data
       }
       if (pubkeyFromUrl) {
         setProvidedPubkey(pubkeyFromUrl)
-        const url1 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollowers?pubkey=${pubkeyFromUrl}`
-        // fetchNumFollowers(url1)
-        const url2 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollows?pubkey=${pubkeyFromUrl}`
-        // fetchNumFollows(url2)
-        const url3 = `https://www.graperank.tech/api/outwardFacing/getDos?observer=${activeUserPubkey}&observee=${pubkeyFromUrl}`
-        fetchDos(url3)
-        const url4 = `https://www.graperank.tech/api/outwardFacing/getGrapeRank?observer=${activeUserPubkey}&observee=${pubkeyFromUrl}`
-        fetchGrapeRank(url4)
-        const url5 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numMuters?pubkey=${pubkeyFromUrl}`
-        fetchNumMuters(url5)
-        const url6 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numMutes?pubkey=${pubkeyFromUrl}`
-        fetchNumMutes(url6)
-        const url7 = `https://www.graperank.tech/api/outwardFacing/getPageRank?observer=${activeUserPubkey}&observee=${pubkeyFromUrl}`
-        fetchPageRank(url7)
-
-        const url8 = `https://www.graperank.tech/api/outwardFacing/singlePubkey/numFollowersFollowsMutualsFansIdols?pubkey=${pubkeyFromUrl}`
-        fetchFollowersFollowsMutualsFansIdols(url8)
-
-        const url9 = `https://www.graperank.tech/api/neo4j/getFollowRecommendations?recommender=${pubkeyFromUrl}&recommendee=${activeUserPubkey}`
-        fetchFollowRecsForYou(url9)
-        const url10 = `https://www.graperank.tech/api/neo4j/getFollowRecommendations?recommender=${activeUserPubkey}&recommendee=${pubkeyFromUrl}`
-        fetchFollowRecsByYou(url10)
+        fetchData(pubkeyFromUrl)
 
         internalPubkey = pubkeyFromUrl
         const np = nip19.npubEncode(pubkeyFromUrl)
@@ -302,19 +310,42 @@ const Profile = ({ activeUserPubkey }) => {
       if (internalNpub) {
         const obj = {}
         obj.npub = internalNpub
+        const pk = nip19.decode(internalNpub)
         const oProfile = await asyncFetchProfile(ndk, obj)
+        dispatch({
+          type: 'set',
+          profileBeingViewed: { selected: true, pubkey: pk, npub: internalNpub },
+        })
         setProfile(oProfile)
-
-        return true
       }
+
       if (internalPubkey) {
         const obj = {}
         obj.pubkey = internalPubkey
+        const np = nip19.npubEncode(internalPubkey)
         const oProfile = await asyncFetchProfile(ndk, obj)
+        dispatch({
+          type: 'set',
+          profileBeingViewed: { selected: true, pubkey: internalPubkey, npub: np },
+        })
         setProfile(oProfile)
-        return true
       }
-      return false
+
+      if (!internalNpub && !internalPubkey) {
+        if (profileBeingViewed.selected && profileBeingViewed.pubkey) {
+          console.log(`use profileBeingViewed ${profileBeingViewed.pubkey}`)
+          const storedPubkey = profileBeingViewed.pubkey
+          const obj = {}
+          obj.pubkey = storedPubkey
+          const np = nip19.npubEncode(storedPubkey)
+          const oProfile = await asyncFetchProfile(ndk, obj)
+          setProfile(oProfile)
+
+          setProvidedPubkey(storedPubkey)
+          setCalculatedNpub(np)
+          fetchData(storedPubkey)
+        }
+      }
     }
     updateProfile()
   }, [])
@@ -340,6 +371,7 @@ const Profile = ({ activeUserPubkey }) => {
   const hrefMuters = `#/profile/muters?npub=${calculatedNpub}`
   const hrefMutes = `#/profile/mutes?npub=${calculatedNpub}`
   const hrefShortestPath = `#/profile/shortestPath?npub=${calculatedNpub}`
+  const hrefGrapeRankScoreCalculations = `#/profile/grapeRankScoreCalculations?npub=${calculatedNpub}`
   return (
     <>
       <CContainer>
@@ -431,7 +463,9 @@ const Profile = ({ activeUserPubkey }) => {
               <CCol>
                 <CNavLink href={hrefFollowRecsForYou}>
                   {numRecsForYou}{' '}
-                  <span style={{ color: 'grey' }}>recommendations (for you to follow, by this user)</span>
+                  <span style={{ color: 'grey' }}>
+                    recommendations (for you to follow, by this user)
+                  </span>
                 </CNavLink>
               </CCol>
             </CRow>
@@ -443,7 +477,9 @@ const Profile = ({ activeUserPubkey }) => {
               <CCol>
                 <CNavLink href={hrefFollowRecsByYou}>
                   {numRecsByYou}{' '}
-                  <span style={{ color: 'grey' }}>recommendations (by you, for this user to follow)</span>
+                  <span style={{ color: 'grey' }}>
+                    recommendations (by you, for this user to follow)
+                  </span>
                 </CNavLink>
               </CCol>
             </CRow>
@@ -480,7 +516,12 @@ const Profile = ({ activeUserPubkey }) => {
             </CRow>
             <CRow>
               <CCol sm="auto">
-                <div style={{ width: '250px' }}>GrapeRank:</div>
+                <div style={{ width: '250px' }}>
+                  <div>GrapeRank:</div>
+                  <div style={{ marginLeft: '10px', color: 'grey', fontSize: '14px' }}>
+                    <CNavLink href={hrefGrapeRankScoreCalculations}>(how is this calculated?)</CNavLink>
+                  </div>
+                </div>
               </CCol>
               <CCol>
                 influence: {influence}

@@ -10,6 +10,7 @@ const _nav = [
     to: '/profile',
     icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
   },
+  /*
   {
     component: CNavItem,
     name: 'Followers',
@@ -80,6 +81,13 @@ const _nav = [
     to: '/profile/scores',
     icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
   },
+    {
+    component: CNavItem,
+    name: 'GrapeRank Score Calcs',
+    to: '/profile/grapeRankScoreCalculations',
+    icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
+  },
+  */
 ]
 
 export default _nav

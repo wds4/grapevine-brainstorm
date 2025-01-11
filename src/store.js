@@ -9,12 +9,14 @@ const initialState = {
     npub: '',
   },
   profileBeingViewed: {
+    selected: false,
     pubkey: 'defaultPk2',
     npub: '',
   },
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {
+  console.log(`redux store reset initialState`)
   switch (type) {
     case 'set':
       return { ...state, ...rest }

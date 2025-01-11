@@ -18,6 +18,9 @@ const FollowRecsByYou = React.lazy(() => import('src/views/profile/followRecsByY
 
 const ShortestPath = React.lazy(() => import('src/views/profile/shortestPath'))
 const Scores = React.lazy(() => import('src/views/profile/scores/index'))
+const GrapeRankScoreCalculations = React.lazy(
+  () => import('src/views/profile/grapeRankScoreCalculations/index'),
+)
 
 const routes = [
   { path: '/profile', name: 'Profile', element: Profile },
@@ -36,6 +39,11 @@ const routes = [
 
   { path: '/profile/shortestPath', name: 'ShortestPath', element: ShortestPath },
   { path: '/profile/scores', name: 'Scores', element: Scores },
+  {
+    path: '/profile/grapeRankScoreCalculations',
+    name: 'GrapeRank Score Calculations',
+    element: GrapeRankScoreCalculations,
+  },
 ]
 
 export default routes
