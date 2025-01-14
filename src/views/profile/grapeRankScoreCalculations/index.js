@@ -7,7 +7,7 @@ const GrapeRankScoreCalculations = () => {
         <h3>Review calculations of GrapeRank Scores associated with this profile</h3>
       </center>
       <div>
-        <p>Lorem ipsum</p>
+        <p>work in progress; see the ABOUT GRAPERANK section on the left menu for an overview of the algorithm</p>
       </div>
     </>
   )

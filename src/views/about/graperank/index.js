@@ -90,6 +90,87 @@ const AboutGrapeRank = () => {
           etc.
         </p>
       </div>
+
+      <div style={{ marginTop: '50px' }}>
+        <center>
+          <h4>Algorithm</h4>
+        </center>
+      </div>
+
+      <div style={{ marginTop: '50px' }}>
+        <p>
+          The input to GrapeRank is a graph. Each node is a pubkey. Edges point from one node to
+          another and are either FOLLOWS and MUTES. (Reports will be implemented in a future
+          iteration.)
+        </p>
+        <p>
+          The end goal of the GrapeRank algorithm is to calculate a set of numbers associated with
+          each pubkey. Those numbers are:
+          <li>INFLUENCE</li>
+          <li>AVERAGE</li>
+          <li>INPUT (aka "weights" or "sum of weights")</li>
+          <li>CONFIDENCE</li>
+        </p>
+        <p>
+          INITIALIZATION. The scores for each and every pubkey are initialized as follows:
+          <li>INFLUENCE = AVERAGE = INPUT = CONFIDENCE = 0</li>
+        </p>
+        <p>
+          One user (YOU) is selected as the seed user. For the seed user, GrapeRank scores are FIXED
+          as follows:
+          <li>INFLUENCE = AVERAGE = CONFIDENCE = 1</li>
+          <li>INPUT = 999 (in theory, input is infinite for the seed user)</li>
+        </p>
+        <p>
+          The scores for the seed user are fixed; for all other users, the scores are updated via an
+          series of iterations.
+        </p>
+        <p>ITERATIONS</p>
+        <p>
+          Cycle through each pubkey, one at a time, and calculate:
+          <li>
+            AVERAGE: Gather together all FOLLOWS and all MUTES for the user in question. Each FOLLOW
+            and MUTE is interpreted as a "rating" of 1 or 0 (respectively), with the author of each
+            follow or mute interpreted as the "rater". Each rating is assigned a weight according to
+            the weighted average equation (below).
+          </li>
+          <li>INPUT: The sum over all WEIGHTs when calculating the AVERAGE.</li>
+          <li>
+            CONFIDENCE: a number between 0 and 1 (o % and 100 %). It is a function of INPUT. If
+            INPUT is zero, then CONFIDENCE is zero. The bigger the INPUT, the closer the CONFIDENCE
+            gets to 1 (100 %). The max value of 100 % is approached asymptotically. In theory, it
+            takes an infinite amount of INPUT to achieve a CONFIDENCE of 100 %. In practice, most
+            real users reach a CONFIDENCE above 90% after only a handful of high quality followers.
+            Most active nostr users reach a CONFIDENCE of above about 98 % or 99 %. The speed with
+            which the CONFIDENCE approaches 100 % as INPUT goes from 0 to infinity is controlled by
+            a parameter called RIGOR which can be adjusted in the settings.
+          </li>
+          <li>
+            INFLUENCE = AVERAGE * CONFIDENCE. An influence score near 1 means: highly likely to be a
+            real user. An influence score close to 0 means: NOT verified to be a real user.
+          </li>
+        </p>
+        <p>Weighted Average calculation</p>
+        <li>WEIGHT = ATTENUATION FACTOR * INFLUENCE * X</li>
+        <li>INFLUENCE is the INFLUENCE score of the rater, a number between 0 and 1</li>
+        <li>
+          X is the weight of the rating-type, and is a number between 0 and 1. For a FOLLOW, it
+          defaults to 0.03. For a MUTE, it defaults to 0.50.
+        </li>
+        <li>
+          ATTENUATION FACTOR is a number between 0 and 1, set to 0.85 by default. If you are
+          inherently skeptical of pubkeys that are a large number of hops away on the graph, you
+          decrease this variable.
+        </li>
+        <p>
+          Many of the above parameters are "open to interpretation" and can therefore be adjusted in
+          the settings page.
+        </p>
+        <p>
+          Iterate through all pubkeys multiple times until, in theory, all values converge (in
+          practice, until any changes between one iteration and the next are below some cutoff).
+        </p>
+      </div>
     </>
   )
 }
