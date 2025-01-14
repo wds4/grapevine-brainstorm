@@ -13,7 +13,7 @@ const AppFooter = () => {
       <div className="me-1">
         made with <CIcon icon={cilHeart} size="lg" /> by{' '}
         <a
-          href="https://primal.net/p/npub1u5njm6g5h5cpw4wy8xugu62e5s7f6fnysv0sj0z3a8rengt2zqhsxrldq3"
+          href="https://njump.me/npub1u5njm6g5h5cpw4wy8xugu62e5s7f6fnysv0sj0z3a8rengt2zqhsxrldq3"
           target="_blank"
           rel="noopener noreferrer"
         >
