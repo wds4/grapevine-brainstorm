@@ -307,18 +307,20 @@ const Profile = ({ activeUserPubkey }) => {
     }
     updateUserDataFromUrl()
     const updateProfile = async () => {
+/*
       if (internalNpub) {
         const obj = {}
         obj.npub = internalNpub
         const pk = nip19.decode(internalNpub)
+        console.log(`pk: ${JSON.stringify(pk)}`)
         const oProfile = await asyncFetchProfile(ndk, obj)
         dispatch({
           type: 'set',
-          profileBeingViewed: { selected: true, pubkey: pk, npub: internalNpub },
+          profileBeingViewed: { selected: true, pubkey: pk.data, npub: internalNpub },
         })
         setProfile(oProfile)
       }
-
+*/
       if (internalPubkey) {
         const obj = {}
         obj.pubkey = internalPubkey
