@@ -17,6 +17,8 @@ import { useProfile } from 'nostr-hooks'
 import { noProfilePicUrl } from 'src/const'
 import { nip19 } from 'nostr-tools'
 import { safeNpubEncode } from '../../../../helpers/nip19'
+import PublishNip51List from '../publishNip51List'
+import PublishNip85TrustedAssertions from '../publishNip85TrustedAssertions'
 
 const columnHelper = createColumnHelper()
 
@@ -174,8 +176,7 @@ function Filter({ column, table }) {
   )
 }
 
-const TanstackTable = ({ defaultData, tableConfig }) => {
-  const [numPubkeys, setNumPubkeys] = React.useState(3000)
+const TanstackTable = ({ defaultData, tableConfig, pubkey }) => {
   const [data, _setData] = React.useState(() => [...defaultData])
 
   const [columnVisibility, setColumnVisibility] = React.useState({
@@ -253,45 +254,13 @@ const TanstackTable = ({ defaultData, tableConfig }) => {
     },
     [showTableInfoButton],
   )
-
-  const { createNewEvent } = useNewEvent()
-  const { signer } = useSigner()
-  const makeNip51List = () => {
-    const event = createNewEvent()
-    event.kind = 30000
-
-    const aRows = table.getFilteredRowModel().rows
-    const aTags = [
-      ['P', 'tapestry'],
-      ['wordType', 'influenceScoresList'],
-      ['w', 'influenceScoresList'],
-      [
-        'description',
-        'a list of nostr npubs and their associated Grapevine WoT Scores as calculated by the Tapestry Protocol',
-      ],
-    ]
-    const dTag = ['d', 'influenceScoresList_' + numPubkeys]
-    const titleTag = ['title', 'My Grapevine Recommended (GrapeRank ' + numPubkeys + ')']
-    aTags.push(dTag)
-    aTags.push(titleTag)
-    for (let x = 0; x < Math.min(aRows.length, numPubkeys); x++) {
-      const oNextRow = aRows[x]
-      const pk = oNextRow.original.pubkey
-      const influence = oNextRow.original.influence
-      const personalizedPageRank = oNextRow.original.personalizedPageRank
-      const degreeOfSeparation = oNextRow.original.degreeOfSeparation
-
-      const aNextTag = ['p', pk, degreeOfSeparation, personalizedPageRank, influence]
-      aTags.push(aNextTag)
-    }
-    event.tags = aTags
-    signer.sign(event)
-    console.log('event: ' + JSON.stringify(event, null, 4))
-    event.publish()
-  }
-
   return (
     <>
+      <PublishNip85TrustedAssertions
+        tableConfig={tableConfig}
+        tableGetFilteredRowModel={table.getFilteredRowModel}
+        pubkey={pubkey}
+      />
       <div>
         <CFormSwitch
           onChange={(e) => toggleShowTableInfo(e)}
@@ -535,18 +504,10 @@ const TanstackTable = ({ defaultData, tableConfig }) => {
           ))}
         </select>
       </div>
-      <div style={{ display: tableConfig.displayPublishButton }}>
-        <CButton color="primary" onClick={() => makeNip51List()}>
-          publish list to nostr!
-        </CButton>
-        <div>
-          Create a NIP-51 list composed of the top{' '}
-          <input type="text" value={numPubkeys} onChange={(e) => setNumPubkeys(e.target.value)} />{' '}
-          pubkeys that are currently depicted in the table below, as filtered and sorted. (Currently
-          outputs to console in addition to publish; although be aware, most relays will not accept
-          a list over about 800 or 900 pubkeys.)
-        </div>
-      </div>
+      <PublishNip51List
+        tableConfig={tableConfig}
+        tableGetFilteredRowModel={table.getFilteredRowModel}
+      />
     </>
   )
 }

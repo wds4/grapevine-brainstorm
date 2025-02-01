@@ -1,3 +1,7 @@
+export const timeout = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
 export const arrayToObject = (array, keyField) =>
   Object.fromEntries(array.map((item) => [item[keyField], item]))
 

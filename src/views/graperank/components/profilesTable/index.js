@@ -5,7 +5,7 @@ import { noProfilePicUrl } from 'src/const'
 import PulseLoader from 'react-spinners/PulseLoader'
 import { safeNpubEncodeOrError } from '../../../../helpers/nip19'
 
-const TableWhenReady = ({ tableReady, tableData, tableConfig }) => {
+const TableWhenReady = ({ tableReady, tableData, tableConfig, pubkey }) => {
   console.log(`rerender TableWhenReady`)
   if (!tableReady)
     return (
@@ -18,7 +18,7 @@ const TableWhenReady = ({ tableReady, tableData, tableConfig }) => {
     )
   return (
     <>
-      <TanstackTable defaultData={tableData} tableConfig={tableConfig} />
+      <TanstackTable defaultData={tableData} tableConfig={tableConfig} pubkey={pubkey} />
     </>
   )
 }
@@ -172,6 +172,7 @@ const ProfilesTable = ({ pubkey, tableConfig }) => {
               tableReady={tableReady}
               tableData={tableData}
               tableConfig={tableConfig}
+              pubkey={pubkey}
             />
           </CCardBody>
         </CCard>
