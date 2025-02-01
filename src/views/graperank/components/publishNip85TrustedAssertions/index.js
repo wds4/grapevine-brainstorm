@@ -90,7 +90,7 @@ const PublishTrustedAssertions = ({
     event.tags = aTags
     signer.sign(event)
     console.log('event: ' + JSON.stringify(event, null, 4))
-    event.publish(hasenpfeffrRelaySet)
+    event.publish()
   }
 
   React.useEffect(() => {
