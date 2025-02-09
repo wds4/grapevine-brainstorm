@@ -24,7 +24,10 @@ const PublishTrustedAssertions = ({
 }) => {
   const { height, width } = useWindowDimensions()
 
-  const hasenpfeffrRelaySet = NDKRelaySet.fromRelayUrls(['wss://relay.hasenpfeffr.com'], customNDK)
+  const hasenpfeffrRelaySet = NDKRelaySet.fromRelayUrls(
+    ['wss://relay.hasenpfeffr.com', 'wss://gv.rogue.earth', 'wss://brainstorm.nostr1.com'],
+    customNDK,
+  )
 
   const { signer } = useSigner()
   const { createNewEvent } = useNewEvent()
